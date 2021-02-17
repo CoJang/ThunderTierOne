@@ -1,0 +1,150 @@
+fileFormatVersion: 2
+guid: 4c61e5bee3e21d2498cb99071e5c3ab4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropCombatAirPlatform
+    100004: PropCombatAirPlatform001
+    100006: PropCombatAirPlatform002
+    100008: PropCombatAirPlatform003
+    100010: PropCombatAirPlatform004
+    100012: PropCombatAirPlatform005
+    100014: PropCombatAirPlatform006
+    100016: PropCombatAirPlatform007
+    100018: PropCombatAirPlatform008
+    100020: PropCombatAirPlatform009
+    100022: PropRocketPlatform
+    400000: //RootNode
+    400002: PropCombatAirPlatform
+    400004: PropCombatAirPlatform001
+    400006: PropCombatAirPlatform002
+    400008: PropCombatAirPlatform003
+    400010: PropCombatAirPlatform004
+    400012: PropCombatAirPlatform005
+    400014: PropCombatAirPlatform006
+    400016: PropCombatAirPlatform007
+    400018: PropCombatAirPlatform008
+    400020: PropCombatAirPlatform009
+    400022: PropRocketPlatform
+    2100000: 'Material #65'
+    2100002: 'Material #0'
+    2300000: PropCombatAirPlatform
+    2300002: PropCombatAirPlatform001
+    2300004: PropCombatAirPlatform002
+    2300006: PropCombatAirPlatform003
+    2300008: PropCombatAirPlatform004
+    2300010: PropCombatAirPlatform005
+    2300012: PropCombatAirPlatform006
+    2300014: PropCombatAirPlatform007
+    2300016: PropCombatAirPlatform008
+    2300018: PropCombatAirPlatform009
+    2300020: PropRocketPlatform
+    3300000: PropCombatAirPlatform
+    3300002: PropCombatAirPlatform001
+    3300004: PropCombatAirPlatform002
+    3300006: PropCombatAirPlatform003
+    3300008: PropCombatAirPlatform004
+    3300010: PropCombatAirPlatform005
+    3300012: PropCombatAirPlatform006
+    3300014: PropCombatAirPlatform007
+    3300016: PropCombatAirPlatform008
+    3300018: PropCombatAirPlatform009
+    3300020: PropRocketPlatform
+    4300000: PropRocketPlatform
+    4300002: PropCombatAirPlatform001
+    4300004: PropCombatAirPlatform
+    4300006: PropCombatAirPlatform002
+    4300008: PropCombatAirPlatform003
+    4300010: PropCombatAirPlatform004
+    4300012: PropCombatAirPlatform005
+    4300014: PropCombatAirPlatform006
+    4300016: PropCombatAirPlatform007
+    4300018: PropCombatAirPlatform008
+    4300020: PropCombatAirPlatform009
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

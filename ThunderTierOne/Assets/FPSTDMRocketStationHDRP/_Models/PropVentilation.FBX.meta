@@ -1,0 +1,259 @@
+fileFormatVersion: 2
+guid: 0df37ed70620d5347962583cf2a05cf9
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropVentilation 1
+    100004: PropVentilation001
+    100006: PropVentilation002
+    100008: PropVentilation003
+    100010: PropVentilation004
+    100012: PropVentilation005
+    100014: PropVentilation006
+    100016: PropVentilation007
+    100018: PropVentilation008
+    100020: PropVentilation009
+    100022: PropVentilation010
+    100024: PropVentilation011
+    100026: PropVentilation012
+    100028: PropVentilation013
+    100030: PropVentilation014
+    100032: PropVentilation015
+    100034: PropVentilation016
+    100036: PropVentilation017
+    100038: PropVentilation018
+    100040: PropVentilation019
+    100042: PropVentilation020
+    100044: PropVentilation021
+    100046: PropVentilation022
+    100048: PropVentilation023
+    100050: PropVentilation024
+    100052: PropVentilation025
+    100054: PropVentilation026
+    100056: PropVentilation027
+    100058: PropVentilation028
+    100060: PropVentilation029
+    100062: PropVentilation030
+    100064: PropVentilation031
+    100066: PropVentilation032
+    400000: //RootNode
+    400002: PropVentilation 1
+    400004: PropVentilation001
+    400006: PropVentilation002
+    400008: PropVentilation003
+    400010: PropVentilation004
+    400012: PropVentilation005
+    400014: PropVentilation006
+    400016: PropVentilation007
+    400018: PropVentilation008
+    400020: PropVentilation009
+    400022: PropVentilation010
+    400024: PropVentilation011
+    400026: PropVentilation012
+    400028: PropVentilation013
+    400030: PropVentilation014
+    400032: PropVentilation015
+    400034: PropVentilation016
+    400036: PropVentilation017
+    400038: PropVentilation018
+    400040: PropVentilation019
+    400042: PropVentilation020
+    400044: PropVentilation021
+    400046: PropVentilation022
+    400048: PropVentilation023
+    400050: PropVentilation024
+    400052: PropVentilation025
+    400054: PropVentilation026
+    400056: PropVentilation027
+    400058: PropVentilation028
+    400060: PropVentilation029
+    400062: PropVentilation030
+    400064: PropVentilation031
+    400066: PropVentilation032
+    2100000: 'Material #88'
+    2300000: PropVentilation 1
+    2300002: PropVentilation001
+    2300004: PropVentilation002
+    2300006: PropVentilation003
+    2300008: PropVentilation004
+    2300010: PropVentilation005
+    2300012: PropVentilation006
+    2300014: PropVentilation007
+    2300016: PropVentilation008
+    2300018: PropVentilation009
+    2300020: PropVentilation010
+    2300022: PropVentilation011
+    2300024: PropVentilation012
+    2300026: PropVentilation013
+    2300028: PropVentilation014
+    2300030: PropVentilation015
+    2300032: PropVentilation016
+    2300034: PropVentilation017
+    2300036: PropVentilation018
+    2300038: PropVentilation019
+    2300040: PropVentilation020
+    2300042: PropVentilation021
+    2300044: PropVentilation022
+    2300046: PropVentilation023
+    2300048: PropVentilation024
+    2300050: PropVentilation025
+    2300052: PropVentilation026
+    2300054: PropVentilation027
+    2300056: PropVentilation028
+    2300058: PropVentilation029
+    2300060: PropVentilation030
+    2300062: PropVentilation031
+    2300064: PropVentilation032
+    3300000: PropVentilation 1
+    3300002: PropVentilation001
+    3300004: PropVentilation002
+    3300006: PropVentilation003
+    3300008: PropVentilation004
+    3300010: PropVentilation005
+    3300012: PropVentilation006
+    3300014: PropVentilation007
+    3300016: PropVentilation008
+    3300018: PropVentilation009
+    3300020: PropVentilation010
+    3300022: PropVentilation011
+    3300024: PropVentilation012
+    3300026: PropVentilation013
+    3300028: PropVentilation014
+    3300030: PropVentilation015
+    3300032: PropVentilation016
+    3300034: PropVentilation017
+    3300036: PropVentilation018
+    3300038: PropVentilation019
+    3300040: PropVentilation020
+    3300042: PropVentilation021
+    3300044: PropVentilation022
+    3300046: PropVentilation023
+    3300048: PropVentilation024
+    3300050: PropVentilation025
+    3300052: PropVentilation026
+    3300054: PropVentilation027
+    3300056: PropVentilation028
+    3300058: PropVentilation029
+    3300060: PropVentilation030
+    3300062: PropVentilation031
+    3300064: PropVentilation032
+    4300000: PropVentilation001
+    4300002: PropVentilation002
+    4300004: PropVentilation
+    4300006: PropVentilation003
+    4300008: PropVentilation004
+    4300010: PropVentilation005
+    4300012: PropVentilation006
+    4300014: PropVentilation007
+    4300016: PropVentilation008
+    4300018: PropVentilation009
+    4300020: PropVentilation010
+    4300022: PropVentilation011
+    4300024: PropVentilation012
+    4300026: PropVentilation013
+    4300028: PropVentilation014
+    4300030: PropVentilation015
+    4300032: PropVentilation016
+    4300034: PropVentilation017
+    4300036: PropVentilation018
+    4300038: PropVentilation019
+    4300040: PropVentilation020
+    4300042: PropVentilation021
+    4300044: PropVentilation022
+    4300046: PropVentilation023
+    4300048: PropVentilation024
+    4300050: PropVentilation025
+    4300052: PropVentilation026
+    4300054: PropVentilation027
+    4300056: PropVentilation028
+    4300058: PropVentilation029
+    4300060: PropVentilation030
+    4300062: PropVentilation031
+    4300064: PropVentilation032
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

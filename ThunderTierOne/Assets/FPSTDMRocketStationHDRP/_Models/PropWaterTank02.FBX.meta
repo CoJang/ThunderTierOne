@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: f9dd434f2d3b3e54798c37fe2eeef825
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: PropWaterTank00
+    100002: PropWaterTank01
+    100004: //RootNode
+    100006: PropWaterTank02 1
+    100008: PropWaterTank03
+    100010: PropWaterTank04
+    100012: PropWaterTank05
+    100014: PropWaterTank06
+    100016: PropWaterTank07
+    100018: PropWaterTank08
+    100020: PropWaterTank09
+    100022: PropWaterTank10
+    100024: PropWaterTank11
+    400000: PropWaterTank00
+    400002: PropWaterTank01
+    400004: //RootNode
+    400006: PropWaterTank02 1
+    400008: PropWaterTank03
+    400010: PropWaterTank04
+    400012: PropWaterTank05
+    400014: PropWaterTank06
+    400016: PropWaterTank07
+    400018: PropWaterTank08
+    400020: PropWaterTank09
+    400022: PropWaterTank10
+    400024: PropWaterTank11
+    2100000: 'Material #8'
+    2300000: PropWaterTank00
+    2300002: PropWaterTank01
+    2300004: PropWaterTank02 1
+    2300006: PropWaterTank03
+    2300008: PropWaterTank04
+    2300010: PropWaterTank05
+    2300012: PropWaterTank06
+    2300014: PropWaterTank07
+    2300016: PropWaterTank08
+    2300018: PropWaterTank09
+    2300020: PropWaterTank10
+    2300022: PropWaterTank11
+    3300000: PropWaterTank00
+    3300002: PropWaterTank01
+    3300004: PropWaterTank02 1
+    3300006: PropWaterTank03
+    3300008: PropWaterTank04
+    3300010: PropWaterTank05
+    3300012: PropWaterTank06
+    3300014: PropWaterTank07
+    3300016: PropWaterTank08
+    3300018: PropWaterTank09
+    3300020: PropWaterTank10
+    3300022: PropWaterTank11
+    4300000: PropWaterTank00
+    4300002: PropWaterTank01
+    4300004: PropWaterTank02
+    4300006: PropWaterTank03
+    4300008: PropWaterTank04
+    4300010: PropWaterTank05
+    4300012: PropWaterTank06
+    4300014: PropWaterTank07
+    4300016: PropWaterTank08
+    4300018: PropWaterTank09
+    4300020: PropWaterTank10
+    4300022: PropWaterTank11
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #8'
+    second: {fileID: 2100000, guid: 62cb72625213afe419ed3900bba47a8b, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

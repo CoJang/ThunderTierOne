@@ -1,0 +1,340 @@
+fileFormatVersion: 2
+guid: cafd9bb61fd8b5b4a8c7f714c404e7bc
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: TileLineWall 1
+    100004: TileLineWall 2
+    100006: TileLineWall001
+    100008: TileLineWall002
+    100010: TileLineWall003
+    100012: TileLineWall004
+    100014: TileLineWall005
+    100016: TileLineWall006
+    100018: TileLineWall007
+    100020: TileLineWall008
+    100022: TileLineWall009
+    100024: TileLineWall022
+    100026: TileLineWall023
+    100028: TileLineWall025
+    100030: TileLineWall027
+    100032: TileLineWall028
+    100034: TileLineWall029
+    100036: TileLineWall030
+    100038: TileLineWall031
+    100040: TileLineWall032
+    100042: TileLineWall033
+    100044: TileLineWall034
+    100046: TileLineWall035
+    100048: TileLineWall036
+    100050: TileLineWall037
+    100052: TileLineWall038
+    100054: TileLineWall00
+    100056: TileLineWall00 1
+    100058: TileLineWall01
+    100060: TileLineWall01 1
+    100062: TileLineWall02
+    100064: TileLineWall03
+    100066: TileLineWall04
+    100068: TileLineWall05
+    100070: TileLineWall06
+    100072: TileLineWall07
+    100074: TileLineWall08
+    100076: TileLineWall09
+    100078: TileLineWall10
+    100080: TileLineWall11
+    100082: TileLineWall12
+    100084: TileLineWall13
+    400000: //RootNode
+    400002: TileLineWall 1
+    400004: TileLineWall 2
+    400006: TileLineWall001
+    400008: TileLineWall002
+    400010: TileLineWall003
+    400012: TileLineWall004
+    400014: TileLineWall005
+    400016: TileLineWall006
+    400018: TileLineWall007
+    400020: TileLineWall008
+    400022: TileLineWall009
+    400024: TileLineWall022
+    400026: TileLineWall023
+    400028: TileLineWall025
+    400030: TileLineWall027
+    400032: TileLineWall028
+    400034: TileLineWall029
+    400036: TileLineWall030
+    400038: TileLineWall031
+    400040: TileLineWall032
+    400042: TileLineWall033
+    400044: TileLineWall034
+    400046: TileLineWall035
+    400048: TileLineWall036
+    400050: TileLineWall037
+    400052: TileLineWall038
+    400054: TileLineWall00
+    400056: TileLineWall00 1
+    400058: TileLineWall01
+    400060: TileLineWall01 1
+    400062: TileLineWall02
+    400064: TileLineWall03
+    400066: TileLineWall04
+    400068: TileLineWall05
+    400070: TileLineWall06
+    400072: TileLineWall07
+    400074: TileLineWall08
+    400076: TileLineWall09
+    400078: TileLineWall10
+    400080: TileLineWall11
+    400082: TileLineWall12
+    400084: TileLineWall13
+    2100000: 'Material #2'
+    2300000: //RootNode
+    2300002: TileLineWall 1
+    2300004: TileLineWall 2
+    2300006: TileLineWall001
+    2300008: TileLineWall002
+    2300010: TileLineWall003
+    2300012: TileLineWall004
+    2300014: TileLineWall005
+    2300016: TileLineWall006
+    2300018: TileLineWall007
+    2300020: TileLineWall008
+    2300022: TileLineWall009
+    2300024: TileLineWall022
+    2300026: TileLineWall023
+    2300028: TileLineWall025
+    2300030: TileLineWall027
+    2300032: TileLineWall028
+    2300034: TileLineWall029
+    2300036: TileLineWall030
+    2300038: TileLineWall031
+    2300040: TileLineWall032
+    2300042: TileLineWall033
+    2300044: TileLineWall034
+    2300046: TileLineWall035
+    2300048: TileLineWall036
+    2300050: TileLineWall037
+    2300052: TileLineWall038
+    2300054: TileLineWall00
+    2300056: TileLineWall00 1
+    2300058: TileLineWall01
+    2300060: TileLineWall01 1
+    2300062: TileLineWall02
+    2300064: TileLineWall03
+    2300066: TileLineWall04
+    2300068: TileLineWall05
+    2300070: TileLineWall06
+    2300072: TileLineWall07
+    2300074: TileLineWall08
+    2300076: TileLineWall09
+    2300078: TileLineWall10
+    2300080: TileLineWall11
+    2300082: TileLineWall12
+    2300084: TileLineWall13
+    3300000: //RootNode
+    3300002: TileLineWall 1
+    3300004: TileLineWall 2
+    3300006: TileLineWall001
+    3300008: TileLineWall002
+    3300010: TileLineWall003
+    3300012: TileLineWall004
+    3300014: TileLineWall005
+    3300016: TileLineWall006
+    3300018: TileLineWall007
+    3300020: TileLineWall008
+    3300022: TileLineWall009
+    3300024: TileLineWall022
+    3300026: TileLineWall023
+    3300028: TileLineWall025
+    3300030: TileLineWall027
+    3300032: TileLineWall028
+    3300034: TileLineWall029
+    3300036: TileLineWall030
+    3300038: TileLineWall031
+    3300040: TileLineWall032
+    3300042: TileLineWall033
+    3300044: TileLineWall034
+    3300046: TileLineWall035
+    3300048: TileLineWall036
+    3300050: TileLineWall037
+    3300052: TileLineWall038
+    3300054: TileLineWall00
+    3300056: TileLineWall00 1
+    3300058: TileLineWall01
+    3300060: TileLineWall01 1
+    3300062: TileLineWall02
+    3300064: TileLineWall03
+    3300066: TileLineWall04
+    3300068: TileLineWall05
+    3300070: TileLineWall06
+    3300072: TileLineWall07
+    3300074: TileLineWall08
+    3300076: TileLineWall09
+    3300078: TileLineWall10
+    3300080: TileLineWall11
+    3300082: TileLineWall12
+    3300084: TileLineWall13
+    4300000: TileLineWall
+    4300002: TileLineWall
+    4300004: TileLineWall002
+    4300006: TileLineWall003
+    4300008: TileLineWall004
+    4300010: TileLineWall005
+    4300012: TileLineWall006
+    4300014: TileLineWall007
+    4300016: TileLineWall008
+    4300018: TileLineWall009
+    4300020: TileLineWall001
+    4300022: TileLineWall022
+    4300024: TileLineWall023
+    4300026: TileLineWall029
+    4300028: TileLineWall025
+    4300030: TileLineWall027
+    4300032: TileLineWall028
+    4300034: TileLineWall030
+    4300036: TileLineWall031
+    4300038: TileLineWall032
+    4300040: TileLineWall033
+    4300042: TileLineWall034
+    4300044: TileLineWall035
+    4300046: TileLineWall036
+    4300048: TileLineWall037
+    4300050: TileLineWall038
+    4300052: TileLineWall01
+    4300054: TileLineWall00
+    4300056: TileLineWall01
+    4300058: TileLineWall02
+    4300060: TileLineWall03
+    4300062: TileLineWall04
+    4300064: TileLineWall05
+    4300066: TileLineWall00
+    4300068: TileLineWall07
+    4300070: TileLineWall08
+    4300072: TileLineWall09
+    4300074: TileLineWall10
+    4300076: TileLineWall11
+    4300078: TileLineWall12
+    4300080: TileLineWall13
+    4300082: TileLineWall06
+    6400000: TileLineWall 1
+    6400002: TileLineWall 2
+    6400004: TileLineWall00
+    6400006: TileLineWall00 1
+    6400008: TileLineWall001
+    6400010: TileLineWall002
+    6400012: TileLineWall003
+    6400014: TileLineWall004
+    6400016: TileLineWall005
+    6400018: TileLineWall006
+    6400020: TileLineWall007
+    6400022: TileLineWall008
+    6400024: TileLineWall009
+    6400026: TileLineWall01
+    6400028: TileLineWall01 1
+    6400030: TileLineWall02
+    6400032: TileLineWall022
+    6400034: TileLineWall023
+    6400036: TileLineWall03
+    6400038: TileLineWall04
+    6400040: TileLineWall05
+    6400042: TileLineWall06
+    6400044: TileLineWall07
+    6400046: TileLineWall08
+    6400048: TileLineWall09
+    6400050: TileLineWall10
+    6400052: TileLineWall11
+    6400054: TileLineWall12
+    6400056: TileLineWall13
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #2'
+    second: {fileID: 2100000, guid: 5e5723de3c36f7647a6b7ff8c0def66a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

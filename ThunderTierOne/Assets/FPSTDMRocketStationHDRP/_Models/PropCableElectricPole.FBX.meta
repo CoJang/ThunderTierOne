@@ -1,0 +1,131 @@
+fileFormatVersion: 2
+guid: 8381a4f4d4371a64f950d83fc8bc473d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropCableElectricPole 1
+    100004: PropCableElectricPole001
+    100006: PropCableElectricPole002
+    100008: PropCableElectricPole003
+    100010: PropCableElectricPole004
+    100012: PropCableElectricPole005
+    400000: //RootNode
+    400002: PropCableElectricPole 1
+    400004: PropCableElectricPole001
+    400006: PropCableElectricPole002
+    400008: PropCableElectricPole003
+    400010: PropCableElectricPole004
+    400012: PropCableElectricPole005
+    2100000: 'Material #75'
+    2300000: //RootNode
+    2300002: PropCableElectricPole 1
+    2300004: PropCableElectricPole001
+    2300006: PropCableElectricPole002
+    2300008: PropCableElectricPole003
+    2300010: PropCableElectricPole004
+    2300012: PropCableElectricPole005
+    3300000: //RootNode
+    3300002: PropCableElectricPole 1
+    3300004: PropCableElectricPole001
+    3300006: PropCableElectricPole002
+    3300008: PropCableElectricPole003
+    3300010: PropCableElectricPole004
+    3300012: PropCableElectricPole005
+    4300000: PropCableElectricPole
+    4300002: PropCableElectricPole001
+    4300004: PropCableElectricPole002
+    4300006: PropCableElectricPole003
+    4300008: PropCableElectricPole004
+    4300010: PropCableElectricPole005
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #75'
+    second: {fileID: 2100000, guid: 06420d6ba534c2d4a99283aec301a0b7, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

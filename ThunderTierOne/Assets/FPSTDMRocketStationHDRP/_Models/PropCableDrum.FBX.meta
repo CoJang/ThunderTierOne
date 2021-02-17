@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: b9b50e9b4f41c994ca4974240b348f23
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropCableDrum 1
+    100004: PropCableDrum001
+    100006: PropCableDrum002
+    100008: PropCableDrum003
+    100010: PropCableDrum004
+    100012: PropCableDrum005
+    100014: PropCableDrum006
+    100016: PropCableDrum007
+    100018: PropCableDrum008
+    100020: PropCableDrum009
+    100022: PropCableDrum010
+    100024: PropCableDrum011
+    100026: PropCableDrum012
+    100028: PropCableDrum013
+    100030: PropCableDrum014
+    100032: PropCableDrum015
+    100034: PropCableDrum016
+    100036: PropCableDrum017
+    400000: //RootNode
+    400002: PropCableDrum 1
+    400004: PropCableDrum001
+    400006: PropCableDrum002
+    400008: PropCableDrum003
+    400010: PropCableDrum004
+    400012: PropCableDrum005
+    400014: PropCableDrum006
+    400016: PropCableDrum007
+    400018: PropCableDrum008
+    400020: PropCableDrum009
+    400022: PropCableDrum010
+    400024: PropCableDrum011
+    400026: PropCableDrum012
+    400028: PropCableDrum013
+    400030: PropCableDrum014
+    400032: PropCableDrum015
+    400034: PropCableDrum016
+    400036: PropCableDrum017
+    2100000: 'Material #4'
+    2300000: PropCableDrum 1
+    2300002: PropCableDrum001
+    2300004: PropCableDrum002
+    2300006: PropCableDrum003
+    2300008: PropCableDrum004
+    2300010: PropCableDrum005
+    2300012: PropCableDrum006
+    2300014: PropCableDrum007
+    2300016: PropCableDrum008
+    2300018: PropCableDrum009
+    2300020: PropCableDrum010
+    2300022: PropCableDrum011
+    2300024: PropCableDrum012
+    2300026: PropCableDrum013
+    2300028: PropCableDrum014
+    2300030: PropCableDrum015
+    2300032: PropCableDrum016
+    2300034: PropCableDrum017
+    3300000: PropCableDrum 1
+    3300002: PropCableDrum001
+    3300004: PropCableDrum002
+    3300006: PropCableDrum003
+    3300008: PropCableDrum004
+    3300010: PropCableDrum005
+    3300012: PropCableDrum006
+    3300014: PropCableDrum007
+    3300016: PropCableDrum008
+    3300018: PropCableDrum009
+    3300020: PropCableDrum010
+    3300022: PropCableDrum011
+    3300024: PropCableDrum012
+    3300026: PropCableDrum013
+    3300028: PropCableDrum014
+    3300030: PropCableDrum015
+    3300032: PropCableDrum016
+    3300034: PropCableDrum017
+    4300000: PropCableDrum
+    4300002: PropCableDrum001
+    4300004: PropCableDrum002
+    4300006: PropCableDrum003
+    4300008: PropCableDrum004
+    4300010: PropCableDrum005
+    4300012: PropCableDrum006
+    4300014: PropCableDrum007
+    4300016: PropCableDrum008
+    4300018: PropCableDrum009
+    4300020: PropCableDrum010
+    4300022: PropCableDrum011
+    4300024: PropCableDrum012
+    4300026: PropCableDrum013
+    4300028: PropCableDrum014
+    4300030: PropCableDrum015
+    4300032: PropCableDrum016
+    4300034: PropCableDrum017
+    6400000: PropCableDrum 1
+    6400002: PropCableDrum003
+    6400004: PropCableDrum004
+    6400006: PropCableDrum005
+    6400008: PropCableDrum006
+    6400010: PropCableDrum007
+    6400012: PropCableDrum008
+    6400014: PropCableDrum009
+    6400016: PropCableDrum010
+    6400018: PropCableDrum011
+    6400020: PropCableDrum012
+    6400022: PropCableDrum013
+    6400024: PropCableDrum014
+    6400026: PropCableDrum015
+    6400028: PropCableDrum016
+    6400030: PropCableDrum017
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #4'
+    second: {fileID: 2100000, guid: 64064f7c2ea142a4e80c13641cde84da, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

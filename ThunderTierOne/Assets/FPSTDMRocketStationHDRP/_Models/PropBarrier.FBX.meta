@@ -1,0 +1,198 @@
+fileFormatVersion: 2
+guid: 6aece1f654b5043479911c4e3a6066b0
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropBarrier 1
+    100004: PropBarrier001
+    100006: PropBarrier002
+    100008: PropBarrier003
+    100010: PropBarrier004
+    100012: PropBarrier005
+    100014: PropBarrier006
+    100016: PropBarrier007
+    100018: PropBarrier008
+    100020: PropBarrier009
+    100022: PropBarrier010
+    100024: PropBarrier011
+    100026: PropBarrier012
+    100028: PropBarrier013
+    100030: PropBarrier014
+    100032: PropBarrier015
+    100034: PropBarrier016
+    100036: PropBarrier017
+    100038: PropBarrier018
+    400000: //RootNode
+    400002: PropBarrier 1
+    400004: PropBarrier001
+    400006: PropBarrier002
+    400008: PropBarrier003
+    400010: PropBarrier004
+    400012: PropBarrier005
+    400014: PropBarrier006
+    400016: PropBarrier007
+    400018: PropBarrier008
+    400020: PropBarrier009
+    400022: PropBarrier010
+    400024: PropBarrier011
+    400026: PropBarrier012
+    400028: PropBarrier013
+    400030: PropBarrier014
+    400032: PropBarrier015
+    400034: PropBarrier016
+    400036: PropBarrier017
+    400038: PropBarrier018
+    2100000: 'Material #1'
+    2300000: //RootNode
+    2300002: PropBarrier 1
+    2300004: PropBarrier001
+    2300006: PropBarrier002
+    2300008: PropBarrier003
+    2300010: PropBarrier004
+    2300012: PropBarrier005
+    2300014: PropBarrier006
+    2300016: PropBarrier007
+    2300018: PropBarrier008
+    2300020: PropBarrier009
+    2300022: PropBarrier010
+    2300024: PropBarrier011
+    2300026: PropBarrier012
+    2300028: PropBarrier013
+    2300030: PropBarrier014
+    2300032: PropBarrier015
+    2300034: PropBarrier016
+    2300036: PropBarrier017
+    2300038: PropBarrier018
+    3300000: //RootNode
+    3300002: PropBarrier 1
+    3300004: PropBarrier001
+    3300006: PropBarrier002
+    3300008: PropBarrier003
+    3300010: PropBarrier004
+    3300012: PropBarrier005
+    3300014: PropBarrier006
+    3300016: PropBarrier007
+    3300018: PropBarrier008
+    3300020: PropBarrier009
+    3300022: PropBarrier010
+    3300024: PropBarrier011
+    3300026: PropBarrier012
+    3300028: PropBarrier013
+    3300030: PropBarrier014
+    3300032: PropBarrier015
+    3300034: PropBarrier016
+    3300036: PropBarrier017
+    3300038: PropBarrier018
+    4300000: PropBarrier
+    4300002: PropBarrier001
+    4300004: PropBarrier002
+    4300006: PropBarrier003
+    4300008: PropBarrier004
+    4300010: PropBarrier005
+    4300012: PropBarrier006
+    4300014: PropBarrier007
+    4300016: PropBarrier008
+    4300018: PropBarrier009
+    4300020: PropBarrier010
+    4300022: PropBarrier011
+    4300024: PropBarrier012
+    4300026: PropBarrier013
+    4300028: PropBarrier014
+    4300030: PropBarrier015
+    4300032: PropBarrier016
+    4300034: PropBarrier017
+    4300036: PropBarrier018
+    6400000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #1'
+    second: {fileID: 2100000, guid: 8225ae10ae03a5a4ea1883a43789bd00, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

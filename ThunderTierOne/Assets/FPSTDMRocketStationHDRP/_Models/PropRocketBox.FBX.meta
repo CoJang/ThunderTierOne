@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: e1daf490070cca4448f97524449aa5ad
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Object092
+    100002: //RootNode
+    100004: PropRocketBox 1
+    100006: PropRocketBox2
+    100008: PropRocketBox 2
+    100010: 5
+    100012: PropRocketBox003
+    100014: PropRocketBox004
+    100016: PropRocketBox005
+    100018: PropRocketBox006
+    100020: PropRocketBox008
+    100022: PropRocketBox009
+    100024: PropRocketBox009 1
+    100026: PropRocketBox010
+    400000: Object092
+    400002: //RootNode
+    400004: PropRocketBox 1
+    400006: PropRocketBox2
+    400008: PropRocketBox 2
+    400010: 5
+    400012: PropRocketBox003
+    400014: PropRocketBox004
+    400016: PropRocketBox005
+    400018: PropRocketBox006
+    400020: PropRocketBox008
+    400022: PropRocketBox009
+    400024: PropRocketBox009 1
+    400026: PropRocketBox010
+    2100000: 'Material #6'
+    2100002: 'Material #7'
+    2300000: Object092
+    2300002: PropRocketBox 1
+    2300004: PropRocketBox2
+    2300006: PropRocketBox 2
+    2300008: 5
+    2300010: PropRocketBox003
+    2300012: PropRocketBox004
+    2300014: PropRocketBox005
+    2300016: PropRocketBox006
+    2300018: PropRocketBox008
+    2300020: PropRocketBox009
+    2300022: PropRocketBox009 1
+    2300024: PropRocketBox010
+    3300000: Object092
+    3300002: PropRocketBox 1
+    3300004: PropRocketBox2
+    3300006: PropRocketBox 2
+    3300008: 5
+    3300010: PropRocketBox003
+    3300012: PropRocketBox004
+    3300014: PropRocketBox005
+    3300016: PropRocketBox006
+    3300018: PropRocketBox008
+    3300020: PropRocketBox009
+    3300022: PropRocketBox009 1
+    3300024: PropRocketBox010
+    4300000: Object092
+    4300002: PropRocketBox2
+    4300004: PropRocketBox
+    4300006: PropRocketBox
+    4300008: 5
+    4300010: PropRocketBox003
+    4300012: PropRocketBox004
+    4300014: PropRocketBox005
+    4300016: PropRocketBox006
+    4300018: PropRocketBox008
+    4300020: PropRocketBox009
+    4300022: PropRocketBox009
+    4300024: PropRocketBox010
+    6400000: PropRocketBox003
+    6400002: PropRocketBox004
+    6400004: PropRocketBox005
+    6400006: PropRocketBox006
+    6400008: PropRocketBox008
+    6400010: PropRocketBox009
+    6400012: PropRocketBox009 1
+    6400014: PropRocketBox2
+    6400016: PropRocketBox010
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #6'
+    second: {fileID: 2100000, guid: 8382244489755844dafc55db79363c6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #7'
+    second: {fileID: 2100000, guid: d91eee71c00448f4a961b286f84bf1e0, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

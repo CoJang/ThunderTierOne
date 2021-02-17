@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: b794d3c851f765441aae3d6038a5e9cd
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropWoodPallet 1
+    100004: PropWoodPallet 2
+    100006: PropWoodPallet001
+    100008: PropWoodPallet002
+    100010: PropWoodPallet003
+    100012: PropWoodPallet004
+    100014: PropWoodPallet005
+    100016: PropWoodPallet006
+    100018: PropWoodPallet007
+    100020: PropWoodPallet008
+    100022: PropWoodPallet009
+    100024: PropWoodPallet010
+    100026: PropWoodPallet013
+    100028: PropWoodPallet014
+    100030: PropWoodPallet015
+    400000: //RootNode
+    400002: PropWoodPallet 1
+    400004: PropWoodPallet 2
+    400006: PropWoodPallet001
+    400008: PropWoodPallet002
+    400010: PropWoodPallet003
+    400012: PropWoodPallet004
+    400014: PropWoodPallet005
+    400016: PropWoodPallet006
+    400018: PropWoodPallet007
+    400020: PropWoodPallet008
+    400022: PropWoodPallet009
+    400024: PropWoodPallet010
+    400026: PropWoodPallet013
+    400028: PropWoodPallet014
+    400030: PropWoodPallet015
+    2100000: 'Material #87'
+    2300000: PropWoodPallet 1
+    2300002: PropWoodPallet 2
+    2300004: PropWoodPallet001
+    2300006: PropWoodPallet002
+    2300008: PropWoodPallet003
+    2300010: PropWoodPallet004
+    2300012: PropWoodPallet005
+    2300014: PropWoodPallet006
+    2300016: PropWoodPallet007
+    2300018: PropWoodPallet008
+    2300020: PropWoodPallet009
+    2300022: PropWoodPallet010
+    2300024: PropWoodPallet013
+    2300026: PropWoodPallet014
+    2300028: PropWoodPallet015
+    3300000: PropWoodPallet 1
+    3300002: PropWoodPallet 2
+    3300004: PropWoodPallet001
+    3300006: PropWoodPallet002
+    3300008: PropWoodPallet003
+    3300010: PropWoodPallet004
+    3300012: PropWoodPallet005
+    3300014: PropWoodPallet006
+    3300016: PropWoodPallet007
+    3300018: PropWoodPallet008
+    3300020: PropWoodPallet009
+    3300022: PropWoodPallet010
+    3300024: PropWoodPallet013
+    3300026: PropWoodPallet014
+    3300028: PropWoodPallet015
+    4300000: PropWoodPallet
+    4300002: PropWoodPallet
+    4300004: PropWoodPallet001
+    4300006: PropWoodPallet002
+    4300008: PropWoodPallet003
+    4300010: PropWoodPallet004
+    4300012: PropWoodPallet005
+    4300014: PropWoodPallet006
+    4300016: PropWoodPallet007
+    4300018: PropWoodPallet008
+    4300020: PropWoodPallet009
+    4300022: PropWoodPallet010
+    4300024: PropWoodPallet013
+    4300026: PropWoodPallet014
+    4300028: PropWoodPallet015
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #87'
+    second: {fileID: 2100000, guid: 7050b7c56b2920540bcff0e9a2daa606, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

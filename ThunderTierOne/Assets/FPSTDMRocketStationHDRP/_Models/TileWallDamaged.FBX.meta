@@ -1,0 +1,245 @@
+fileFormatVersion: 2
+guid: 3542c102df7ca9f4fb90a88d6f9da95e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: PropRocketAeration
+    100004: PropRocketAeration 1
+    100006: PropRocketAeration 2
+    100008: PropRocketAeration 3
+    100010: TileWallDamaged 1
+    100012: PropWaterTank003
+    100014: TileWallDamaged 2
+    100016: TileWallDamaged 3
+    100018: AlphaVariousManhole
+    100020: Cylinder056
+    100022: TileWallDamaged001
+    100024: TileWallDamaged002
+    100026: TileRopeSteelCable
+    100028: PropRocketAeration001
+    100030: PropRocketAeration002
+    100032: PropRocketAeration003
+    100034: TileWallDamaged003
+    100036: TileWallDamaged004
+    100038: TileWallDamaged005
+    400000: //RootNode
+    400002: PropRocketAeration
+    400004: PropRocketAeration 1
+    400006: PropRocketAeration 2
+    400008: PropRocketAeration 3
+    400010: TileWallDamaged 1
+    400012: PropWaterTank003
+    400014: TileWallDamaged 2
+    400016: TileWallDamaged 3
+    400018: AlphaVariousManhole
+    400020: Cylinder056
+    400022: TileWallDamaged001
+    400024: TileWallDamaged002
+    400026: TileRopeSteelCable
+    400028: PropRocketAeration001
+    400030: PropRocketAeration002
+    400032: PropRocketAeration003
+    400034: TileWallDamaged003
+    400036: TileWallDamaged004
+    400038: TileWallDamaged005
+    2100000: 'Material #72'
+    2300000: //RootNode
+    2300002: PropRocketAeration
+    2300004: PropRocketAeration 1
+    2300006: PropRocketAeration 2
+    2300008: PropRocketAeration 3
+    2300010: TileWallDamaged 1
+    2300012: PropWaterTank003
+    2300014: TileWallDamaged 2
+    2300016: TileWallDamaged 3
+    2300018: AlphaVariousManhole
+    2300020: Cylinder056
+    2300022: TileWallDamaged001
+    2300024: TileWallDamaged002
+    2300026: TileRopeSteelCable
+    2300028: PropRocketAeration001
+    2300030: PropRocketAeration002
+    2300032: PropRocketAeration003
+    2300034: TileWallDamaged003
+    2300036: TileWallDamaged004
+    2300038: TileWallDamaged005
+    3300000: //RootNode
+    3300002: PropRocketAeration
+    3300004: PropRocketAeration 1
+    3300006: PropRocketAeration 2
+    3300008: PropRocketAeration 3
+    3300010: TileWallDamaged 1
+    3300012: PropWaterTank003
+    3300014: TileWallDamaged 2
+    3300016: TileWallDamaged 3
+    3300018: AlphaVariousManhole
+    3300020: Cylinder056
+    3300022: TileWallDamaged001
+    3300024: TileWallDamaged002
+    3300026: TileRopeSteelCable
+    3300028: PropRocketAeration001
+    3300030: PropRocketAeration002
+    3300032: PropRocketAeration003
+    3300034: TileWallDamaged003
+    3300036: TileWallDamaged004
+    3300038: TileWallDamaged005
+    4300000: TileWallDamaged
+    4300002: PropRocketAeration
+    4300004: PropRocketAeration
+    4300006: PropRocketAeration
+    4300008: PropRocketAeration
+    4300010: PropWaterTank003
+    4300012: TileWallDamaged
+    4300014: TileWallDamaged
+    4300016: TileWallDamaged001
+    4300018: TileWallDamaged002
+    4300020: AlphaVariousManhole
+    4300022: Cylinder056
+    4300024: TileRopeSteelCable
+    4300026: TileWallDamaged003
+    4300028: TileWallDamaged004
+    4300030: TileWallDamaged005
+    4300032: PropRocketAeration001
+    4300034: PropRocketAeration002
+    4300036: PropRocketAeration003
+    6400000: //RootNode
+    6400002: PropRocketAeration
+    6400004: PropRocketAeration 1
+    6400006: PropRocketAeration 2
+    6400008: PropRocketAeration 3
+    6400010: TileWallDamaged 1
+    6400012: PropWaterTank003
+    6400014: TileWallDamaged 2
+    6400016: TileWallDamaged 3
+    6400018: AlphaVariousManhole
+    6400020: Cylinder056
+    6400022: TileWallDamaged001
+    6400024: TileWallDamaged002
+    6400026: TileRopeSteelCable
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #0'
+    second: {fileID: 2100000, guid: 0f9fc9232f7599042b86d1e84dd8b8f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #1'
+    second: {fileID: 2100000, guid: 8225ae10ae03a5a4ea1883a43789bd00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #6'
+    second: {fileID: 2100000, guid: 8382244489755844dafc55db79363c6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #70'
+    second: {fileID: 2100000, guid: 6d5f293c3f3df334fb47f41677899847, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #72'
+    second: {fileID: 2100000, guid: c24f55134f297964f9fd95cb968fe6a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #74'
+    second: {fileID: 2100000, guid: 8fabf0d2f593ad64c84c5f00bcc4f8a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #75'
+    second: {fileID: 2100000, guid: 06420d6ba534c2d4a99283aec301a0b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #8'
+    second: {fileID: 2100000, guid: 62cb72625213afe419ed3900bba47a8b, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
