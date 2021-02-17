@@ -7,10 +7,15 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable
 {
-    [SerializeField] float sprintSpeed, walkSpeed, jumpForce, smoothTime;
-
+    [SerializeField] float silencespeed, walkSpeed,crouchingSpeed ,jumpForce, smoothTime;
+    ReloadCursor ReloadImage;
+    //애니메이터 
+    bool IsSwapDelay = false;
+    bool IsReloading = false;
+    bool Crouching = false;
+    //-----------------------
     [SerializeField] Item[] items;
-    int itemIndex;
+    int itemIndex = 0;
     int preItemIndex = -1;
 
     bool isGrounded;
@@ -31,6 +36,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     Vector3 relativeVec = new Vector3(0, -55, -100);
 
     Vector2 AnimControlVelocity = Vector2.zero;
+    float CrouchingDecreaseFactor = 0.01f;
     float DecreaseFactor = 0.1f;
     float MaxAnimVelocity = 1.0f;
 
@@ -41,14 +47,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     Vector3 networkPosition = Vector3.zero;
     Quaternion networkRotation = Quaternion.identity;
 
+    //---------------Grenade 
+    [SerializeField]float throwVelocity;
+
+    [SerializeField]
+    GameObject grenade , GrenadeOrbit;
+    [SerializeField]
+    Transform throwPoint;
+
     private void Awake()
     {
+        //ReloadImage = GameObject.Find("Reload").GetComponent<ReloadCursor>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-
+        
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+
+
+        /// grenade
+        GrenadeOrbit.SetActive(false);
     }
 
     private void Start()
@@ -75,9 +94,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
 
-        if (Input.GetMouseButtonDown(0))
+
+
+        if (itemIndex == 1 || itemIndex == 0)
         {
-            items[itemIndex].Use();
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!IsReloading && !IsSwapDelay)
+                {
+                    items[itemIndex].Use();
+                }
+                else
+                {
+
+                }
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
@@ -92,6 +123,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if(transform.position.y < - 10f)
         {
             Die();
+        }
+
+        if (itemIndex == 2)
+            GrednadeThrow(); // 인풋
+        if (itemIndex == 1 || itemIndex == 0)
+        {
+            GrenadeOrbit.SetActive(false);
         }
     }
 
@@ -108,32 +146,33 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 EquipItem(i);
+                
                 break;
             }
         }
 
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
-        {
-            if (itemIndex >= items.Length - 1)
-            {
-                EquipItem(0);
-            }
-            else
-            {
-                EquipItem(itemIndex + 1);
-            }
-        }
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
-        {
-            if (itemIndex <= items.Length - 1)
-            {
-                EquipItem(items.Length - 1);
-            }
-            else
-            {
-                EquipItem(itemIndex - 1);
-            }
-        }
+        //if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        //{
+        //    if (itemIndex >= items.Length - 1)
+        //    {
+        //        EquipItem(0);
+        //    }
+        //    else
+        //    {
+        //        EquipItem(itemIndex + 1);
+        //    }
+        //}
+        //else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        //{
+        //    if (itemIndex <= items.Length - 1)
+        //    {
+        //        EquipItem(items.Length - 1);
+        //    }
+        //    else
+        //    {
+        //        EquipItem(itemIndex - 1);
+        //    }
+        //}
     }
 
     void Jump()
@@ -148,8 +187,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed),
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            Crouching = true;
+            //anim.SetBool("Crouching", true);
+        }
+        else
+        {
+            Crouching = false;
+            // anim.SetBool("Crouching", false);
+        }
+
+        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
             ref smoothMoveVelocity, smoothTime);
+
+        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftControl) ? crouchingSpeed : walkSpeed),
+           ref smoothMoveVelocity, smoothTime); 
+
 
         AnimControlVelocity.x += moveAmount.x * Time.deltaTime * 2;
         AnimControlVelocity.y += moveAmount.z * Time.deltaTime;
@@ -159,14 +213,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if(moveDir.x == 0 && AnimControlVelocity.x > 0)
         {
-             AnimControlVelocity.x -= DecreaseFactor;
+            if (Crouching)
+                AnimControlVelocity.x -= CrouchingDecreaseFactor;
+            else
+                AnimControlVelocity.x -= DecreaseFactor;
 
             if (AnimControlVelocity.x < 0)
                 AnimControlVelocity.x = 0;
         }
         else if (moveDir.x == 0 && AnimControlVelocity.x < 0)
         {
-            AnimControlVelocity.x += DecreaseFactor;
+            if (Crouching)
+                AnimControlVelocity.x += CrouchingDecreaseFactor;
+            else
+                AnimControlVelocity.x += DecreaseFactor;
 
             if (AnimControlVelocity.x > 0)
                 AnimControlVelocity.x = 0;
@@ -174,14 +234,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (moveDir.z == 0 && AnimControlVelocity.y > 0)
         {
-            AnimControlVelocity.y -= DecreaseFactor;
+            if (Crouching)
+                AnimControlVelocity.y -= CrouchingDecreaseFactor;
+            else
+                AnimControlVelocity.y -= DecreaseFactor;
 
             if (AnimControlVelocity.y < 0)
                 AnimControlVelocity.y = 0;
         }
         else if (moveDir.z == 0 && AnimControlVelocity.y < 0)
         {
-            AnimControlVelocity.y += DecreaseFactor;
+            if (Crouching)
+                AnimControlVelocity.y += CrouchingDecreaseFactor;
+            else
+                AnimControlVelocity.y += DecreaseFactor;
 
             if (AnimControlVelocity.y > 0)
                 AnimControlVelocity.y = 0;
@@ -217,9 +283,61 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
         }
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 8))
+        {
+
+
+            Debug.Log(hit.collider.gameObject.name);
+            Debug.DrawLine(lookTarget, hit.point, Color.green);
+
+
+        }
 
     }
+    void GrednadeThrow()
+    {
 
+        if (Input.GetMouseButton(0) && !anim.GetBool("Throw"))
+        {
+            anim.SetBool("ThrowIdle", true);
+        }
+        else
+        {
+            anim.SetBool("ThrowIdle", false);
+        }
+        if (Input.GetMouseButtonUp(0) && !anim.GetBool("Throw"))
+        {
+            GrenadeOrbit.SetActive(false);
+            anim.SetBool("Throw", true);
+            StartCoroutine("DelayThrow");
+
+        }
+    }
+    IEnumerator DelayThrow()
+    {
+        yield return new WaitForSeconds(1.5f);
+        anim.SetBool("Throw", false);
+
+
+    }
+    void Grenade()
+    {
+        Vector3 nextVec = transform.forward * throwVelocity;
+        nextVec.y = 5.0f;
+        GameObject instanceGrenade = Instantiate(grenade, throwPoint.transform.position, throwPoint.transform.rotation);
+        Rigidbody rigidGrenade = instanceGrenade.GetComponent<Rigidbody>();
+        rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
+        rigidGrenade.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
+    }
+    void OnThrowStart()
+    {
+        //var clone = Instantiate(grenade);
+        //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
+        Grenade();
+        GrenadeOrbit.SetActive(false);
+    }
+
+  
     public void SetGroundedState(bool grounded)
     {
         isGrounded = grounded;
@@ -305,10 +423,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         playerCamera = camera;
     }
 
-    public void OnSwapFinish()
-    {
-        items[itemIndex].itemGameObject.SetActive(true);
-    }
+   
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -339,5 +454,42 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     public Player GetPhotonViewOwner()
     {
         return PV.Owner;
+    }
+
+
+
+    // 애니메이션 이벤트
+    void OnThrowEnd()
+    {
+        if (itemIndex == 2)
+            GrenadeOrbit.SetActive(true);
+    }
+    public void OnSwapStart()
+    {
+        IsSwapDelay = true;
+        //ReloadImage.ReloadEnd();
+        Debug.Log("SwapStart");
+    }
+    public void OnSwapFinish()
+    {
+        if (IsReloading == true)
+            IsReloading = false;
+
+        IsSwapDelay = false;
+        items[itemIndex].itemGameObject.SetActive(true);
+        Debug.Log("SwapEnd");
+    }
+
+    public void OnReloadingStart()
+    {
+       // ReloadImage.Reload();
+        Debug.Log("ReloadStart");
+        IsReloading = true;
+    }
+    void OnReloadingEnd()
+    {
+       // ReloadImage.ReloadEnd();
+        Debug.Log("ReloadEnd");
+        IsReloading = false;
     }
 }

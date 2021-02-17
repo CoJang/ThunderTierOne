@@ -12,8 +12,11 @@ public class PlayerManager : MonoBehaviour
     GameObject controller;
     GameObject playerCamera;
 
+    CursorChange cursorChange;
+
     private void Awake()
     {
+        
         PV = GetComponent<PhotonView>();
     }
 
@@ -36,6 +39,8 @@ public class PlayerManager : MonoBehaviour
 
         playerCamera.GetComponent<CameraFollow>().SetTarget(controller.transform);
         controller.GetComponent<PlayerController>().BindPlayerCamera(playerCamera.GetComponentInChildren<Camera>());
+
+        //cursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponentInChildren<Camera>()) ;
     }
 
     public void Die()

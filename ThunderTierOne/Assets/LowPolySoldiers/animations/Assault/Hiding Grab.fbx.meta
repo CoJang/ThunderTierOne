@@ -66,6 +66,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: OnSwapStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8fdd17187b3162042a6db75c61c3ee3f, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
