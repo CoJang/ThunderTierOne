@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [HideInInspector] public Camera playerCamera;
     Rigidbody rb;
     PhotonView PV;
+    //PhotonTransformViewClassic PTVC;
     PlayerManager playerManager;
     Animator anim;
     Transform spine;
@@ -62,7 +63,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-        
+        PTVC = GetComponent<PhotonTransformViewClassic>();
+
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
 
 
@@ -191,18 +193,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             Crouching = true;
             //anim.SetBool("Crouching", true);
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
+                        ref smoothMoveVelocity, smoothTime);
         }
         else
         {
             Crouching = false;
             // anim.SetBool("Crouching", false);
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
+                        ref smoothMoveVelocity, smoothTime);
         }
-
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
-            ref smoothMoveVelocity, smoothTime);
-
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftControl) ? crouchingSpeed : walkSpeed),
-           ref smoothMoveVelocity, smoothTime); 
 
 
         AnimControlVelocity.x += moveAmount.x * Time.deltaTime * 2;
@@ -353,6 +353,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
 
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+        //PTVC.SetSynchronizedValues(rb.velocity, 360.0f);
     }
 
     void EquipItem(int _index)
@@ -429,24 +430,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         if(stream.IsWriting)
         {
-            // >> Lag Compensation
-            stream.SendNext(rb.position);
-            stream.SendNext(rb.rotation);
-            stream.SendNext(rb.velocity);
-            // <<
-
             stream.SendNext(lookTarget);
         }
         else
         {
-            // >> Lag Compensation
-            networkPosition = (Vector3)stream.ReceiveNext();
-            networkRotation = (Quaternion)stream.ReceiveNext();
-            rb.velocity     = (Vector3)stream.ReceiveNext();
-
-            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
-            networkPosition += rb.velocity * lag;
-            // <<
             lookTarget = (Vector3)stream.ReceiveNext();
         }
     }
@@ -492,4 +479,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Debug.Log("ReloadEnd");
         IsReloading = false;
     }
+
+    
+
 }

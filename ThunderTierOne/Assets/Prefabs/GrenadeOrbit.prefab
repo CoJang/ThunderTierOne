@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6904459570739980608
 Transform:
   m_ObjectHideFlags: 0
@@ -41,14 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5104607384044506204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea9cfabf93b94747bd2d2c61492824d, type: 3}
+  m_Script: {fileID: 11500000, guid: eac00021daca7284ea59a2b5773b94b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  initialVeloctity: 7.62
-  maxTime: 10
+  meshObj: {fileID: 0}
+  effectObj: {fileID: 0}
+  rigid: {fileID: 0}
 --- !u!120 &2970097137105375656
 LineRenderer:
   m_ObjectHideFlags: 0
