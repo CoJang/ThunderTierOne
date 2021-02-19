@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  cameraOffset: {x: 0, y: 6, z: -2}
+  cameraOffset: {x: 0, y: 11, z: -5}
 --- !u!1 &5522112677999884133
 GameObject:
   m_ObjectHideFlags: 0

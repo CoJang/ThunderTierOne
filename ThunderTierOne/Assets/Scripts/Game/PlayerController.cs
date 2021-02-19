@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 if (!IsReloading && !IsSwapDelay)
                 {
                     anim.SetBool("Firing" , true);
-                    //GunFiring();
+                    GunFiring();
                     items[itemIndex].Use();
                 }
                
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 EquipItem(i);
-                
+           
                 break;
             }
         }
@@ -385,8 +385,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (_index == preItemIndex)
             return;
 
+        if(_index == 0 || _index == 1)
         anim.SetTrigger("Swap");
 
+        if (_index == 2) 
+            anim.SetTrigger("SwapGrenade");
+            
+        
         itemIndex = _index;
 
         items[itemIndex].itemGameObject.SetActive(false);
