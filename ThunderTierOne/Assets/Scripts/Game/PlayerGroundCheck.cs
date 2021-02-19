@@ -6,7 +6,7 @@ public class PlayerGroundCheck : MonoBehaviour
 {
     PlayerController playerController;
 
-    private void Awake()
+    private void Start()
     {
         playerController = GetComponentInParent<PlayerController>();
     }
@@ -67,7 +67,7 @@ public class PlayerGroundCheck : MonoBehaviour
         {
             return;
         }
-
         playerController.SetGroundedState(false);
     }
+   
 }
