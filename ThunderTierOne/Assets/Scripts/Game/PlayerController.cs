@@ -37,12 +37,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     Vector3 relativeVec = new Vector3(0, -55, -100);
 
     Vector2 AnimControlVelocity = Vector2.zero;
-    float CrouchingDecreaseFactor = 0.01f;
+    float CrouchingDecreaseFactor = 0.1f;
     float DecreaseFactor = 0.1f;
     float MaxAnimVelocity = 1.0f;
 
     // For Spine Rotation Sync
     Vector3 lookTarget = Vector3.zero;
+
 
     // For Lag Compensation
     Vector3 networkPosition = Vector3.zero;
@@ -55,6 +56,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     GameObject grenade , GrenadeOrbit;
     [SerializeField]
     Transform throwPoint;
+
+    //--------------Gun
+    [SerializeField] float BulletVelocity;
+    [SerializeField]
+    GameObject Bullet;
+    [SerializeField]
+    GameObject BulletPos;
 
     private void Awake()
     {
@@ -85,6 +93,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
+    void GunFiring()
+    {
+        Vector3 nextVec = transform.forward * BulletVelocity;
+        nextVec.y = 1.5f;
+        GameObject instanceBullet = Instantiate(Bullet, BulletPos.transform.position, BulletPos.transform.rotation);
+        Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
+        rigidBullet.AddForce(nextVec, ForceMode.Impulse);
+        //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
+    }
     private void Update()
     {
         if (!PV.IsMine)
@@ -100,16 +117,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (itemIndex == 1 || itemIndex == 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 if (!IsReloading && !IsSwapDelay)
                 {
+                    anim.SetBool("Firing" , true);
+                    //GunFiring();
                     items[itemIndex].Use();
                 }
-                else
-                {
+               
+            }
+            else
+            {
+                Debug.Log("False Firing");
+                anim.SetBool("Firing", false);
 
-                }
             }
         }
 
@@ -192,14 +214,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (Input.GetKey(KeyCode.LeftControl))
         {
             Crouching = true;
-            //anim.SetBool("Crouching", true);
+            anim.SetBool("Crouching", true);
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
                         ref smoothMoveVelocity, smoothTime);
         }
         else
         {
             Crouching = false;
-            // anim.SetBool("Crouching", false);
+            anim.SetBool("Crouching", false);
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
                         ref smoothMoveVelocity, smoothTime);
         }
@@ -211,7 +233,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         AnimControlVelocity.x = Mathf.Clamp(AnimControlVelocity.x, -MaxAnimVelocity, MaxAnimVelocity);
         AnimControlVelocity.y = Mathf.Clamp(AnimControlVelocity.y, -MaxAnimVelocity, MaxAnimVelocity);
 
-        if(moveDir.x == 0 && AnimControlVelocity.x > 0)
+        if (moveDir.x == 0 && AnimControlVelocity.x > 0)
         {
             if (Crouching)
                 AnimControlVelocity.x -= CrouchingDecreaseFactor;
@@ -223,6 +245,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
         else if (moveDir.x == 0 && AnimControlVelocity.x < 0)
         {
+
+
             if (Crouching)
                 AnimControlVelocity.x += CrouchingDecreaseFactor;
             else
@@ -255,6 +279,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         anim.SetFloat("Horizontal", AnimControlVelocity.x);
         anim.SetFloat("Vertical", AnimControlVelocity.y);
+
+        if(Crouching)
+        {
+            anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
+            anim.SetFloat("Vertical", AnimControlVelocity.y * 0.8f);
+        }
     }
 
     void Look()
@@ -322,20 +352,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
     void Grenade()
     {
-        Vector3 nextVec = transform.forward * throwVelocity;
+        Vector3 nextVec = throwPoint.transform.forward * throwVelocity;
         nextVec.y = 5.0f;
         GameObject instanceGrenade = Instantiate(grenade, throwPoint.transform.position, throwPoint.transform.rotation);
         Rigidbody rigidGrenade = instanceGrenade.GetComponent<Rigidbody>();
         rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
         rigidGrenade.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
-    void OnThrowStart()
-    {
-        //var clone = Instantiate(grenade);
-        //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
-        Grenade();
-        GrenadeOrbit.SetActive(false);
-    }
+ 
 
   
     public void SetGroundedState(bool grounded)
@@ -444,7 +468,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
 
-
+    void OnThrowStart()
+    {
+        //var clone = Instantiate(grenade);
+        //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
+        Debug.Log("Throw");
+        Grenade();
+        GrenadeOrbit.SetActive(false);
+    }
     // 애니메이션 이벤트
     void OnThrowEnd()
     {
