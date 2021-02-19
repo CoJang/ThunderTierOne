@@ -16,7 +16,7 @@ public class GrenadeEffect : MonoBehaviour
 
     IEnumerator Explosion()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
 
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;

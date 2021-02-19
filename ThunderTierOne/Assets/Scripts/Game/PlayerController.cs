@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool IsSwapDelay = false;
     bool IsReloading = false;
     bool Crouching = false;
+    bool IsThrowing = false;
+    bool Aiming = false;
     //-----------------------
     [SerializeField] Item[] items;
     int itemIndex = 0;
@@ -117,25 +119,44 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (itemIndex == 1 || itemIndex == 0)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1))
             {
                 if (!IsReloading && !IsSwapDelay)
                 {
-                    anim.SetBool("Firing" , true);
-                    GunFiring();
+                    anim.SetBool("Aiming" , true);
+                    
+                  
                     items[itemIndex].Use();
                 }
                
             }
             else
             {
-                Debug.Log("False Firing");
-                anim.SetBool("Firing", false);
+                Aiming = false;
+                anim.SetBool("Aiming", false);
 
             }
+            if (Input.GetMouseButton(0))
+            {
+                if (!IsReloading && !IsSwapDelay && Aiming)
+                {
+                   //anim.SetBool("Firing", true); //반동 애니메이션
+                    GunFiring();
+                }
+                
+
+            }
+            else
+            {
+                //anim.SetBool("Firing", false); //반동 애니메이션
+            }
+            
+          
+
         }
 
-        if(Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
+      
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
         {
             anim.SetBool("IsReloading", true);
         }
@@ -327,7 +348,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void GrednadeThrow()
     {
 
-        if (Input.GetMouseButton(0) && !anim.GetBool("Throw"))
+        if (Input.GetMouseButton(0) && !anim.GetBool("Throw") && !IsSwapDelay)
         {
             anim.SetBool("ThrowIdle", true);
         }
@@ -385,19 +406,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (_index == preItemIndex)
             return;
 
-        if(_index == 0 || _index == 1)
-        anim.SetTrigger("Swap");
-
-        if (_index == 2) 
+        if (_index == 0 || _index == 1)
+        {
+            anim.SetTrigger("Swap");
+            anim.SetBool("ThrowIdle", false);
+        }
+        if (_index == 2)
+        {
+            anim.SetBool("Firing", false);
             anim.SetTrigger("SwapGrenade");
-            
+        }  
         
         itemIndex = _index;
 
         items[itemIndex].itemGameObject.SetActive(false);
         anim.SetLayerWeight(itemIndex, 1);
-        
-        if(preItemIndex != -1)
+
+        //----
+        StartCoroutine(DelaySwap(_index));
+
+        if (preItemIndex != -1)
         {
             items[preItemIndex].itemGameObject.SetActive(false);
             anim.SetLayerWeight(preItemIndex, 0);
@@ -411,6 +439,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             hash.Add("itemIndex", itemIndex);
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
+
+    }
+
+    IEnumerator DelaySwap(int index)
+    {
+        yield return new WaitForSeconds(0.5f);
+   
 
     }
 
@@ -471,21 +506,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         return PV.Owner;
     }
-
-
+    // 애니메이션 이벤트
     void OnThrowStart()
     {
         //var clone = Instantiate(grenade);
         //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
         Debug.Log("Throw");
-        Grenade();
+        if(!IsSwapDelay)
+            Grenade();
         GrenadeOrbit.SetActive(false);
+
+        IsThrowing = true;
     }
-    // 애니메이션 이벤트
+
     void OnThrowEnd()
     {
         if (itemIndex == 2)
             GrenadeOrbit.SetActive(true);
+
+        IsThrowing = false;
     }
     public void OnSwapStart()
     {
@@ -498,10 +537,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (IsReloading == true)
             IsReloading = false;
 
-        IsSwapDelay = false;
+
         items[itemIndex].itemGameObject.SetActive(true);
         Debug.Log("SwapEnd");
+        IsSwapDelay = false;
+     
+
     }
+
+
 
     public void OnReloadingStart()
     {
@@ -516,6 +560,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         IsReloading = false;
     }
 
-    
+    void OnShootingStart()
+    {
+        Aiming = true;
+    }
 
 }

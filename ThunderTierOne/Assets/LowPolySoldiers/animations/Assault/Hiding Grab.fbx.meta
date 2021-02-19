@@ -59,15 +59,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: OnSwapFinish
+      - time: 0
+        functionName: OnSwapStart
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 8fdd17187b3162042a6db75c61c3ee3f, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: OnSwapStart
+      - time: 1
+        functionName: OnSwapFinish
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 8fdd17187b3162042a6db75c61c3ee3f, type: 3}
         floatParameter: 0
