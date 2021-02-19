@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Awake()
     {
-        //ReloadImage = GameObject.Find("Reload").GetComponent<ReloadCursor>();
+        ReloadImage = GameObject.Find("Reload").GetComponent<ReloadCursor>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
@@ -467,7 +467,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     public void OnSwapStart()
     {
         IsSwapDelay = true;
-        //ReloadImage.ReloadEnd();
+        ReloadImage.ReloadEnd();
         Debug.Log("SwapStart");
     }
     public void OnSwapFinish()
@@ -482,13 +482,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     public void OnReloadingStart()
     {
-       // ReloadImage.Reload();
+        ReloadImage.Reload();
         Debug.Log("ReloadStart");
         IsReloading = true;
     }
     void OnReloadingEnd()
     {
-       // ReloadImage.ReloadEnd();
+        ReloadImage.ReloadEnd();
         Debug.Log("ReloadEnd");
         IsReloading = false;
     }
