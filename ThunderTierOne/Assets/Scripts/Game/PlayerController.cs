@@ -92,8 +92,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void GunFiring()
     {
-        Vector3 nextVec = transform.forward * BulletVelocity;
-        nextVec.y = 1.5f;
+        Vector3 nextVec = BulletPos.transform.forward * BulletVelocity;
+        
         GameObject instanceBullet = Instantiate(Bullet, BulletPos.transform.position, BulletPos.transform.rotation);
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
