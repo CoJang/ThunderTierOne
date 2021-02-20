@@ -18,7 +18,6 @@ public class SingleShotGun : Gun
     private void Start()
     {
         cam = GetComponentInParent<PlayerController>().playerCamera;
-        //cam = GetComponentInParent<NewPlayerController>().playerCamera;
     }
 
     public override void Use()

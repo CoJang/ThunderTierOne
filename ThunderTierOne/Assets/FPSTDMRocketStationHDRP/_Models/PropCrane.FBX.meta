@@ -1,130 +1,328 @@
 fileFormatVersion: 2
 guid: 88ced8f4f7d95964a89937715eaf2efc
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: PropCrane 1
-    100004: PropCrane2
-    100006: PropCranea
-    100008: PropCraneds
-    100010: PropCranerope
-    100012: PropCranes
-    100014: PropCranes001
-    100016: PropCranes002
-    100018: PropCranes003
-    100020: PropCranes004
-    100022: PropCranes005
-    100024: PropCranes006
-    100026: PropCranes007
-    100028: PropCranes008
-    100030: PropCranes009
-    100032: PropCranes010
-    100034: PropCranes011
-    100036: PropCranes012
-    100038: PropCranes013
-    400000: //RootNode
-    400002: PropCrane 1
-    400004: PropCrane2
-    400006: PropCranea
-    400008: PropCraneds
-    400010: PropCranerope
-    400012: PropCranes
-    400014: PropCranes001
-    400016: PropCranes002
-    400018: PropCranes003
-    400020: PropCranes004
-    400022: PropCranes005
-    400024: PropCranes006
-    400026: PropCranes007
-    400028: PropCranes008
-    400030: PropCranes009
-    400032: PropCranes010
-    400034: PropCranes011
-    400036: PropCranes012
-    400038: PropCranes013
-    2100000: 'Material #6'
-    2100002: 'Material #0'
-    2300000: PropCrane 1
-    2300002: PropCrane2
-    2300004: PropCranea
-    2300006: PropCraneds
-    2300008: PropCranerope
-    2300010: PropCranes
-    2300012: PropCranes001
-    2300014: PropCranes002
-    2300016: PropCranes003
-    2300018: PropCranes004
-    2300020: PropCranes005
-    2300022: PropCranes006
-    2300024: PropCranes007
-    2300026: PropCranes008
-    2300028: PropCranes009
-    2300030: PropCranes010
-    2300032: PropCranes011
-    2300034: PropCranes012
-    2300036: PropCranes013
-    3300000: PropCrane 1
-    3300002: PropCrane2
-    3300004: PropCranea
-    3300006: PropCraneds
-    3300008: PropCranerope
-    3300010: PropCranes
-    3300012: PropCranes001
-    3300014: PropCranes002
-    3300016: PropCranes003
-    3300018: PropCranes004
-    3300020: PropCranes005
-    3300022: PropCranes006
-    3300024: PropCranes007
-    3300026: PropCranes008
-    3300028: PropCranes009
-    3300030: PropCranes010
-    3300032: PropCranes011
-    3300034: PropCranes012
-    3300036: PropCranes013
-    4300000: PropCrane2
-    4300002: PropCrane
-    4300004: PropCranes
-    4300006: PropCranea
-    4300008: PropCranerope
-    4300010: PropCraneds
-    4300012: PropCranes001
-    4300014: PropCranes002
-    4300016: PropCranes003
-    4300018: PropCranes004
-    4300020: PropCranes005
-    4300022: PropCranes006
-    4300024: PropCranes007
-    4300026: PropCranes008
-    4300028: PropCranes009
-    4300030: PropCranes010
-    4300032: PropCranes011
-    4300034: PropCranes012
-    4300036: PropCranes013
+  serializedVersion: 20101
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: PropCrane 1
+  - first:
+      1: 100004
+    second: PropCrane2
+  - first:
+      1: 100006
+    second: PropCranea
+  - first:
+      1: 100008
+    second: PropCraneds
+  - first:
+      1: 100010
+    second: PropCranerope
+  - first:
+      1: 100012
+    second: PropCranes
+  - first:
+      1: 100014
+    second: PropCranes001
+  - first:
+      1: 100016
+    second: PropCranes002
+  - first:
+      1: 100018
+    second: PropCranes003
+  - first:
+      1: 100020
+    second: PropCranes004
+  - first:
+      1: 100022
+    second: PropCranes005
+  - first:
+      1: 100024
+    second: PropCranes006
+  - first:
+      1: 100026
+    second: PropCranes007
+  - first:
+      1: 100028
+    second: PropCranes008
+  - first:
+      1: 100030
+    second: PropCranes009
+  - first:
+      1: 100032
+    second: PropCranes010
+  - first:
+      1: 100034
+    second: PropCranes011
+  - first:
+      1: 100036
+    second: PropCranes012
+  - first:
+      1: 100038
+    second: PropCranes013
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: PropCrane 1
+  - first:
+      4: 400004
+    second: PropCrane2
+  - first:
+      4: 400006
+    second: PropCranea
+  - first:
+      4: 400008
+    second: PropCraneds
+  - first:
+      4: 400010
+    second: PropCranerope
+  - first:
+      4: 400012
+    second: PropCranes
+  - first:
+      4: 400014
+    second: PropCranes001
+  - first:
+      4: 400016
+    second: PropCranes002
+  - first:
+      4: 400018
+    second: PropCranes003
+  - first:
+      4: 400020
+    second: PropCranes004
+  - first:
+      4: 400022
+    second: PropCranes005
+  - first:
+      4: 400024
+    second: PropCranes006
+  - first:
+      4: 400026
+    second: PropCranes007
+  - first:
+      4: 400028
+    second: PropCranes008
+  - first:
+      4: 400030
+    second: PropCranes009
+  - first:
+      4: 400032
+    second: PropCranes010
+  - first:
+      4: 400034
+    second: PropCranes011
+  - first:
+      4: 400036
+    second: PropCranes012
+  - first:
+      4: 400038
+    second: PropCranes013
+  - first:
+      21: 2100000
+    second: Material #6
+  - first:
+      21: 2100002
+    second: Material #0
+  - first:
+      23: 2300000
+    second: PropCrane 1
+  - first:
+      23: 2300002
+    second: PropCrane2
+  - first:
+      23: 2300004
+    second: PropCranea
+  - first:
+      23: 2300006
+    second: PropCraneds
+  - first:
+      23: 2300008
+    second: PropCranerope
+  - first:
+      23: 2300010
+    second: PropCranes
+  - first:
+      23: 2300012
+    second: PropCranes001
+  - first:
+      23: 2300014
+    second: PropCranes002
+  - first:
+      23: 2300016
+    second: PropCranes003
+  - first:
+      23: 2300018
+    second: PropCranes004
+  - first:
+      23: 2300020
+    second: PropCranes005
+  - first:
+      23: 2300022
+    second: PropCranes006
+  - first:
+      23: 2300024
+    second: PropCranes007
+  - first:
+      23: 2300026
+    second: PropCranes008
+  - first:
+      23: 2300028
+    second: PropCranes009
+  - first:
+      23: 2300030
+    second: PropCranes010
+  - first:
+      23: 2300032
+    second: PropCranes011
+  - first:
+      23: 2300034
+    second: PropCranes012
+  - first:
+      23: 2300036
+    second: PropCranes013
+  - first:
+      33: 3300000
+    second: PropCrane 1
+  - first:
+      33: 3300002
+    second: PropCrane2
+  - first:
+      33: 3300004
+    second: PropCranea
+  - first:
+      33: 3300006
+    second: PropCraneds
+  - first:
+      33: 3300008
+    second: PropCranerope
+  - first:
+      33: 3300010
+    second: PropCranes
+  - first:
+      33: 3300012
+    second: PropCranes001
+  - first:
+      33: 3300014
+    second: PropCranes002
+  - first:
+      33: 3300016
+    second: PropCranes003
+  - first:
+      33: 3300018
+    second: PropCranes004
+  - first:
+      33: 3300020
+    second: PropCranes005
+  - first:
+      33: 3300022
+    second: PropCranes006
+  - first:
+      33: 3300024
+    second: PropCranes007
+  - first:
+      33: 3300026
+    second: PropCranes008
+  - first:
+      33: 3300028
+    second: PropCranes009
+  - first:
+      33: 3300030
+    second: PropCranes010
+  - first:
+      33: 3300032
+    second: PropCranes011
+  - first:
+      33: 3300034
+    second: PropCranes012
+  - first:
+      33: 3300036
+    second: PropCranes013
+  - first:
+      43: 4300000
+    second: PropCrane2
+  - first:
+      43: 4300002
+    second: PropCrane
+  - first:
+      43: 4300004
+    second: PropCranes
+  - first:
+      43: 4300006
+    second: PropCranea
+  - first:
+      43: 4300008
+    second: PropCranerope
+  - first:
+      43: 4300010
+    second: PropCraneds
+  - first:
+      43: 4300012
+    second: PropCranes001
+  - first:
+      43: 4300014
+    second: PropCranes002
+  - first:
+      43: 4300016
+    second: PropCranes003
+  - first:
+      43: 4300018
+    second: PropCranes004
+  - first:
+      43: 4300020
+    second: PropCranes005
+  - first:
+      43: 4300022
+    second: PropCranes006
+  - first:
+      43: 4300024
+    second: PropCranes007
+  - first:
+      43: 4300026
+    second: PropCranes008
+  - first:
+      43: 4300028
+    second: PropCranes009
+  - first:
+      43: 4300030
+    second: PropCranes010
+  - first:
+      43: 4300032
+    second: PropCranes011
+  - first:
+      43: 4300034
+    second: PropCranes012
+  - first:
+      43: 4300036
+    second: PropCranes013
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #0'
+      name: Material #0
     second: {fileID: 2100000, guid: 0f9fc9232f7599042b86d1e84dd8b8f8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #6'
+      name: Material #6
     second: {fileID: 2100000, guid: 8382244489755844dafc55db79363c6f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #70'
+      name: Material #70
     second: {fileID: 2100000, guid: 6d5f293c3f3df334fb47f41677899847, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #75'
+      name: Material #75
     second: {fileID: 2100000, guid: 06420d6ba534c2d4a99283aec301a0b7, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -155,27 +353,34 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 8
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -184,10 +389,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 0
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -197,13 +402,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

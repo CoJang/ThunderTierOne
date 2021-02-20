@@ -7,64 +7,64 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable
 {
-    [SerializeField] float silencespeed, walkSpeed,crouchingSpeed ,jumpForce, smoothTime;
-    ReloadCursor ReloadImage;
-    //애니메이터 
-    bool IsSwapDelay = false;
-    bool IsReloading = false;
-    bool Crouching = false;
-    bool IsThrowing = false;
-    bool Aiming = false;
-    //-----------------------
-    [SerializeField] Item[] items;
-    int itemIndex = 0;
-    int preItemIndex = -1;
-
-    bool isGrounded;
-    Vector3 moveAmount;
-    Vector3 smoothMoveVelocity;
-
-    const float maxHealth = 100.0f;
-    float currentHealth = maxHealth;
-
-    [HideInInspector] public Camera playerCamera;
-    Rigidbody rb;
-    PhotonView PV;
-    //PhotonTransformViewClassic PTVC;
-    PlayerManager playerManager;
+    #region Animator Variables
     Animator anim;
-    Transform spine;
-
-    float MaxYAxis = 2.5f;
-    Vector3 relativeVec = new Vector3(0, -55, -100);
-
     Vector2 AnimControlVelocity = Vector2.zero;
     float CrouchingDecreaseFactor = 0.1f;
     float DecreaseFactor = 0.1f;
     float MaxAnimVelocity = 1.0f;
 
-    // For Spine Rotation Sync
+    bool IsSwapDelay = false;
+    bool IsReloading = false;
+    bool Crouching = false;
+    bool IsThrowing = false;
+    bool Aiming = false;
+    bool isShooting = false;
+    #endregion
+
+    #region Item Variables
+    [SerializeField] Item[] items;
+    int itemIndex = 0;
+    int preItemIndex = -1;
+    #endregion
+
+    #region Charactor Movement Variables
+    bool isGrounded;
+    Vector3 moveAmount;
+    Vector3 smoothMoveVelocity;
+    [SerializeField] float silencespeed, walkSpeed, crouchingSpeed, smoothTime, jumpForce;
+    #endregion
+
+    #region Player Control Essentials
+    [HideInInspector] public Camera playerCamera;
+    Rigidbody rb;
+    PhotonView PV;
+    PlayerManager playerManager;
+    #endregion
+
+    #region Spine Rotation Variables
+    Transform spine;
+    float MaxYAxis = 2.5f;
+    Vector3 relativeVec = new Vector3(0, -55, -100);
     Vector3 lookTarget = Vector3.zero;
+    #endregion
 
+    #region GamePlay Variables
+    const float maxHealth = 100.0f;
+    float currentHealth = maxHealth;
+    #endregion
 
-    // For Lag Compensation
-    Vector3 networkPosition = Vector3.zero;
-    Quaternion networkRotation = Quaternion.identity;
+    ReloadCursor ReloadImage;
 
     //---------------Grenade 
-    [SerializeField]float throwVelocity;
-
-    [SerializeField]
-    GameObject grenade , GrenadeOrbit;
-    [SerializeField]
-    Transform throwPoint;
+    [SerializeField] float throwVelocity;
+    [SerializeField] Transform throwPoint;
+    [SerializeField] GameObject grenade, GrenadeOrbit;
 
     //--------------Gun
     [SerializeField] float BulletVelocity;
-    [SerializeField]
-    GameObject Bullet;
-    [SerializeField]
-    GameObject BulletPos;
+    [SerializeField] GameObject Bullet;
+    [SerializeField] GameObject BulletPos;
 
     private void Awake()
     {
@@ -73,13 +73,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-        //PTVC = GetComponent<PhotonTransformViewClassic>();
 
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
-
-
-        /// grenade
-        GrenadeOrbit.SetActive(false);
     }
 
     private void Start()
@@ -102,6 +97,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         GameObject instanceBullet = Instantiate(Bullet, BulletPos.transform.position, BulletPos.transform.rotation);
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
+        Destroy(instanceBullet, 1.5f);
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
     private void Update()
@@ -114,47 +110,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Move();
         Jump();
         SwapWeapon();
-
-
-
-        if (itemIndex == 1 || itemIndex == 0)
-        {
-            if (Input.GetMouseButton(1))
-            {
-                if (!IsReloading && !IsSwapDelay)
-                {
-                    anim.SetBool("Aiming" , true);
-                    
-                  
-                    items[itemIndex].Use();
-                }
-               
-            }
-            else
-            {
-                Aiming = false;
-                anim.SetBool("Aiming", false);
-
-            }
-            if (Input.GetMouseButton(0))
-            {
-                if (!IsReloading && !IsSwapDelay && Aiming)
-                {
-                   //anim.SetBool("Firing", true); //반동 애니메이션
-                    GunFiring();
-                }
-                
-
-            }
-            else
-            {
-                //anim.SetBool("Firing", false); //반동 애니메이션
-            }
-            
-          
-
-        }
-
+        Shoot();
       
         if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
         {
@@ -172,16 +128,57 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (itemIndex == 2)
             GrednadeThrow(); // 인풋
+
         if (itemIndex == 1 || itemIndex == 0)
         {
             GrenadeOrbit.SetActive(false);
         }
     }
 
+    void Shoot()
+    {
+        if (IsReloading || IsSwapDelay)
+            return;
+
+        if (itemIndex < 2)
+        {
+            bool isLeftDown = Input.GetMouseButton(0);
+            bool isRightDown = Input.GetMouseButton(1);
+
+            if (isRightDown)
+            {
+                anim.SetBool("Aiming", true);
+            }
+
+            if (isLeftDown)
+            {
+                if (Aiming)
+                {
+                    anim.SetBool("Firing", true); //반동 애니메이션
+                    GunFiring();
+                }
+                else
+                {
+                    anim.SetBool("Aiming", true);
+                    anim.SetBool("Firing", false);
+                }
+            }
+            else
+            {
+                anim.SetBool("Firing", false);
+            }
+
+            if(!isLeftDown && !isRightDown)
+            {
+                Aiming = false;
+                anim.SetBool("Aiming", false);
+            }
+        }
+    }
+
     private void LateUpdate()
     {
         Look();
-
     }
 
     void SwapWeapon()
@@ -323,7 +320,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if(PV.IsMine && hit.collider.tag == "Player") 
+            if(hit.collider.tag == "MyChar") 
                 return;
 
             lookTarget = hit.point;
@@ -334,20 +331,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
         }
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 8))
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 8))
         {
-
-
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             Debug.DrawLine(lookTarget, hit.point, Color.green);
-
-
         }
 
     }
     void GrednadeThrow()
     {
-
         if (Input.GetMouseButton(0) && !anim.GetBool("Throw") && !IsSwapDelay)
         {
             anim.SetBool("ThrowIdle", true);
@@ -356,6 +349,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             anim.SetBool("ThrowIdle", false);
         }
+
         if (Input.GetMouseButtonUp(0) && !anim.GetBool("Throw"))
         {
             GrenadeOrbit.SetActive(false);
@@ -392,13 +386,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         if (!PV.IsMine)
         {
-            rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
-            rb.rotation = Quaternion.RotateTowards(rb.rotation, networkRotation, Time.fixedDeltaTime);
             return;
         }
 
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-        //PTVC.SetSynchronizedValues(rb.velocity, 360.0f);
     }
 
     void EquipItem(int _index)
@@ -406,24 +397,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (_index == preItemIndex)
             return;
 
-        if (_index == 0 || _index == 1)
-        {
-            anim.SetTrigger("Swap");
-            anim.SetBool("ThrowIdle", false);
-        }
-        if (_index == 2)
-        {
-            anim.SetBool("Firing", false);
-            anim.SetTrigger("SwapGrenade");
-        }  
-        
         itemIndex = _index;
+        
+        switch (itemIndex)
+        {
+            case 0: // Rifle
+            case 1: // Pistol
+                anim.SetTrigger("Swap");
+                anim.SetBool("ThrowIdle", false);
+                break;
+            case 2: // Grenade
+                anim.SetBool("Aiming", false);
+                anim.SetTrigger("SwapGrenade");
+                break;
+        }
 
         items[itemIndex].itemGameObject.SetActive(false);
         anim.SetLayerWeight(itemIndex, 1);
 
         //----
-        StartCoroutine(DelaySwap(_index));
+        StartCoroutine(DelaySwap(itemIndex));
 
         if (preItemIndex != -1)
         {

@@ -34,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "NoCamPlayerController"),
                         spawnPoint.position, spawnPoint.rotation, 0, new object[] { PV.ViewID });
 
+        controller.tag = "MyChar";
+
         playerCamera = Instantiate(topdownCamera, spawnPoint.position, Quaternion.Euler(60, 0, 0));
 
         playerCamera.GetComponent<CameraFollow>().SetTarget(controller.transform);

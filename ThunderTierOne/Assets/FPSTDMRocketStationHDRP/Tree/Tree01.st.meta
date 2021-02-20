@@ -37,7 +37,7 @@ SpeedTreeImporter:
       assembly: UnityEngine.CoreModule
       name: Tree01_LOD2
     second: {fileID: 2100000, guid: 7f273ce2d9dcaff4eb608c5802e2c409, type: 2}
-  serializedVersion: 5
+  serializedVersion: 6
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   hueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
   alphaTestRef: 0.33
@@ -52,7 +52,7 @@ SpeedTreeImporter:
     enableBump: 1
     enableHue: 1
     enableSubsurface: 1
-    windQuality: 4
+    windQuality: 2
   - height: 0.25
     castShadows: 1
     receiveShadows: 1
@@ -87,6 +87,7 @@ SpeedTreeImporter:
   scaleFactor: 0.3048
   materialVersion: 3
   materialLocation: 1
+  fileIDType: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
