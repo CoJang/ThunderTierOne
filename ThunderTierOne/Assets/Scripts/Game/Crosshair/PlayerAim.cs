@@ -11,7 +11,7 @@ public class PlayerAim : MonoBehaviour
 
     private SpriteRenderer rend;
      [SerializeField]
-       Image  cursorSprite;
+     Image  cursorSprite;
     
 
     public static PlayerAim Instance;
@@ -36,7 +36,7 @@ public class PlayerAim : MonoBehaviour
 
     void Start()
     {
-       
+        DefaultCursor();
     }
 
    void Update()

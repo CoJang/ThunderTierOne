@@ -6,11 +6,17 @@ public class CursorChange : MonoBehaviour
 {
    
     Camera playerCamera;
+    LineRenderer lr;
+
     // Start is called before the first frame update
     void Start()
     {
+     
+        playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
+        lr = GetComponent<LineRenderer>();
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
 
-       // playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
     public void FindCamera(Camera camera)
@@ -21,9 +27,7 @@ public class CursorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
-       
-        //LookAt();
+        LookAt();
     }
 
     void OnMouseEnter()
@@ -44,10 +48,15 @@ public class CursorChange : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider.tag == "Player")
+            {
                 return;
+                //lr.SetPosition(0, Input.mousePosition); //UI 캔버스랑 이어짐.
+                //lr.SetPosition(1, hit.point);
+            }
             else
+            { 
                 PlayerAim.Instance.DefaultCursor();
-
+            }
         }
        
 

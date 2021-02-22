@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     GameObject controller;
     GameObject playerCamera;
 
-    //CursorChange cursorChange;
+    CursorChange cursorChange;
 
     private void Awake()
     {

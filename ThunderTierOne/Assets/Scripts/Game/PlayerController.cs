@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable
@@ -64,7 +65,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     //--------------Gun
     [SerializeField] float BulletVelocity;
     [SerializeField] GameObject Bullet;
-    [SerializeField] GameObject BulletPos;
+    [SerializeField] GameObject Muzzle;
+    [SerializeField] GameObject BulletEffect;
+
+    //Delay
+    private float fireRate = 0.1f; //총알 지연 시간 설정
+    private float nextFire = 0.0f; //다음 총알 발사시간
+
+    //
+
+
 
     private void Awake()
     {
@@ -79,6 +89,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Start()
     {
+       
+
         if (PV.IsMine)
         {
             EquipItem(0);
@@ -91,31 +103,29 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
-
-    [SerializeField] Vector2 kickMinMax = new Vector2(0.05f, 0.2f);
-    [SerializeField]  Vector2 recoilAngleMinMax = new Vector2(3, 5);
-    [SerializeField]  float recoilMoveSettleTime = 0.1f;
-    [SerializeField]  float recoilRotationSettleTie = 0.1f;
-    Vector3 recoilSmoothDampVelocity;
-    float recoilRotSmoothDampVelocity;
-    float recoilAngle;
+    Vector3 RandReCoil;
+    [PunRPC]
     void GunFiring()
     {
-        Vector3 nextVec = BulletPos.transform.forward * BulletVelocity;
-        
-        GameObject instanceBullet = Instantiate(Bullet, BulletPos.transform.position, BulletPos.transform.rotation);
+        Vector3 nextVec = Muzzle.transform.forward * BulletVelocity;
+
+        GameObject instanceBullet =Instantiate(Bullet, Muzzle.transform.position,
+            Muzzle.transform.rotation);
+
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
+     
+        RandReCoil.x = Random.Range(75, 85);
 
-        BulletPos.transform.localPosition -= Vector3.forward * Random.Range(kickMinMax.x, kickMinMax.y);
-        recoilAngle += Random.Range(recoilAngleMinMax.x, recoilAngleMinMax.y);
-        recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
-
+        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
         Destroy(instanceBullet, 1.5f);
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
+
+   
     private void Update()
     {
+        
         if (!PV.IsMine)
         {
             return;
@@ -125,9 +135,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
         Shoot();
-      
+        
         if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
         {
+            Instantiate(Bullet, transform.position, transform.rotation);
             anim.SetBool("IsReloading", true);
         }
         else
@@ -147,6 +158,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             GrenadeOrbit.SetActive(false);
         }
+
+
+     
+
+
     }
 
     void Shoot()
@@ -166,10 +182,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
             if (isLeftDown)
             {
-                if (Aiming)
+                if (Aiming && Time.time > nextFire)
                 {
+                    nextFire = Time.time + fireRate;
+
+             
                     anim.SetBool("Firing", true); //반동 애니메이션
-                    GunFiring();
+                    photonView.RPC("GunFiring", RpcTarget.All, null);
                 }
                 else
                 {
@@ -187,16 +206,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Aiming = false;
                 anim.SetBool("Aiming", false);
             }
+
+            if(!isLeftDown)
+                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0); 
         }
     }
 
     private void LateUpdate()
     {
         Look();
-
-        BulletPos.transform.localPosition = Vector3.SmoothDamp(BulletPos.transform.localPosition, new Vector3(0, -0.592000008f, 0.0949999988f), ref recoilSmoothDampVelocity, recoilMoveSettleTime);
-        recoilAngle = Mathf.SmoothDamp(recoilAngle, 0, ref recoilRotSmoothDampVelocity, recoilRotationSettleTie);
-        BulletPos.transform.localEulerAngles = BulletPos.transform.localEulerAngles + Vector3.forward * recoilAngle;
+        
 
 
     }
@@ -352,11 +371,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             spine.rotation = spineRot;
         }
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 8))
-        {
-            //Debug.Log(hit.collider.gameObject.name);
-            Debug.DrawLine(lookTarget, hit.point, Color.green);
-        }
+        //if (Physics.Raycast(BulletPos.transform.position, BulletPos.transform.forward, out hit, 30))
+        //{
+        //    Debug.Log(hit.collider.gameObject.name);
+        //    Debug.DrawLine(lookTarget, hit.point, Color.green);
+        //}
 
     }
     void GrednadeThrow()
@@ -529,6 +548,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Debug.Log("Throw");
         if(!IsSwapDelay)
             Grenade();
+
         GrenadeOrbit.SetActive(false);
 
         IsThrowing = true;
@@ -536,9 +556,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void OnThrowEnd()
     {
-        if (itemIndex == 2)
-            GrenadeOrbit.SetActive(true);
-
+        if (PV.IsMine)
+        {
+            if (itemIndex == 2)
+                GrenadeOrbit.SetActive(true);
+        }
         IsThrowing = false;
     }
     public void OnSwapStart()
@@ -583,6 +605,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void OnShootingStart()
     {
         Aiming = true;
+        
     }
 
 }
