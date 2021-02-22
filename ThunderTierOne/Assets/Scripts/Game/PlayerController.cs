@@ -90,6 +90,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
+    //반동
+
+    [SerializeField] Vector2 kickMinMax = new Vector2(0.05f, 0.2f);
+    [SerializeField]  Vector2 recoilAngleMinMax = new Vector2(3, 5);
+    [SerializeField]  float recoilMoveSettleTime = 0.1f;
+    [SerializeField]  float recoilRotationSettleTie = 0.1f;
+    Vector3 recoilSmoothDampVelocity;
+    float recoilRotSmoothDampVelocity;
+    float recoilAngle;
     void GunFiring()
     {
         Vector3 nextVec = BulletPos.transform.forward * BulletVelocity;
@@ -97,6 +106,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         GameObject instanceBullet = Instantiate(Bullet, BulletPos.transform.position, BulletPos.transform.rotation);
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
+
+        BulletPos.transform.localPosition -= Vector3.forward * Random.Range(kickMinMax.x, kickMinMax.y);
+        recoilAngle += Random.Range(recoilAngleMinMax.x, recoilAngleMinMax.y);
+        recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
+
         Destroy(instanceBullet, 1.5f);
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
@@ -179,6 +193,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     private void LateUpdate()
     {
         Look();
+
+        BulletPos.transform.localPosition = Vector3.SmoothDamp(BulletPos.transform.localPosition, new Vector3(0, -0.592000008f, 0.0949999988f), ref recoilSmoothDampVelocity, recoilMoveSettleTime);
+        recoilAngle = Mathf.SmoothDamp(recoilAngle, 0, ref recoilRotSmoothDampVelocity, recoilRotationSettleTie);
+        BulletPos.transform.localEulerAngles = BulletPos.transform.localEulerAngles + Vector3.forward * recoilAngle;
+
+
     }
 
     void SwapWeapon()
@@ -188,7 +208,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 EquipItem(i);
-           
+               
                 break;
             }
         }
@@ -399,10 +419,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         itemIndex = _index;
         
+        Aiming = false;
+        
         switch (itemIndex)
         {
             case 0: // Rifle
-            case 1: // Pistol
+            case 1: // Pistol         
                 anim.SetTrigger("Swap");
                 anim.SetBool("ThrowIdle", false);
                 break;
@@ -530,14 +552,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (IsReloading == true)
             IsReloading = false;
 
-
         items[itemIndex].itemGameObject.SetActive(true);
+        StartCoroutine("ItemDelay");
+     
         Debug.Log("SwapEnd");
         IsSwapDelay = false;
      
 
     }
-
+    IEnumerator ItemDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+       
+    }
 
 
     public void OnReloadingStart()

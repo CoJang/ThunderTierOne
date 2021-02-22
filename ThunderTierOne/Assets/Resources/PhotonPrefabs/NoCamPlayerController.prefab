@@ -1409,11 +1409,15 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   throwVelocity: 5.5
   throwPoint: {fileID: 587756666742970211}
-  grenade: {fileID: 8254352122746132338, guid: cec9228b73007f147bac647b2c85db78, type: 3}
+  grenade: {fileID: 8254352122746132338, guid: d85e0516db5addd4fa8c70801fe82c5f, type: 3}
   GrenadeOrbit: {fileID: 2156557925838849665}
   BulletVelocity: 30
   Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
   BulletPos: {fileID: 4605301183873741454}
+  kickMinMax: {x: 0.05, y: 0.2}
+  recoilAngleMinMax: {x: 3, y: 5}
+  recoilMoveSettleTime: 0.1
+  recoilRotationSettleTie: 0.1
 --- !u!136 &8085825836986382842
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1529,6 +1533,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: Aiming
+  - Type: 9
+    SynchronizeType: 0
+    Name: AimingSwap
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -2272,6 +2279,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7640613028072350211}
     m_Modifications:
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5305605
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.42824516
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.51487565
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5196294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 81.69334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 315.48532
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 49.83503
+      objectReference: {fileID: 0}
     - target: {fileID: 4277508263594142176, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
       propertyPath: m_RayTracingMode
       value: 0
