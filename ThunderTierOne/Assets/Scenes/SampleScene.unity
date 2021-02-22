@@ -626,6 +626,7 @@ GameObject:
   - component: {fileID: 419948406}
   - component: {fileID: 419948405}
   - component: {fileID: 419948407}
+  - component: {fileID: 419948408}
   m_Layer: 5
   m_Name: CrossHair
   m_TagString: Untagged
@@ -702,6 +703,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17df245fa4ea0444b906b77682874e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &419948408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419948403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1210f101568985c44be5344b18177ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorSprite: {fileID: 419948405}
 --- !u!1 &455464014
 GameObject:
   m_ObjectHideFlags: 0

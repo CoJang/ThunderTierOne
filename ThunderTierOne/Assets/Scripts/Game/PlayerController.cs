@@ -23,9 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isShooting = false;
     #endregion
 
-    #region Animator Parameter Hashs
     int IsReloadingHash = Animator.StringToHash("IsReloading");
-    #endregion
 
     #region Item Variables
     [SerializeField] Item[] items;
@@ -93,7 +91,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Start()
     {
-       
+
 
         if (PV.IsMine)
         {
@@ -107,30 +105,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
-<<<<<<< HEAD
     Vector3 RandReCoil;
     [PunRPC]
-=======
-
-    [SerializeField] Vector2 kickMinMax = new Vector2(0.05f, 0.2f);
-    [SerializeField] Vector2 recoilAngleMinMax = new Vector2(3, 5);
-    [SerializeField] float recoilMoveSettleTime = 0.1f;
-    [SerializeField] float recoilRotationSettleTie = 0.1f;
-    Vector3 recoilSmoothDampVelocity;
-    float recoilRotSmoothDampVelocity;
-    float recoilAngle;
-
->>>>>>> f947e38b5773b23da14f0ae8aee754f458a0c7b2
     void GunFiring()
     {
         Vector3 nextVec = Muzzle.transform.forward * BulletVelocity;
 
-        GameObject instanceBullet =Instantiate(Bullet, Muzzle.transform.position,
+        GameObject instanceBullet = Instantiate(Bullet, Muzzle.transform.position,
             Muzzle.transform.rotation);
 
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
-     
+
         RandReCoil.x = Random.Range(75, 85);
 
         Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
@@ -138,38 +124,31 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
-   
+
     private void Update()
     {
-        
+
         if (!PV.IsMine)
         {
             return;
         }
-        
+
         Move();
         Jump();
         SwapWeapon();
         Shoot();
 
-        
-        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
-        {
-            Instantiate(Bullet, transform.position, transform.rotation);
-            anim.SetBool("IsReloading", true);
-
-      
         if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash))
         {
+            Instantiate(Bullet, transform.position, transform.rotation);
             anim.SetBool(IsReloadingHash, true);
-
         }
         else
         {
             anim.SetBool(IsReloadingHash, false);
         }
 
-        if(transform.position.y < - 10f)
+        if (transform.position.y < -10f)
         {
             Die();
         }
@@ -183,7 +162,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
 
 
-     
+
 
 
     }
@@ -209,7 +188,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 {
                     nextFire = Time.time + fireRate;
 
-             
+
                     anim.SetBool("Firing", true); //반동 애니메이션
                     photonView.RPC("GunFiring", RpcTarget.All, null);
                 }
@@ -224,21 +203,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 anim.SetBool("Firing", false);
             }
 
-            if(!isLeftDown && !isRightDown)
+            if (!isLeftDown && !isRightDown)
             {
                 Aiming = false;
                 anim.SetBool("Aiming", false);
             }
 
-            if(!isLeftDown)
-                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0); 
+            if (!isLeftDown)
+                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0);
         }
     }
 
     private void LateUpdate()
     {
         Look();
-        
+
 
 
     }
@@ -250,7 +229,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 EquipItem(i);
-               
+
                 break;
             }
         }
@@ -360,7 +339,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         anim.SetFloat("Horizontal", AnimControlVelocity.x);
         anim.SetFloat("Vertical", AnimControlVelocity.y);
 
-        if(Crouching)
+        if (Crouching)
         {
             anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
             anim.SetFloat("Vertical", AnimControlVelocity.y * 0.8f);
@@ -382,7 +361,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if(hit.collider.tag == "MyChar") 
+            if (hit.collider.tag == "MyChar")
                 return;
 
             lookTarget = hit.point;
@@ -436,9 +415,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
         rigidGrenade.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
- 
 
-  
+
+
     public void SetGroundedState(bool grounded)
     {
         isGrounded = grounded;
@@ -460,9 +439,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         itemIndex = _index;
-        
+
         Aiming = false;
-        
+
         switch (itemIndex)
         {
             case 0: // Rifle
@@ -490,7 +469,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         preItemIndex = itemIndex;
 
-        if(PV.IsMine)
+        if (PV.IsMine)
         {
             Hashtable hash = new Hashtable();
             hash.Add("itemIndex", itemIndex);
@@ -502,13 +481,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     IEnumerator DelaySwap(int index)
     {
         yield return new WaitForSeconds(0.5f);
-   
+
 
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if(!PV.IsMine && targetPlayer == PV.Owner)
+        if (!PV.IsMine && targetPlayer == PV.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
         }
@@ -529,7 +508,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         currentHealth -= damage;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -545,11 +524,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         playerCamera = camera;
     }
 
-   
+
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.IsWriting)
+        if (stream.IsWriting)
         {
             stream.SendNext(lookTarget);
         }
@@ -569,7 +548,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         //var clone = Instantiate(grenade);
         //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
         Debug.Log("Throw");
-        if(!IsSwapDelay)
+        if (!IsSwapDelay)
             Grenade();
 
         GrenadeOrbit.SetActive(false);
@@ -599,16 +578,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         items[itemIndex].itemGameObject.SetActive(true);
         StartCoroutine("ItemDelay");
-     
+
         Debug.Log("SwapEnd");
         IsSwapDelay = false;
-     
+
 
     }
     IEnumerator ItemDelay()
     {
         yield return new WaitForSeconds(1.5f);
-       
+
     }
 
 
@@ -628,7 +607,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void OnShootingStart()
     {
         Aiming = true;
-        
+
     }
 
 }
