@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isShooting = false;
     #endregion
 
+    #region Animator Parameter Hashs
+    int IsReloadingHash = Animator.StringToHash("IsReloading");
+    #endregion
+
     #region Item Variables
     [SerializeField] Item[] items;
     int itemIndex = 0;
@@ -103,8 +107,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
+<<<<<<< HEAD
     Vector3 RandReCoil;
     [PunRPC]
+=======
+
+    [SerializeField] Vector2 kickMinMax = new Vector2(0.05f, 0.2f);
+    [SerializeField] Vector2 recoilAngleMinMax = new Vector2(3, 5);
+    [SerializeField] float recoilMoveSettleTime = 0.1f;
+    [SerializeField] float recoilRotationSettleTie = 0.1f;
+    Vector3 recoilSmoothDampVelocity;
+    float recoilRotSmoothDampVelocity;
+    float recoilAngle;
+
+>>>>>>> f947e38b5773b23da14f0ae8aee754f458a0c7b2
     void GunFiring()
     {
         Vector3 nextVec = Muzzle.transform.forward * BulletVelocity;
@@ -135,15 +151,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
         Shoot();
+
         
         if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool("IsReloading"))
         {
             Instantiate(Bullet, transform.position, transform.rotation);
             anim.SetBool("IsReloading", true);
+
+      
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash))
+        {
+            anim.SetBool(IsReloadingHash, true);
+
         }
         else
         {
-            anim.SetBool("IsReloading", false);
+            anim.SetBool(IsReloadingHash, false);
         }
 
         if(transform.position.y < - 10f)
