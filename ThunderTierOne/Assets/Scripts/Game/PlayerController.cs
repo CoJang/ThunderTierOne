@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool IsThrowing = false;
     bool Aiming = false;
     bool isShooting = false;
+    bool isobscuration = false;
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
@@ -53,8 +54,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     #endregion
 
     #region GamePlay Variables
-    const float maxHealth = 100.0f;
-    float currentHealth = maxHealth;
+    [SerializeField] const float maxHealth = 100.0f;
+    [SerializeField] float currentHealth = maxHealth;
     #endregion
 
     ReloadCursor ReloadImage;
@@ -76,11 +77,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     //Bullet
     [SerializeField] float G_Count = 2;
-  
 
-    public int reloadBulletCount;  
-    public int currentBulletCount; 
-    public int carryBulletCount;   
+
+    [SerializeField] int reloadBulletCount;
+    [SerializeField] int currentBulletCount;
+    [SerializeField] int carryBulletCount;   
 
     private void Awake()
     {
@@ -131,7 +132,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
+  
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            Debug.Log("Hit");
+            TakeDamage(40);
+        }
 
+        if(other.gameObject.layer  == LayerMask.NameToLayer("Wall"))
+        {
+            Debug.Log("벽에 붙을 수 있음");
+        }
+    }
     private void Update()
     {
 
@@ -140,6 +154,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
         }
 
+     
         Move();
         Jump();
         SwapWeapon();
@@ -168,7 +183,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
 
     }
-   
+    
     void Reload()
     {
         if (currentBulletCount == 0 && carryBulletCount == 0)
@@ -178,7 +193,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && currentBulletCount < reloadBulletCount)
         {
-            anim.SetBool(IsReloadingHash, true);
+            photonView.RPC("OffEffect", RpcTarget.All, null);
+            photonView.RPC("AniReload", RpcTarget.All, null);
         }
         else
         {
@@ -190,10 +206,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             photonView.RPC("OffEffect", RpcTarget.All, null);
             anim.SetBool(IsReloadingHash, true);
 
-        }
+        }        
+    }
 
-        
-               
+
+    [PunRPC]
+    void AniReload()
+    {
+        anim.SetBool(IsReloadingHash, true);
     }
 
     void Shoot()
@@ -649,15 +669,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         ReloadImage.Reload();
         SoundManager.Instance.Reload();
-        Debug.Log("ReloadStart");
+      
         IsReloading = true;
     }
     void OnReloadingEnd()
     {
         ReloadImage.ReloadEnd();
-        Debug.Log("ReloadEnd");
-
-        anim.SetBool(IsReloadingHash, false);
+     
         IsReloading = false;
 
         carryBulletCount += currentBulletCount;

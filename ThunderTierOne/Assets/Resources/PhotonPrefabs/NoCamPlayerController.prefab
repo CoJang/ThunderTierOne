@@ -1420,6 +1420,7 @@ MonoBehaviour:
   smoothTime: 0.15
   jumpForce: 150
   playerCamera: {fileID: 0}
+  currentHealth: 100
   throwVelocity: 5.5
   throwPoint: {fileID: 587756666742970211}
   grenade: {fileID: 8254352122746132338, guid: d85e0516db5addd4fa8c70801fe82c5f, type: 3}

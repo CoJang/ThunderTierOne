@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - Metal
   - Ground
+  - Concrete
+  - Wood
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Wall
   - 
   - 
   - 

@@ -20,6 +20,10 @@ namespace Photon.Pun.Demo.Asteroids
                 Instantiate(BulletImpact[0], transform.position, transform.rotation);
             if (collision.other.tag == "Ground")
                 Instantiate(BulletImpact[1], transform.position, transform.rotation);
+            if (collision.other.tag == "Wood")
+                Instantiate(BulletImpact[2], transform.position, transform.rotation);
+            if (collision.other.tag == "Concrete")
+                Instantiate(BulletImpact[3], transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

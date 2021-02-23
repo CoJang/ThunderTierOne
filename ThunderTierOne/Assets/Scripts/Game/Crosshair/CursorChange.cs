@@ -11,9 +11,9 @@ public class CursorChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
         playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
-   
+
+
 
     }
 
@@ -25,6 +25,7 @@ public class CursorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
         LookAt();
     }
 

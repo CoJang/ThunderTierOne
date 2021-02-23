@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 345.31543, g: 358.64, b: 393.35867, a: 1}
+  m_IndirectSpecularColor: {r: 345.22083, g: 358.628, b: 393.55173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 917428674}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &317035619
 Transform:
   m_ObjectHideFlags: 19
@@ -528,7 +529,7 @@ GameObject:
   - component: {fileID: 339164185}
   m_Layer: 0
   m_Name: TileBlackMetal045
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -826,7 +827,7 @@ GameObject:
   - component: {fileID: 456939876}
   m_Layer: 0
   m_Name: TileBlackMetal046
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1127,7 +1128,7 @@ GameObject:
   - component: {fileID: 671722042}
   m_Layer: 0
   m_Name: TileBlackMetal049
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1453,8 +1454,16 @@ PrefabInstance:
       value: 36.536
       objectReference: {fileID: 0}
     - target: {fileID: 8452591258206857801, guid: 0260e35a08176464b89d55ce2c273db3, type: 3}
+      propertyPath: m_TagString
+      value: Metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452591258206857801, guid: 0260e35a08176464b89d55ce2c273db3, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452591258206857805, guid: 0260e35a08176464b89d55ce2c273db3, type: 3}
+      propertyPath: m_TagString
+      value: Metal
       objectReference: {fileID: 0}
     - target: {fileID: 8452591258206857805, guid: 0260e35a08176464b89d55ce2c273db3, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1527,7 +1536,7 @@ GameObject:
   - component: {fileID: 866108983}
   m_Layer: 0
   m_Name: TileBlackMetal042
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1711,7 +1720,7 @@ GameObject:
   - component: {fileID: 932161582}
   m_Layer: 0
   m_Name: TileBlackMetal027
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1869,7 +1878,7 @@ GameObject:
   - component: {fileID: 1061597644}
   m_Layer: 0
   m_Name: TileBlackMetal043
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1965,7 +1974,7 @@ GameObject:
   - component: {fileID: 1284824369}
   m_Layer: 0
   m_Name: TileBlackMetal041
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2380,7 +2389,7 @@ GameObject:
   - component: {fileID: 1307504602}
   m_Layer: 0
   m_Name: TileBlackMetal047
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2900,7 +2909,7 @@ GameObject:
   - component: {fileID: 1359709590}
   m_Layer: 0
   m_Name: TileBlackMetalOneSet (1)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2946,7 +2955,7 @@ GameObject:
   - component: {fileID: 1397934889}
   m_Layer: 0
   m_Name: TileBlackMetal044
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3028,6 +3037,132 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300016, guid: d42b3e51771d814478e15cc150687d40, type: 3}
+--- !u!1 &1429563871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429563876}
+  - component: {fileID: 1429563875}
+  - component: {fileID: 1429563874}
+  - component: {fileID: 1429563873}
+  - component: {fileID: 1429563877}
+  - component: {fileID: 1429563872}
+  m_Layer: 9
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1429563872
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &1429563873
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1429563874
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1429563875
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1429563876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.66, z: -4.23}
+  m_LocalScale: {x: 8.3418, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1429563877
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429563871}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1669856674
 GameObject:
   m_ObjectHideFlags: 0
@@ -3042,7 +3177,7 @@ GameObject:
   - component: {fileID: 1669856678}
   m_Layer: 0
   m_Name: TileBlackMetal019
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3138,7 +3273,7 @@ GameObject:
   - component: {fileID: 1703821492}
   m_Layer: 0
   m_Name: TileBlackMetal031
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3425,7 +3560,7 @@ GameObject:
   - component: {fileID: 1955940125}
   m_Layer: 0
   m_Name: TileBlackMetal048
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3768,7 +3903,7 @@ GameObject:
   - component: {fileID: 2128132694}
   m_Layer: 0
   m_Name: TileBlackMetal037
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3907,7 +4042,7 @@ GameObject:
   - component: {fileID: 4020470016930677122}
   m_Layer: 0
   m_Name: TileBlackMetal047
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3940,7 +4075,7 @@ GameObject:
   - component: {fileID: 4020470016930677124}
   m_Layer: 0
   m_Name: TileBlackMetal046
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3973,7 +4108,7 @@ GameObject:
   - component: {fileID: 4020470016930677126}
   m_Layer: 0
   m_Name: TileBlackMetal045
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4006,7 +4141,7 @@ GameObject:
   - component: {fileID: 4020470016930677128}
   m_Layer: 0
   m_Name: TileBlackMetal044
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4039,7 +4174,7 @@ GameObject:
   - component: {fileID: 4020470016930677134}
   m_Layer: 0
   m_Name: TileBlackMetal049
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4072,7 +4207,7 @@ GameObject:
   - component: {fileID: 4020470016930677136}
   m_Layer: 0
   m_Name: TileBlackMetal048
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4105,7 +4240,7 @@ GameObject:
   - component: {fileID: 4020470016930677138}
   m_Layer: 0
   m_Name: TileBlackMetal037
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4138,7 +4273,7 @@ GameObject:
   - component: {fileID: 4020470016930677140}
   m_Layer: 0
   m_Name: TileBlackMetal031
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4171,7 +4306,7 @@ GameObject:
   - component: {fileID: 4020470016930677142}
   m_Layer: 0
   m_Name: TileBlackMetal027
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4204,7 +4339,7 @@ GameObject:
   - component: {fileID: 4020470016930677144}
   m_Layer: 0
   m_Name: TileBlackMetal019
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4237,7 +4372,7 @@ GameObject:
   - component: {fileID: 4020470016930677146}
   m_Layer: 0
   m_Name: TileBlackMetal043
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4270,7 +4405,7 @@ GameObject:
   - component: {fileID: 4020470016930677148}
   m_Layer: 0
   m_Name: TileBlackMetal042
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4303,7 +4438,7 @@ GameObject:
   - component: {fileID: 4020470016930677150}
   m_Layer: 0
   m_Name: TileBlackMetal041
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5215,13 +5350,28 @@ GameObject:
   - component: {fileID: 4220077036886193469}
   - component: {fileID: 4220077036885390621}
   - component: {fileID: 4220077036884424669}
+  - component: {fileID: 4220077036886419742}
   m_Layer: 0
   m_Name: PropRocketPlatformA
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4220077036886419742
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220077036886419741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 9a26216da2b7cec4f9fb8e7044e2387b, type: 3}
 --- !u!1 &4222505446319771040
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,7 +5385,7 @@ GameObject:
   - component: {fileID: 4222505446321705824}
   m_Layer: 0
   m_Name: PropRailing 1
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5267,13 +5417,28 @@ GameObject:
   - component: {fileID: 4222505446319935876}
   - component: {fileID: 4222505446322803108}
   - component: {fileID: 4222505446321705828}
+  - component: {fileID: 4222505446319771045}
   m_Layer: 0
   m_Name: PropRailing002
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771045
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300004, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771046
 GameObject:
   m_ObjectHideFlags: 0
@@ -5285,13 +5450,28 @@ GameObject:
   - component: {fileID: 4222505446319935878}
   - component: {fileID: 4222505446322803110}
   - component: {fileID: 4222505446321705830}
+  - component: {fileID: 4222505446319771047}
   m_Layer: 0
   m_Name: PropRailing001
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771047
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771046}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771048
 GameObject:
   m_ObjectHideFlags: 0
@@ -5303,13 +5483,28 @@ GameObject:
   - component: {fileID: 4222505446319935880}
   - component: {fileID: 4222505446322803112}
   - component: {fileID: 4222505446321705832}
+  - component: {fileID: 4222505446319771049}
   m_Layer: 0
   m_Name: PropRailing004
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771049
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300008, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771050
 GameObject:
   m_ObjectHideFlags: 0
@@ -5321,13 +5516,28 @@ GameObject:
   - component: {fileID: 4222505446319935882}
   - component: {fileID: 4222505446322803114}
   - component: {fileID: 4222505446321705834}
+  - component: {fileID: 4222505446319771051}
   m_Layer: 0
   m_Name: PropRailing003
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771051
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300006, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771052
 GameObject:
   m_ObjectHideFlags: 0
@@ -5339,13 +5549,28 @@ GameObject:
   - component: {fileID: 4222505446319935884}
   - component: {fileID: 4222505446322803116}
   - component: {fileID: 4222505446321705836}
+  - component: {fileID: 4222505446319771053}
   m_Layer: 0
   m_Name: PropRailing006
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771053
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300012, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771054
 GameObject:
   m_ObjectHideFlags: 0
@@ -5357,13 +5582,28 @@ GameObject:
   - component: {fileID: 4222505446319935886}
   - component: {fileID: 4222505446322803118}
   - component: {fileID: 4222505446321705838}
+  - component: {fileID: 4222505446319771055}
   m_Layer: 0
   m_Name: PropRailing005
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771055
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300010, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771056
 GameObject:
   m_ObjectHideFlags: 0
@@ -5375,13 +5615,28 @@ GameObject:
   - component: {fileID: 4222505446319935888}
   - component: {fileID: 4222505446322803120}
   - component: {fileID: 4222505446321705840}
+  - component: {fileID: 4222505446319771057}
   m_Layer: 0
   m_Name: PropRailing008
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771057
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300016, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!1 &4222505446319771058
 GameObject:
   m_ObjectHideFlags: 0
@@ -5393,13 +5648,28 @@ GameObject:
   - component: {fileID: 4222505446319935890}
   - component: {fileID: 4222505446322803122}
   - component: {fileID: 4222505446321705842}
+  - component: {fileID: 4222505446319771059}
   m_Layer: 0
   m_Name: PropRailing007
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &4222505446319771059
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222505446319771058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300014, guid: 2dfc86efa59c69040b5b7e6c5e3073e1, type: 3}
 --- !u!4 &4222505446319935872
 Transform:
   m_ObjectHideFlags: 0
@@ -6302,7 +6572,7 @@ GameObject:
   - component: {fileID: 5894813702371464070}
   m_Layer: 0
   m_Name: PropCranes010
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6320,7 +6590,7 @@ GameObject:
   - component: {fileID: 5894813702371464056}
   m_Layer: 0
   m_Name: PropCranes011
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6338,7 +6608,7 @@ GameObject:
   - component: {fileID: 5894813702371464058}
   m_Layer: 0
   m_Name: PropCranes012
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6356,7 +6626,7 @@ GameObject:
   - component: {fileID: 5894813702371464060}
   m_Layer: 0
   m_Name: PropCranes013
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6374,7 +6644,7 @@ GameObject:
   - component: {fileID: 5894813702371464078}
   m_Layer: 0
   m_Name: PropCranes006
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6392,7 +6662,7 @@ GameObject:
   - component: {fileID: 5894813702371464064}
   m_Layer: 0
   m_Name: PropCranes007
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6410,7 +6680,7 @@ GameObject:
   - component: {fileID: 5894813702371464066}
   m_Layer: 0
   m_Name: PropCranes008
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6428,7 +6698,7 @@ GameObject:
   - component: {fileID: 5894813702371464068}
   m_Layer: 0
   m_Name: PropCranes009
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6446,7 +6716,7 @@ GameObject:
   - component: {fileID: 5894813702371464086}
   m_Layer: 0
   m_Name: PropCranes002
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6464,7 +6734,7 @@ GameObject:
   - component: {fileID: 5894813702371464072}
   m_Layer: 0
   m_Name: PropCranes003
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6482,7 +6752,7 @@ GameObject:
   - component: {fileID: 5894813702371464074}
   m_Layer: 0
   m_Name: PropCranes004
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6500,7 +6770,7 @@ GameObject:
   - component: {fileID: 5894813702371464076}
   m_Layer: 0
   m_Name: PropCranes005
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6518,7 +6788,7 @@ GameObject:
   - component: {fileID: 5894813702371464094}
   m_Layer: 0
   m_Name: PropCraneds
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6536,7 +6806,7 @@ GameObject:
   - component: {fileID: 5894813702371464080}
   m_Layer: 0
   m_Name: PropCranerope
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967287
@@ -6554,7 +6824,7 @@ GameObject:
   - component: {fileID: 5894813702371464082}
   m_Layer: 0
   m_Name: PropCranes
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6572,7 +6842,7 @@ GameObject:
   - component: {fileID: 5894813702371464084}
   m_Layer: 0
   m_Name: PropCranes001
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6606,7 +6876,7 @@ GameObject:
   - component: {fileID: 5894813702371464088}
   m_Layer: 0
   m_Name: PropCrane 1
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6624,7 +6894,7 @@ GameObject:
   - component: {fileID: 5894813702371464090}
   m_Layer: 0
   m_Name: PropCrane2
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6642,7 +6912,7 @@ GameObject:
   - component: {fileID: 5894813702371464092}
   m_Layer: 0
   m_Name: PropCranea
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7589,7 +7859,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 6b50784e57f7b9648b3cfb9f43e37d3f, type: 3}
 --- !u!4 &5923210514418862348
@@ -7930,13 +8200,28 @@ GameObject:
   - component: {fileID: 7987839956169378368}
   - component: {fileID: 7987839956168051298}
   - component: {fileID: 7987839956166953122}
+  - component: {fileID: 7987839956169152097}
   m_Layer: 0
   m_Name: PropRocketTanker004
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &7987839956169152097
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987839956169152096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300008, guid: 1838e76bb2eb0094f8ee0958c87eaea6, type: 3}
 --- !u!1 &7987839956169152098
 GameObject:
   m_ObjectHideFlags: 0
@@ -7948,13 +8233,28 @@ GameObject:
   - component: {fileID: 7987839956169378370}
   - component: {fileID: 7987839956168051308}
   - component: {fileID: 7987839956166953132}
+  - component: {fileID: 7987839956169152099}
   m_Layer: 0
   m_Name: PropRocketTanker003
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &7987839956169152099
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987839956169152098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300006, guid: 1838e76bb2eb0094f8ee0958c87eaea6, type: 3}
 --- !u!1 &7987839956169152104
 GameObject:
   m_ObjectHideFlags: 0
@@ -7966,13 +8266,28 @@ GameObject:
   - component: {fileID: 7987839956169378376}
   - component: {fileID: 7987839956168051306}
   - component: {fileID: 7987839956166953130}
+  - component: {fileID: 7987839956169152105}
   m_Layer: 0
   m_Name: PropRocketTanker 1
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &7987839956169152105
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987839956169152104}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 1838e76bb2eb0094f8ee0958c87eaea6, type: 3}
 --- !u!1 &7987839956169152106
 GameObject:
   m_ObjectHideFlags: 0
@@ -8000,13 +8315,28 @@ GameObject:
   - component: {fileID: 7987839956169378380}
   - component: {fileID: 7987839956168051310}
   - component: {fileID: 7987839956166953134}
+  - component: {fileID: 7987839956169152109}
   m_Layer: 0
   m_Name: PropRocketTanker002
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &7987839956169152109
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987839956169152108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300004, guid: 1838e76bb2eb0094f8ee0958c87eaea6, type: 3}
 --- !u!1 &7987839956169152110
 GameObject:
   m_ObjectHideFlags: 0
@@ -8018,13 +8348,28 @@ GameObject:
   - component: {fileID: 7987839956169378382}
   - component: {fileID: 7987839956168051304}
   - component: {fileID: 7987839956166953128}
+  - component: {fileID: 7987839956169152111}
   m_Layer: 0
   m_Name: PropRocketTanker001
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &7987839956169152111
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987839956169152110}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 1838e76bb2eb0094f8ee0958c87eaea6, type: 3}
 --- !u!4 &7987839956169378368
 Transform:
   m_ObjectHideFlags: 0
