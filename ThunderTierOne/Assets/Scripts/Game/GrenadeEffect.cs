@@ -26,11 +26,4 @@ public class GrenadeEffect : MonoBehaviour
         Destroy(this.gameObject, 1.0f);
        
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

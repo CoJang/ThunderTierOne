@@ -119,8 +119,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             Muzzle.transform.rotation);
    
         BulletEffect.SetActive(true);
-        Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
-        rigidBullet.AddForce(nextVec, ForceMode.Impulse);
         currentBulletCount--;
         RandReCoil.x = Random.Range(75, 85);
 
@@ -308,7 +306,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-        if (Input.GetButton("Vertical") || Input.GetButton("Horizontal"))
+        if (moveDir.sqrMagnitude > 0.05f)
             SoundManager.Instance.Walk();
 
         if (Input.GetKey(KeyCode.LeftControl))
@@ -458,6 +456,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
 
     }
+
     void Grenade()
     {
         Vector3 nextVec = throwPoint.transform.forward * throwVelocity;

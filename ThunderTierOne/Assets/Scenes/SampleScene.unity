@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 345.31543, g: 358.64, b: 393.35867, a: 1}
+  m_IndirectSpecularColor: {r: 345.22083, g: 358.628, b: 393.55173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -306,23 +306,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579440, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579442, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579444, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579446, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579448, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903816583728, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_RayTracingMode
@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 917428674}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &317035619
 Transform:
   m_ObjectHideFlags: 19
@@ -961,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303617, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303619, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_Name
@@ -969,19 +970,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303619, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303621, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303623, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391313303627, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6206707391315560065, guid: 3ef75a22b040b7d4f93ed5993354cc76, type: 3}
       propertyPath: m_RayTracingMode
@@ -1352,23 +1353,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579440, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579442, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579444, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579446, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903814579448, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 44
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 684162903816583728, guid: 530fcb0c11ae049439f271d156a7e808, type: 3}
       propertyPath: m_RayTracingMode
@@ -1622,7 +1623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1696616916936430400, guid: ebaf7cf402af7cc40b4a8e9f1113779a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.44
+      value: 2.94
       objectReference: {fileID: 0}
     - target: {fileID: 1696616916936430400, guid: ebaf7cf402af7cc40b4a8e9f1113779a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3249,7 +3250,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5235,7 +5236,7 @@ GameObject:
   - component: {fileID: 4222505446321705824}
   m_Layer: 0
   m_Name: PropRailing 1
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5251,7 +5252,7 @@ GameObject:
   - component: {fileID: 4222505446319935874}
   m_Layer: 0
   m_Name: PropRailing
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5269,7 +5270,7 @@ GameObject:
   - component: {fileID: 4222505446321705828}
   m_Layer: 0
   m_Name: PropRailing002
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5287,7 +5288,7 @@ GameObject:
   - component: {fileID: 4222505446321705830}
   m_Layer: 0
   m_Name: PropRailing001
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5305,7 +5306,7 @@ GameObject:
   - component: {fileID: 4222505446321705832}
   m_Layer: 0
   m_Name: PropRailing004
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5323,7 +5324,7 @@ GameObject:
   - component: {fileID: 4222505446321705834}
   m_Layer: 0
   m_Name: PropRailing003
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5341,7 +5342,7 @@ GameObject:
   - component: {fileID: 4222505446321705836}
   m_Layer: 0
   m_Name: PropRailing006
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5359,7 +5360,7 @@ GameObject:
   - component: {fileID: 4222505446321705838}
   m_Layer: 0
   m_Name: PropRailing005
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5377,7 +5378,7 @@ GameObject:
   - component: {fileID: 4222505446321705840}
   m_Layer: 0
   m_Name: PropRailing008
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5395,7 +5396,7 @@ GameObject:
   - component: {fileID: 4222505446321705842}
   m_Layer: 0
   m_Name: PropRailing007
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7600,7 +7601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5923210514418898220}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.16, z: -0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 2021582824}
@@ -7932,7 +7933,7 @@ GameObject:
   - component: {fileID: 7987839956166953122}
   m_Layer: 0
   m_Name: PropRocketTanker004
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7950,7 +7951,7 @@ GameObject:
   - component: {fileID: 7987839956166953132}
   m_Layer: 0
   m_Name: PropRocketTanker003
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7968,7 +7969,7 @@ GameObject:
   - component: {fileID: 7987839956166953130}
   m_Layer: 0
   m_Name: PropRocketTanker 1
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7984,7 +7985,7 @@ GameObject:
   - component: {fileID: 7987839956169378378}
   m_Layer: 0
   m_Name: PropRocketTanker
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8002,7 +8003,7 @@ GameObject:
   - component: {fileID: 7987839956166953134}
   m_Layer: 0
   m_Name: PropRocketTanker002
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8020,7 +8021,7 @@ GameObject:
   - component: {fileID: 7987839956166953128}
   m_Layer: 0
   m_Name: PropRocketTanker001
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

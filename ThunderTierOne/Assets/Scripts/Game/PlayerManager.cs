@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject topdownCamera;
+    //[SerializeField] GameObject playerIndicator;
 
     PhotonView PV;
     GameObject controller;
@@ -37,10 +39,15 @@ public class PlayerManager : MonoBehaviour
         controller.tag = "MyChar";
 
         playerCamera = Instantiate(topdownCamera, spawnPoint.position, Quaternion.Euler(60, 0, 0));
+        Camera camera = playerCamera.GetComponentInChildren<Camera>();
+        //indicator = Instantiate(playerIndicator, spawnPoint.position, Quaternion.identity);
 
+        //indicator.GetComponent<CameraFollow>().SetTarget(controller.transform);
         playerCamera.GetComponent<CameraFollow>().SetTarget(controller.transform);
-        controller.GetComponent<PlayerController>().BindPlayerCamera(playerCamera.GetComponentInChildren<Camera>());
+        controller.GetComponent<PlayerController>().BindPlayerCamera(camera);
 
+        controller.GetComponentInChildren<BillBoard>().BindCamera(camera);
+        controller.GetComponentInChildren<Image>().color = new Color32(255, 151, 26, 255);
         //cursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponentInChildren<Camera>()) ;
     }
 
