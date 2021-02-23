@@ -40,7 +40,7 @@ public class SingleShotGun : Gun
                 return;
             }
 
-            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).Damage);
+            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(gunInfo.Damage);
             PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
         }
     }

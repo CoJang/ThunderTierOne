@@ -15,17 +15,8 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-      
-        
-
-    }
-
-
     public void Fire()
     {
-      
         audioSrc.PlayOneShot(sfxPlayer[0]);
     }
     public void Walk()
@@ -38,9 +29,5 @@ public class SoundManager : MonoBehaviour
     {
         audioSrc.PlayOneShot(sfxPlayer[2]);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

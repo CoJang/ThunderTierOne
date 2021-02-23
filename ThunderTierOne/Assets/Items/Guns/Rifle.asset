@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Rifle
   Damage: 25
+  RecoilFactor: 5
+  BulletSpeed: 30

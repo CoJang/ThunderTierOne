@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Gun : Item
 {
+    public GunInfo gunInfo;
+    public GameObject bulletImpactPrefab;
+
     public override void Use()
     {
 
     }
 
-    public GameObject bulletImpactPrefab;
 }
