@@ -13,10 +13,10 @@ public class PlayerGroundCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerController.gameObject)
-        {
-            return;
-        }
+        //if (other.gameObject == playerController.gameObject)
+        //{
+        //    return;
+        //}
 
         playerController.SetGroundedState(true);
     }

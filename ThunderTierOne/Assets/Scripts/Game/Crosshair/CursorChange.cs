@@ -6,16 +6,14 @@ public class CursorChange : MonoBehaviour
 {
    
     Camera playerCamera;
-    LineRenderer lr;
+
 
     // Start is called before the first frame update
     void Start()
     {
      
         playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
-        lr = GetComponent<LineRenderer>();
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
+   
 
     }
 

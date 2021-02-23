@@ -5,6 +5,8 @@ namespace Photon.Pun.Demo.Asteroids
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField] GameObject[] BulletImpact;
+
         public Player Owner { get; private set; }
 
         public void Start()
@@ -14,6 +16,10 @@ namespace Photon.Pun.Demo.Asteroids
 
         public void OnCollisionEnter(Collision collision)
         {
+            if (collision.other.tag == "Metal")
+                Instantiate(BulletImpact[0], transform.position, transform.rotation);
+            if (collision.other.tag == "Ground")
+                Instantiate(BulletImpact[1], transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

@@ -74,9 +74,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     private float fireRate = 0.1f; //총알 지연 시간 설정
     private float nextFire = 0.0f; //다음 총알 발사시간
 
-    //
+    //Bullet
+    [SerializeField] float G_Count = 2;
+  
 
-
+    public int reloadBulletCount;  
+    public int currentBulletCount; 
+    public int carryBulletCount;   
 
     private void Awake()
     {
@@ -85,7 +89,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-
+      
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
@@ -113,14 +117,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         GameObject instanceBullet = Instantiate(Bullet, Muzzle.transform.position,
             Muzzle.transform.rotation);
-
+   
+        BulletEffect.SetActive(true);
         Rigidbody rigidBullet = instanceBullet.GetComponent<Rigidbody>();
         rigidBullet.AddForce(nextVec, ForceMode.Impulse);
-
+        currentBulletCount--;
         RandReCoil.x = Random.Range(75, 85);
 
         Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
-        Destroy(instanceBullet, 1.5f);
+
+
+        //Destroy(instanceBullet, 1.5f);
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
@@ -136,17 +143,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Move();
         Jump();
         SwapWeapon();
+     
+        if(currentBulletCount  > 0)
         Shoot();
 
-        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash))
-        {
-            Instantiate(Bullet, transform.position, transform.rotation);
-            anim.SetBool(IsReloadingHash, true);
-        }
-        else
-        {
-            anim.SetBool(IsReloadingHash, false);
-        }
+      
+         Reload();
 
         if (transform.position.y < -10f)
         {
@@ -165,6 +167,33 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
 
 
+    }
+   
+    void Reload()
+    {
+        if (currentBulletCount == 0 && carryBulletCount == 0)
+        {
+            photonView.RPC("OffEffect", RpcTarget.All, null);
+            return;
+        }
+       if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && currentBulletCount < reloadBulletCount)
+        {
+            anim.SetBool(IsReloadingHash, true);
+        }
+        else
+        {
+            anim.SetBool(IsReloadingHash, false);
+        }
+
+        if (currentBulletCount == 0)
+        {
+            photonView.RPC("OffEffect", RpcTarget.All, null);
+            anim.SetBool(IsReloadingHash, true);
+
+        }
+
+        
+               
     }
 
     void Shoot()
@@ -188,18 +217,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 {
                     nextFire = Time.time + fireRate;
 
-
+                    SoundManager.Instance.Fire();
                     anim.SetBool("Firing", true); //반동 애니메이션
                     photonView.RPC("GunFiring", RpcTarget.All, null);
                 }
                 else
                 {
+                
                     anim.SetBool("Aiming", true);
                     anim.SetBool("Firing", false);
                 }
             }
             else
             {
+                photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
             }
 
@@ -222,6 +253,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     }
 
+    [PunRPC]
+    void OffEffect()
+    {
+        BulletEffect.SetActive(false);
+    }
+
     void SwapWeapon()
     {
         for (int i = 0; i < items.Length; i++)
@@ -233,6 +270,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 break;
             }
         }
+
 
         //if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
         //{
@@ -270,12 +308,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
+        if (Input.GetButton("Vertical") || Input.GetButton("Horizontal"))
+            SoundManager.Instance.Walk();
+
         if (Input.GetKey(KeyCode.LeftControl))
         {
             Crouching = true;
             anim.SetBool("Crouching", true);
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
                         ref smoothMoveVelocity, smoothTime);
+           
         }
         else
         {
@@ -339,6 +381,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         anim.SetFloat("Horizontal", AnimControlVelocity.x);
         anim.SetFloat("Vertical", AnimControlVelocity.y);
 
+       
+
         if (Crouching)
         {
             anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
@@ -382,21 +426,29 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
     void GrednadeThrow()
     {
-        if (Input.GetMouseButton(0) && !anim.GetBool("Throw") && !IsSwapDelay)
+        if (G_Count > 0)
         {
-            anim.SetBool("ThrowIdle", true);
-        }
-        else
-        {
-            anim.SetBool("ThrowIdle", false);
+            if (Input.GetMouseButton(0) && !anim.GetBool("Throw") && !IsSwapDelay)
+            {
+                anim.SetBool("ThrowIdle", true);
+            }
+            else
+            {
+                anim.SetBool("ThrowIdle", false);
+            }
+      
+            if (Input.GetMouseButtonUp(0) && !anim.GetBool("Throw"))
+            {
+                GrenadeOrbit.SetActive(false);
+                anim.SetBool("Throw", true);
+                StartCoroutine("DelayThrow");
+
+            }
         }
 
-        if (Input.GetMouseButtonUp(0) && !anim.GetBool("Throw"))
+        if(G_Count == 0)
         {
-            GrenadeOrbit.SetActive(false);
-            anim.SetBool("Throw", true);
-            StartCoroutine("DelayThrow");
-
+            EquipItem(0);
         }
     }
     IEnumerator DelayThrow()
@@ -549,8 +601,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         //this.simul.Shoot(clone, startPoint.position, endPoint.position, g, heightGo.position.y);
         Debug.Log("Throw");
         if (!IsSwapDelay)
+        {
+            G_Count -= 1;
             Grenade();
-
+        }
         GrenadeOrbit.SetActive(false);
 
         IsThrowing = true;
@@ -594,6 +648,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     public void OnReloadingStart()
     {
         ReloadImage.Reload();
+        SoundManager.Instance.Reload();
         Debug.Log("ReloadStart");
         IsReloading = true;
     }
@@ -601,7 +656,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         ReloadImage.ReloadEnd();
         Debug.Log("ReloadEnd");
+
+        anim.SetBool(IsReloadingHash, false);
         IsReloading = false;
+
+        carryBulletCount += currentBulletCount;
+        currentBulletCount = 0;
+
+        if (carryBulletCount >=reloadBulletCount)
+        {
+            currentBulletCount = reloadBulletCount;
+            carryBulletCount -= reloadBulletCount;
+        }
+        else
+        {
+            currentBulletCount = carryBulletCount;
+            carryBulletCount = 0;
+        }
+
+     
     }
 
     void OnShootingStart()

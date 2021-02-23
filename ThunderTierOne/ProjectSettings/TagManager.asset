@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - MyChar
+  - FxTemporaire
+  - Bullet
+  - Metal
+  - Ground
   layers:
   - Default
   - TransparentFX

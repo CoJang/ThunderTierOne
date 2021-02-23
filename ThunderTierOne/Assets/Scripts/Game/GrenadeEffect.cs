@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GrenadeEffect : MonoBehaviour
 {
-    public GameObject meshObj;
-    public GameObject effectObj;
-    public Rigidbody rigid;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] GameObject effectObj;
+    [SerializeField] Rigidbody rigid;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.Stop();
         StartCoroutine("Explosion");
     }
 
@@ -20,9 +21,9 @@ public class GrenadeEffect : MonoBehaviour
 
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-      
+        audioSource.Play();
         Instantiate(effectObj, this.transform.position,  Quaternion.identity);
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject, 1.0f);
        
     }
 
