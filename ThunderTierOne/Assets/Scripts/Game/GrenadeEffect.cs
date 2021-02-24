@@ -7,6 +7,7 @@ public class GrenadeEffect : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject effectObj;
     [SerializeField] Rigidbody rigid;
+    [SerializeField] float ExplosionRange;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,13 @@ public class GrenadeEffect : MonoBehaviour
         rigid.angularVelocity = Vector3.zero;
         audioSource.Play();
         Instantiate(effectObj, this.transform.position,  Quaternion.identity);
+
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, ExplosionRange, Vector3.up, 0, LayerMask.GetMask("Player"));
+
+        foreach(RaycastHit hitObj in rayHits)
+        {
+            hitObj.transform.GetComponent<PlayerController>().TakeDamage(99);
+        }
         Destroy(this.gameObject, 1.0f);
        
     }

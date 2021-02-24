@@ -59,6 +59,7 @@ MonoBehaviour:
   audioSource: {fileID: 7496184218920572417}
   effectObj: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 3}
   rigid: {fileID: -3203723883822779707}
+  ExplosionRange: 3
 --- !u!23 &1727299216683457488
 MeshRenderer:
   m_ObjectHideFlags: 0

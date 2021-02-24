@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     //--------------Gun
     [SerializeField] float BulletVelocity;
     [SerializeField] GameObject Bullet;
+    List<GameObject> Bullets = null;
+    [SerializeField] int BulletIndex;
     [SerializeField] GameObject Muzzle;
     [SerializeField] GameObject BulletEffect;
 
@@ -96,7 +98,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Start()
     {
-
+        Bullets = new List<GameObject>();
+        BulletIndex = 0;
+        for (int i =0; i < reloadBulletCount; i++)
+        {
+            GameObject obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
+            obj.SetActive(false);
+            Bullets.Add(obj);
+        }
 
         if (PV.IsMine)
         {
@@ -107,37 +116,57 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             //Destroy(GetComponentInChildren<Camera>().gameObject);
             //Destroy(rb);
         }
+
+    
     }
 
     //반동
     Vector3 RandReCoil;
+
     [PunRPC]
     void GunFiring()
     {
-        Vector3 nextVec = Muzzle.transform.forward * BulletVelocity;
-
-        GameObject instanceBullet = Instantiate(Bullet, Muzzle.transform.position,
-            Muzzle.transform.rotation);
-   
-        BulletEffect.SetActive(true);
-        currentBulletCount--;
+        Bullets[BulletIndex].transform.position = Muzzle.transform.position;
+        Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
         RandReCoil.x = Random.Range(75, 85);
-
         Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
 
+        while (Bullets[BulletIndex].activeInHierarchy)
+        {
+            BulletIndex = (BulletIndex+1) % reloadBulletCount;
 
-        //Destroy(instanceBullet, 1.5f);
+        }
+       
+        Bullets[BulletIndex].SetActive(true);
+        BulletEffect.SetActive(true);
+        currentBulletCount--;
+      
+
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
-  
+    public void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.transform.tag)
+        {
+            case "Bullet":
+                Debug.Log("TakeDamage");
+
+                Bullets[BulletIndex].transform.position = Vector3.zero;
+                Bullets[BulletIndex].transform.rotation = Quaternion.identity;
+                TakeDamage(50);
+                break;
+        }
+
+    }
+
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Bullet")
-        {
-            Debug.Log("Hit");
-            TakeDamage(40);
-        }
+        //if (other.gameObject.tag == "Bullet")
+        //{
+        //    TakeDamage(40);
+        //}                                                                                                
 
         if(other.gameObject.layer  == LayerMask.NameToLayer("Wall"))
         {
@@ -146,13 +175,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
     private void Update()
     {
-
         if (!PV.IsMine)
         {
             return;
         }
-
-     
+    
         Move();
         Jump();
         SwapWeapon();
@@ -238,6 +265,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                     SoundManager.Instance.Fire();
                     anim.SetBool("Firing", true); //반동 애니메이션
                     photonView.RPC("GunFiring", RpcTarget.All, null);
+                    //items[itemIndex].Use();
+                    
                 }
                 else
                 {
