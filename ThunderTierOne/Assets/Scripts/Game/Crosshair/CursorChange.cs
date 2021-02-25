@@ -25,7 +25,7 @@ public class CursorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
+        //playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
         LookAt();
     }
 

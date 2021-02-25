@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable, IInteractable
 {
     #region Animator Variables
     Animator anim;
@@ -83,13 +83,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     //Bullet
     [SerializeField] float G_Count = 2;
 
-
     [SerializeField] int reloadBulletCount;
     [SerializeField] int currentBulletCount;
     [SerializeField] int carryBulletCount;
 
     // Temp Player State
     bool isDowned = false;
+    bool isInteractable = false;
     GameObject InteractHUD;
 
     private void Awake()
@@ -182,12 +182,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
             Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
             Vector2 WorldObject_ScreenPosition = new Vector2(
-            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+            (ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f),
+            (ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f));
 
+            isInteractable = true;
             InteractHUD.SetActive(true);
             InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
             Debug.Log("상호작용 가능한 플레이어가 근처에 있습니다.");
+            Interact(other);
         }
     }
 
@@ -198,10 +200,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
             Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
             Vector2 WorldObject_ScreenPosition = new Vector2(
-            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+            (ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f),
+            (ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f));
 
             InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
+            Interact(other);
         }
     }
 
@@ -210,6 +213,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (other.tag == "Player")
         {
             InteractHUD.SetActive(false);
+            isInteractable = false;
         }
     }
 
@@ -545,8 +549,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         rigidGrenade.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
-
-
     public void SetGroundedState(bool grounded)
     {
         isGrounded = grounded;
@@ -646,6 +648,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void Die()
     {
+        isDowned = false;
         playerManager.Die();
     }
 
@@ -776,8 +779,37 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         Debug.LogError("Player Down!");
-        isDowned = true;
-        GetComponent<SphereCollider>().enabled = true;
+        isDowned = isdowned;
+        GetComponent<SphereCollider>().enabled = isdowned;
         currentHealth = 55;
+    }
+
+    float pressedTime = 0.0f;
+    void Interact(Collider other)
+    {
+        if (!isInteractable)
+            return;
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            pressedTime += Time.deltaTime;
+
+            if(pressedTime >= 2.0f)
+            {
+                pressedTime = 0;
+                Debug.LogError("2초동안 누름!");
+                other.GetComponent<PlayerController>()?.Interaction();
+            }
+        }
+    }
+
+    public void Interaction()
+    {
+        if (isDowned)
+        {
+            isDowned = false;
+            PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
+            Debug.LogError("Player Recovered!");
+        }
     }
 }
