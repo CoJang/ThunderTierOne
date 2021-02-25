@@ -8,11 +8,13 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject topdownCamera;
+    [SerializeField] GameObject InteractHUD;
     //[SerializeField] GameObject playerIndicator;
 
     PhotonView PV;
     GameObject controller;
     GameObject playerCamera;
+    GameObject interactHUD;
 
     CursorChange cursorChange;
 
@@ -49,12 +51,22 @@ public class PlayerManager : MonoBehaviour
         controller.GetComponentInChildren<BillBoard>().BindCamera(camera);
         controller.GetComponentInChildren<Image>().color = new Color32(255, 151, 26, 255);
         //cursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponentInChildren<Camera>()) ;
+
+        GameObject Canvas = GameObject.Find("Canvas");
+        interactHUD = Instantiate(InteractHUD);
+        interactHUD.transform.SetParent(Canvas.transform);
+        RectTransform HUDTransform = interactHUD.GetComponent<RectTransform>();
+        HUDTransform.anchoredPosition = Vector2.zero;
+        HUDTransform.localScale = Vector3.one;
+
+        controller.GetComponent<PlayerController>().BindHUD(interactHUD);
     }
 
     public void Die()
     {
         PhotonNetwork.Destroy(controller);
         Destroy(playerCamera);
+        Destroy(interactHUD);
         CreateController();
     }
 }

@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
+    //string  PlayerHUDText = "HOLD  F        상호작용";
+    //Vector2 PlayerHUDPivot = new Vector2(0.306155f, 0.325f);
 
     #region Item Variables
     [SerializeField] Item[] items;
@@ -83,7 +86,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     [SerializeField] int reloadBulletCount;
     [SerializeField] int currentBulletCount;
-    [SerializeField] int carryBulletCount;   
+    [SerializeField] int carryBulletCount;
+
+    // Temp Player State
+    bool isDowned = false;
+    GameObject InteractHUD;
 
     private void Awake()
     {
@@ -114,10 +121,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         else
         {
             //Destroy(GetComponentInChildren<Camera>().gameObject);
-            //Destroy(rb);
+            Destroy(rb);
         }
-
-    
     }
 
     //반동
@@ -154,10 +159,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
                 Bullets[BulletIndex].transform.position = Vector3.zero;
                 Bullets[BulletIndex].transform.rotation = Quaternion.identity;
-                TakeDamage(50);
+                TakeDamage(25);
                 break;
         }
-
     }
 
 
@@ -172,7 +176,43 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             Debug.Log("벽에 붙을 수 있음");
         }
+
+        if(!isDowned && other.tag == "Player")
+        {
+            RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+            Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
+            Vector2 WorldObject_ScreenPosition = new Vector2(
+            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+
+            InteractHUD.SetActive(true);
+            InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
+            Debug.Log("상호작용 가능한 플레이어가 근처에 있습니다.");
+        }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!isDowned && other.tag == "Player")
+        {
+            RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+            Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
+            Vector2 WorldObject_ScreenPosition = new Vector2(
+            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+
+            InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            InteractHUD.SetActive(false);
+        }
+    }
+
     private void Update()
     {
         if (!PV.IsMine)
@@ -184,11 +224,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
      
-        if(currentBulletCount  > 0)
-        Shoot();
+        if(currentBulletCount > 0)
+            Shoot();
 
       
-         Reload();
+        Reload();
 
         if (transform.position.y < -10f)
         {
@@ -202,11 +242,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             GrenadeOrbit.SetActive(false);
         }
-
-
-
-
-
     }
     
     void Reload()
@@ -216,7 +251,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             photonView.RPC("OffEffect", RpcTarget.All, null);
             return;
         }
-       if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && currentBulletCount < reloadBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && currentBulletCount < reloadBulletCount)
         {
             photonView.RPC("OffEffect", RpcTarget.All, null);
             photonView.RPC("AniReload", RpcTarget.All, null);
@@ -279,6 +314,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
+                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0);
             }
 
             if (!isLeftDown && !isRightDown)
@@ -287,17 +323,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 anim.SetBool("Aiming", false);
             }
 
-            if (!isLeftDown)
-                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0);
         }
     }
 
     private void LateUpdate()
     {
         Look();
-
-
-
     }
 
     [PunRPC]
@@ -502,8 +533,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         yield return new WaitForSeconds(1.5f);
         anim.SetBool("Throw", false);
-
-
     }
 
     void Grenade()
@@ -581,8 +610,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     IEnumerator DelaySwap(int index)
     {
         yield return new WaitForSeconds(0.5f);
-
-
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -610,7 +637,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (currentHealth <= 0)
         {
-            Die();
+            if(!isDowned)
+                KnockDown();
+            else
+                Die();
         }
     }
 
@@ -624,6 +654,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         playerCamera = camera;
     }
 
+    public void BindHUD(GameObject HUD)
+    {
+        InteractHUD = HUD;
+        InteractHUD.SetActive(false);
+    }
 
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -726,7 +761,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void OnShootingStart()
     {
         Aiming = true;
-
     }
 
+    void KnockDown()
+    {
+        isDowned = true;
+        PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
+    }
+
+    [PunRPC]
+    void RPC_PlayerDown(bool isdowned)
+    {
+        if (PV.IsMine)
+            return;
+
+        Debug.LogError("Player Down!");
+        isDowned = true;
+        GetComponent<SphereCollider>().enabled = true;
+        currentHealth = 55;
+    }
 }

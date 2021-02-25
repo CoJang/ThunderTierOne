@@ -1325,6 +1325,7 @@ GameObject:
   - component: {fileID: -8680000490765256855}
   - component: {fileID: 5968350495970021621}
   - component: {fileID: 6825251382125443738}
+  - component: {fileID: 97894144723430008}
   m_Layer: 10
   m_Name: NoCamPlayerController
   m_TagString: Player
@@ -1581,6 +1582,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!135 &97894144723430008
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503294844348840879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1.4
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &4503294844348840929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2748,14 +2762,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3401182291910953655, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
---- !u!1 &2156557925838849665 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5104607384044506204, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
-  m_PrefabInstance: {fileID: 6573733040930065117}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &354383845361066909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
+  m_PrefabInstance: {fileID: 6573733040930065117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2156557925838849665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5104607384044506204, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
   m_PrefabInstance: {fileID: 6573733040930065117}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7428163182789098720
