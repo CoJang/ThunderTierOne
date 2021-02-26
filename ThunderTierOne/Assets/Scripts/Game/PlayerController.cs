@@ -231,7 +231,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if(currentBulletCount > 0)
             Shoot();
 
-      
         Reload();
 
         if (transform.position.y < -10f)
@@ -769,7 +768,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void KnockDown()
     {
         isDowned = true;
-        PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
+        currentHealth = 55;
+        Debug.LogError("Player Down!");
+        PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
     }
 
     [PunRPC]
@@ -778,7 +779,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (PV.IsMine)
             return;
 
-        Debug.LogError("Player Down!");
+        if (isdowned)
+            Debug.LogError("Player Down!");
+
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
         currentHealth = 55;
@@ -790,15 +793,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (!isInteractable)
             return;
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.F))
         {
             pressedTime += Time.deltaTime;
 
-            if(pressedTime >= 2.0f)
+            if (pressedTime >= 2.0f)
             {
                 pressedTime = 0;
-                Debug.LogError("2초동안 누름!");
-                other.GetComponent<PlayerController>()?.Interaction();
+                other.GetComponent<IInteractable>()?.Interaction();
+                InteractHUD.SetActive(false);
             }
         }
     }
@@ -808,7 +811,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (isDowned)
         {
             isDowned = false;
-            PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
+            currentHealth = 55;
+            PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
             Debug.LogError("Player Recovered!");
         }
     }
