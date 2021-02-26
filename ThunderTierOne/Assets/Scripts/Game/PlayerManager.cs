@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject topdownCamera;
     [SerializeField] GameObject InteractHUD;
+    [SerializeField] GameObject CursorChange;
     //[SerializeField] GameObject playerIndicator;
 
     PhotonView PV;
@@ -16,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     GameObject playerCamera;
     GameObject interactHUD;
 
-    CursorChange cursorChange;
+
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class PlayerManager : MonoBehaviour
         controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "NoCamPlayerController"),
                         spawnPoint.position, spawnPoint.rotation, 0, new object[] { PV.ViewID });
 
+        
         controller.tag = "MyChar";
 
         playerCamera = Instantiate(topdownCamera, spawnPoint.position, Quaternion.Euler(60, 0, 0));
@@ -50,7 +52,8 @@ public class PlayerManager : MonoBehaviour
 
         controller.GetComponentInChildren<BillBoard>().BindCamera(camera);
         controller.GetComponentInChildren<Image>().color = new Color32(255, 151, 26, 255);
-        //cursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponentInChildren<Camera>()) ;
+
+        CursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponent<Camera>()) ;
 
         GameObject Canvas = GameObject.Find("Canvas");
         interactHUD = Instantiate(InteractHUD);

@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool Aiming = false;
     bool isShooting = false;
     bool isobscuration = false;
+    bool isCovering = false;
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
@@ -133,8 +134,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-        RandReCoil.x = Random.Range(75, 85);
-        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
+        //RandReCoil.x = Random.Range(75, 85);
+        //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
 
         while (Bullets[BulletIndex].activeInHierarchy)
         {
@@ -161,22 +162,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Bullets[BulletIndex].transform.rotation = Quaternion.identity;
                 TakeDamage(25);
                 break;
-        }
+
+           
+        }   
     }
 
+    public void OnCollisionExit(Collision collision)
+    {
+       
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.tag == "Bullet")
-        //{
-        //    TakeDamage(40);
-        //}                                                                                                
-
-        if(other.gameObject.layer  == LayerMask.NameToLayer("Wall"))
-        {
-            Debug.Log("벽에 붙을 수 있음");
-        }
-
+                                                                                                 
         if(!isDowned && other.tag == "Player")
         {
             RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
@@ -188,6 +186,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             InteractHUD.SetActive(true);
             InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
             Debug.Log("상호작용 가능한 플레이어가 근처에 있습니다.");
+        }
+
+        if (other.tag == "Wall")
+        {
+            RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+            Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
+
+
+            InteractHUD.SetActive(true);
+            InteractHUD.GetComponent<RectTransform>().anchoredPosition = this.transform.position;
+            isCovering = true;
+           
         }
     }
 
@@ -211,6 +221,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             InteractHUD.SetActive(false);
         }
+
+        switch (other.transform.tag)
+        {
+            case "Wall":
+                InteractHUD.SetActive(false);
+                isCovering = false;
+                break;
+
+        }
     }
 
     private void Update()
@@ -229,6 +248,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
       
         Reload();
+        Covering();
+     
 
         if (transform.position.y < -10f)
         {
@@ -244,8 +265,46 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
     
+    void Covering()
+    {
+        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y +0.5f, transform.position.z), transform.forward * 50, Color.red);
+
+        //if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.forward, out RaycastHit hit))
+        //{
+        //    switch (hit.collider.tag)
+        //    {
+        //        case "Wall":
+        //            isCovering = true;
+        //            break;
+
+        //    }
+        //}
+        //else
+        //    isCovering = false;
+
+        if (isCovering)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                anim.SetBool("Cover", true);
+             
+            }
+        }
+        else
+        {
+            anim.SetBool("Cover", false);
+        }
+        if(anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+                anim.SetBool("Cover", false);
+        }
+
+    }
+
     void Reload()
     {
+        
         if (currentBulletCount == 0 && carryBulletCount == 0)
         {
             photonView.RPC("OffEffect", RpcTarget.All, null);
@@ -273,6 +332,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [PunRPC]
     void AniReload()
     {
+        if(PV.IsMine)
         anim.SetBool(IsReloadingHash, true);
     }
 
@@ -775,7 +835,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (PV.IsMine)
             return;
 
-        Debug.LogError("Player Down!");
+
         isDowned = true;
         GetComponent<SphereCollider>().enabled = true;
         currentHealth = 55;

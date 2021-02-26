@@ -12,6 +12,7 @@ TagManager:
   - Concrete
   - Wood
   - InteractHUD
+  - Wall
   layers:
   - Default
   - TransparentFX
