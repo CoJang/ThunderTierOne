@@ -53,8 +53,6 @@ public class PlayerManager : MonoBehaviour
         controller.GetComponentInChildren<BillBoard>().BindCamera(camera);
         controller.GetComponentInChildren<Image>().color = new Color32(255, 151, 26, 255);
 
-        CursorChange.GetComponent<CursorChange>().FindCamera(playerCamera.GetComponent<Camera>()) ;
-
         GameObject Canvas = GameObject.Find("Canvas");
         interactHUD = Instantiate(InteractHUD);
         interactHUD.transform.SetParent(Canvas.transform);

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isShooting = false;
     bool isobscuration = false;
     bool isCovering = false;
+    bool Cover = false;
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
@@ -134,8 +135,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-        //RandReCoil.x = Random.Range(75, 85);
-        //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
+        RandReCoil.x = Random.Range(78 , 83);
+        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
 
         while (Bullets[BulletIndex].activeInHierarchy)
         {
@@ -291,7 +292,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown(KeyCode.F))
             {
                 anim.SetBool("Cover", true);
-             
+
+                Cover = true;
+
             }
         }
         else
@@ -453,7 +456,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (moveDir.sqrMagnitude > 0.05f)
             SoundManager.Instance.Walk();
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) )
         {
             Crouching = true;
             anim.SetBool("Crouching", true);
@@ -468,7 +471,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
                         ref smoothMoveVelocity, smoothTime);
         }
-
+        if(Cover)
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
+                       ref smoothMoveVelocity, smoothTime);
 
         AnimControlVelocity.x += moveAmount.x * Time.deltaTime * 2;
         AnimControlVelocity.y += moveAmount.z * Time.deltaTime;
@@ -478,7 +483,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (moveDir.x == 0 && AnimControlVelocity.x > 0)
         {
-            if (Crouching)
+            if (Crouching || Cover)
                 AnimControlVelocity.x -= CrouchingDecreaseFactor;
             else
                 AnimControlVelocity.x -= DecreaseFactor;
@@ -490,7 +495,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
 
 
-            if (Crouching)
+            if (Crouching || Cover)
                 AnimControlVelocity.x += CrouchingDecreaseFactor;
             else
                 AnimControlVelocity.x += DecreaseFactor;
@@ -530,6 +535,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
             anim.SetFloat("Vertical", AnimControlVelocity.y * 0.8f);
         }
+
+        if (isCovering)
+        {
+            anim.SetFloat("Horizontal", AnimControlVelocity.x );
+            anim.SetFloat("Vertical", AnimControlVelocity.y );
+        }
     }
 
     void Look()
@@ -557,6 +568,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
+
+            if(hit.collider.tag == "Player")
+                PlayerAim.Instance.TargetCursor();
+            else
+                PlayerAim.Instance.DefaultCursor();
+
         }
 
         //if (Physics.Raycast(BulletPos.transform.position, BulletPos.transform.forward, out hit, 30))
@@ -843,7 +860,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         isDowned = true;
         GetComponent<SphereCollider>().enabled = true;
 
-        Debug.LogError("Player Down!");
+        //Debug.LogError("Player Down!");
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
 
