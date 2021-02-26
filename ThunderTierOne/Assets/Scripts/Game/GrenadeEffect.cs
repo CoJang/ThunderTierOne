@@ -29,7 +29,7 @@ public class GrenadeEffect : MonoBehaviour
 
         foreach(RaycastHit hitObj in rayHits)
         {
-            hitObj.transform.GetComponent<PlayerController>().TakeDamage(99);
+            hitObj.transform.GetComponent<PlayerController>().TakeDamage(50);
         }
         Destroy(this.gameObject, 1.0f);
        

@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool Aiming = false;
     bool isShooting = false;
     bool isobscuration = false;
+    bool isCovering = false;
+    bool Cover = false;
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
@@ -133,7 +135,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-        RandReCoil.x = Random.Range(75, 85);
+        RandReCoil.x = Random.Range(78 , 83);
         Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
 
         while (Bullets[BulletIndex].activeInHierarchy)
@@ -161,22 +163,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Bullets[BulletIndex].transform.rotation = Quaternion.identity;
                 TakeDamage(25);
                 break;
-        }
+
+           
+        }   
     }
 
+    public void OnCollisionExit(Collision collision)
+    {
+       
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.tag == "Bullet")
-        //{
-        //    TakeDamage(40);
-        //}                                                                                                
-
-        if(other.gameObject.layer  == LayerMask.NameToLayer("Wall"))
-        {
-            Debug.Log("벽에 붙을 수 있음");
-        }
-
+                                                                                                 
         if(!isDowned && other.tag == "Player")
         {
             RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
@@ -190,6 +189,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             InteractHUD.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
             Debug.Log("상호작용 가능한 플레이어가 근처에 있습니다.");
             Interact(other);
+        }
+
+        if (other.tag == "Wall")
+        {
+            RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+            Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
+
+
+            InteractHUD.SetActive(true);
+            InteractHUD.GetComponent<RectTransform>().anchoredPosition = this.transform.position;
+            isCovering = true;
+           
         }
     }
 
@@ -215,6 +226,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             InteractHUD.SetActive(false);
             isInteractable = false;
         }
+
+        switch (other.transform.tag)
+        {
+            case "Wall":
+                InteractHUD.SetActive(false);
+                isCovering = false;
+                break;
+
+        }
     }
 
     private void Update()
@@ -232,6 +252,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             Shoot();
 
         Reload();
+        Covering();
+     
 
         if (transform.position.y < -10f)
         {
@@ -247,8 +269,48 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
     
+    void Covering()
+    {
+        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y +0.5f, transform.position.z), transform.forward * 50, Color.red);
+
+        //if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.forward, out RaycastHit hit))
+        //{
+        //    switch (hit.collider.tag)
+        //    {
+        //        case "Wall":
+        //            isCovering = true;
+        //            break;
+
+        //    }
+        //}
+        //else
+        //    isCovering = false;
+
+        if (isCovering)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                anim.SetBool("Cover", true);
+
+                Cover = true;
+
+            }
+        }
+        else
+        {
+            anim.SetBool("Cover", false);
+        }
+        if(anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+                anim.SetBool("Cover", false);
+        }
+
+    }
+
     void Reload()
     {
+        
         if (currentBulletCount == 0 && carryBulletCount == 0)
         {
             photonView.RPC("OffEffect", RpcTarget.All, null);
@@ -276,6 +338,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [PunRPC]
     void AniReload()
     {
+        if(PV.IsMine)
         anim.SetBool(IsReloadingHash, true);
     }
 
@@ -392,7 +455,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (moveDir.sqrMagnitude > 0.05f)
             SoundManager.Instance.Walk();
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) )
         {
             Crouching = true;
             anim.SetBool("Crouching", true);
@@ -407,7 +470,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
                         ref smoothMoveVelocity, smoothTime);
         }
-
+        if(Cover)
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
+                       ref smoothMoveVelocity, smoothTime);
 
         AnimControlVelocity.x += moveAmount.x * Time.deltaTime * 2;
         AnimControlVelocity.y += moveAmount.z * Time.deltaTime;
@@ -417,7 +482,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (moveDir.x == 0 && AnimControlVelocity.x > 0)
         {
-            if (Crouching)
+            if (Crouching || Cover)
                 AnimControlVelocity.x -= CrouchingDecreaseFactor;
             else
                 AnimControlVelocity.x -= DecreaseFactor;
@@ -429,7 +494,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
 
 
-            if (Crouching)
+            if (Crouching || Cover)
                 AnimControlVelocity.x += CrouchingDecreaseFactor;
             else
                 AnimControlVelocity.x += DecreaseFactor;
@@ -469,6 +534,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
             anim.SetFloat("Vertical", AnimControlVelocity.y * 0.8f);
         }
+
+        if (isCovering)
+        {
+            anim.SetFloat("Horizontal", AnimControlVelocity.x );
+            anim.SetFloat("Vertical", AnimControlVelocity.y );
+        }
     }
 
     void Look()
@@ -496,6 +567,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
+
+            if(hit.collider.tag == "Player")
+                PlayerAim.Instance.TargetCursor();
+            else
+                PlayerAim.Instance.DefaultCursor();
+
         }
 
         //if (Physics.Raycast(BulletPos.transform.position, BulletPos.transform.forward, out hit, 30))
@@ -769,7 +846,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         isDowned = true;
         currentHealth = 55;
-        Debug.LogError("Player Down!");
+        Debug.Log("Player Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
     }
 
@@ -780,10 +857,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         if (isdowned)
-            Debug.LogError("Player Down!");
+            Debug.Log("Player Down!");
 
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
+
         currentHealth = 55;
     }
 
@@ -813,7 +891,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             isDowned = false;
             currentHealth = 55;
             PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
-            Debug.LogError("Player Recovered!");
+            Debug.Log("Player Recovered!");
         }
     }
 }

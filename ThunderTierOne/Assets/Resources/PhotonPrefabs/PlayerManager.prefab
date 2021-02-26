@@ -68,3 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topdownCamera: {fileID: 5522112677916777177, guid: 1e1ecd68296a4d849955a319e01feada, type: 3}
   InteractHUD: {fileID: 1083139221774571777, guid: 98cca0b3d5454854093cf43f40468cfe, type: 3}
+  CursorChange: {fileID: 4503294844348840879, guid: d654c1ea4ba1e7146a64e7e8b34997bb, type: 3}
