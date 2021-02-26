@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject topdownCamera;
     [SerializeField] GameObject InteractHUD;
-    [SerializeField] GameObject CursorChange;
+    
     //[SerializeField] GameObject playerIndicator;
 
     PhotonView PV;

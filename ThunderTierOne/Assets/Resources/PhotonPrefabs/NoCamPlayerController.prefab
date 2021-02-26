@@ -1316,7 +1316,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4503294844348999567}
-  - component: {fileID: 8758226697801837643}
   - component: {fileID: 4503294844358346797}
   - component: {fileID: 7154329067950624738}
   - component: {fileID: 5958583583584193664}
@@ -1356,18 +1355,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8758226697801837643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503294844348840879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eb23a55aaec63240a329aa98ba35509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &4503294844358346797
 Animator:
   serializedVersion: 3
@@ -1557,6 +1544,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: AimingSwap
+  - Type: 4
+    SynchronizeType: 0
+    Name: Cover
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -2762,14 +2752,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3401182291910953655, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
---- !u!4 &354383845361066909 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
-  m_PrefabInstance: {fileID: 6573733040930065117}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2156557925838849665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5104607384044506204, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
+  m_PrefabInstance: {fileID: 6573733040930065117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &354383845361066909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
   m_PrefabInstance: {fileID: 6573733040930065117}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7428163182789098720
