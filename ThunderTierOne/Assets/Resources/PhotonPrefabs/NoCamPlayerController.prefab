@@ -1411,6 +1411,7 @@ MonoBehaviour:
   crouchingSpeed: 1
   smoothTime: 0.15
   jumpForce: 150
+  runSpeed: 6
   playerCamera: {fileID: 0}
   currentHealth: 100
   throwVelocity: 5.5
@@ -1547,6 +1548,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: Cover
+  - Type: 4
+    SynchronizeType: 0
+    Name: Running
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
