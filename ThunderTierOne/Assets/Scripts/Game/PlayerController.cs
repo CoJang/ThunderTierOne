@@ -175,7 +175,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void OnTriggerEnter(Collider other)
     {
-                                                                                                 
         if(!isDowned && other.tag == "Player")
         {
             RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
@@ -193,14 +192,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (other.tag == "Wall")
         {
-            RectTransform CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
-            Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(other.transform.position);
-
-
             InteractHUD.SetActive(true);
-            InteractHUD.GetComponent<RectTransform>().anchoredPosition = this.transform.position;
+            InteractHUD.GetComponent<RectTransform>().anchoredPosition = transform.position;
             isCovering = true;
-           
         }
     }
 
@@ -221,19 +215,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            InteractHUD.SetActive(false);
-            isInteractable = false;
-        }
-
-        switch (other.transform.tag)
+        switch (other.tag)
         {
             case "Wall":
                 InteractHUD.SetActive(false);
                 isCovering = false;
                 break;
-
+            case "Player":
+                InteractHUD.SetActive(false);
+                isInteractable = false;
+                break;
         }
     }
 
@@ -846,7 +837,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         isDowned = true;
         currentHealth = 55;
-        Debug.Log("Player Down!");
+        Debug.LogError("Player Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
     }
 
@@ -857,7 +848,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         if (isdowned)
-            Debug.Log("Player Down!");
+            Debug.LogError("Player Down!");
 
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
@@ -891,7 +882,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             isDowned = false;
             currentHealth = 55;
             PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
-            Debug.Log("Player Recovered!");
+            Debug.LogError("Player Recovered!");
         }
     }
 }
