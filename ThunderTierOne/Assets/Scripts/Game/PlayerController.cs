@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isobscuration = false;
     bool isCovering = false;
     bool Cover = false;
+    bool isRunning = false;
     #endregion
 
     int IsReloadingHash = Animator.StringToHash("IsReloading");
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isGrounded;
     Vector3 moveAmount;
     Vector3 smoothMoveVelocity;
-    [SerializeField] float silencespeed, walkSpeed, crouchingSpeed, smoothTime, jumpForce;
+    [SerializeField] float silencespeed, walkSpeed, crouchingSpeed, smoothTime, jumpForce , runSpeed;
     #endregion
 
     #region Player Control Essentials
@@ -296,15 +297,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Cover = true;
 
             }
+           
         }
         else
         {
+            Cover = false;
             anim.SetBool("Cover", false);
         }
-        if(anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
+        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
         {
             if (Input.GetKeyDown(KeyCode.F))
+            {
                 anim.SetBool("Cover", false);
+                Cover = false;
+            }
         }
 
     }
@@ -456,7 +462,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (moveDir.sqrMagnitude > 0.05f)
             SoundManager.Instance.Walk();
 
-        if (Input.GetKey(KeyCode.LeftControl) )
+        if (Input.GetKey(KeyCode.C) )
         {
             Crouching = true;
             anim.SetBool("Crouching", true);
@@ -468,10 +474,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             Crouching = false;
             anim.SetBool("Crouching", false);
-            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? silencespeed : walkSpeed),
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftControl) ? silencespeed : walkSpeed),
                         ref smoothMoveVelocity, smoothTime);
         }
-        if(Cover)
+
+        if (!Cover&& !Crouching && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
+            anim.SetBool("Running", true);
+            moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * runSpeed,
+                       ref smoothMoveVelocity, smoothTime);
+        }
+        else
+        {
+            anim.SetBool("Running", false);
+        }
+
+        if (Cover)
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * crouchingSpeed,
                        ref smoothMoveVelocity, smoothTime);
 
@@ -860,7 +878,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         isDowned = true;
         GetComponent<SphereCollider>().enabled = true;
 
-        //Debug.LogError("Player Down!");
+        Debug.Log("Player Down!");
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
 
