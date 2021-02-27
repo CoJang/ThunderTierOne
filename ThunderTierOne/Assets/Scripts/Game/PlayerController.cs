@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     Rigidbody rb;
     PhotonView PV;
     PlayerManager playerManager;
+    Indicator indicator;
     #endregion
 
     #region Spine Rotation Variables
@@ -105,14 +106,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
       
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
-        reticle = GameObject.Find("Reticle").GetComponent<Reticle>();
     }
 
     private void Start()
     {
+        reticle = GameObject.Find("Reticle").GetComponent<Reticle>();
+        reticle.SetActive(false);
+        indicator = GetComponentInChildren<Indicator>();
+
         Bullets = new List<GameObject>();
         BulletIndex = 0;
-        for (int i =0; i < reloadBulletCount; i++)
+        for (int i = 0; i < reloadBulletCount; i++)
         {
             GameObject obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
             obj.SetActive(false);
@@ -144,7 +148,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         while (Bullets[BulletIndex].activeInHierarchy)
         {
             BulletIndex = (BulletIndex+1) % reloadBulletCount;
-
         }
        
         Bullets[BulletIndex].SetActive(true);
@@ -247,8 +250,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         Reload();
         Covering();
-
-        if (!isDowned)
+     
+        if(!isDowned)
             anim.SetBool("KnockDown", false);
 
         if (transform.position.y < -10f)
@@ -289,7 +292,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 anim.SetBool("Cover", true);
 
                 Cover = true;
-
+                indicator.ChangeIndicator(Indicator.INDICATOR.COVERED);
             }
            
         }
@@ -297,6 +300,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             Cover = false;
             anim.SetBool("Cover", false);
+
+            if(!isDowned)
+                indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
         }
         if (anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
         {
@@ -304,6 +310,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 anim.SetBool("Cover", false);
                 Cover = false;
+
+                if (!isDowned)
+                    indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
             }
         }
 
@@ -356,6 +365,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (isRightDown)
             {
                 anim.SetBool("Aiming", true);
+                reticle.SetActive(true);
             }
 
             if (isLeftDown)
@@ -368,11 +378,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                     anim.SetBool("Firing", true); //반동 애니메이션
                     photonView.RPC("GunFiring", RpcTarget.All, null);
                     //items[itemIndex].Use();
-                    
+                    reticle.SetActive(true);
                 }
                 else
                 {
-                
+                    reticle.SetActive(true);
                     anim.SetBool("Aiming", true);
                     anim.SetBool("Firing", false);
                 }
@@ -388,6 +398,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 Aiming = false;
                 anim.SetBool("Aiming", false);
+                reticle.SetActive(false);
             }
 
         }
@@ -397,9 +408,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Look();
 
-        if(moveAmount.magnitude > 0)
+        if (moveAmount.normalized.magnitude.AlmostEquals(1.0f, 0.1f))
         {
-            ReticleEffect();
+            reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);
+        }
+        else
+        {
+            float destSize = Mathf.Lerp(reticle.reticleSize, 120, Time.deltaTime);
+            reticle.SetReticleSize(destSize);
         }
     }
 
@@ -860,10 +876,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void KnockDown()
     {
         isDowned = true;
-        anim.SetBool("KnockDown", isDowned);
         currentHealth = 55;
         Debug.Log("I'm Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
+        anim.SetBool("KnockDown", isDowned);
+        indicator.ChangeIndicator(Indicator.INDICATOR.DOWNED);
     }
 
     [PunRPC]
@@ -873,8 +890,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         if (isdowned)
+        {
             Debug.Log("Player Down!");
-
+            indicator.ChangeIndicator(Indicator.INDICATOR.DOWNED);
+        }
+        else
+        {
+            indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
+        }
 
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
@@ -892,13 +915,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             pressedTime += Time.deltaTime;
             anim.SetBool("Save", true);
-            if (pressedTime >= 3.0f)
+            if (pressedTime >= 2.0f)
             {
                 anim.SetBool("Save", false);
+                isDowned = true;
                 pressedTime = 0;
-
                 other.GetComponent<IInteractable>()?.Interaction();
-
                 InteractHUD.SetActive(false);
             }
         }
@@ -906,7 +928,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             anim.SetBool("Save", false);
         }
-        
     }
 
     public void Interaction()
@@ -915,16 +936,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             PV.RPC("Save", RpcTarget.All);
             currentHealth = 55;
-            anim.SetBool("KnockDown", isDowned);
             PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
+        
+            indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
             Debug.Log("Player Recovered!");
         }
     }
+    
     [PunRPC]
     void Save()
     {
         isDowned = false;
     }
+
+
     void ReticleEffect()
     {
         reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);
