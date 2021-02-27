@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     bool isDowned = false;
     bool isInteractable = false;
     GameObject InteractHUD;
+    Reticle reticle;
 
     private void Awake()
     {
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
       
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+        reticle = GameObject.Find("Reticle").GetComponent<Reticle>();
     }
 
     private void Start()
@@ -392,6 +394,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     private void LateUpdate()
     {
         Look();
+
+        if(moveAmount.magnitude > 0)
+        {
+            ReticleEffect();
+        }
     }
 
     [PunRPC]
@@ -806,13 +813,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         Debug.Log("SwapEnd");
         IsSwapDelay = false;
-
-
     }
+
     IEnumerator ItemDelay()
     {
         yield return new WaitForSeconds(1.5f);
-
     }
 
 
@@ -823,6 +828,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
       
         IsReloading = true;
     }
+
     void OnReloadingEnd()
     {
         ReloadImage.ReloadEnd();
@@ -842,8 +848,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             currentBulletCount = carryBulletCount;
             carryBulletCount = 0;
         }
-
-     
     }
 
     void OnShootingStart()
@@ -855,7 +859,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         isDowned = true;
         currentHealth = 55;
-        Debug.LogError("Player Down!");
+        Debug.Log("I'm Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
     }
 
@@ -866,13 +870,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             return;
 
         if (isdowned)
-            Debug.LogError("Player Down!");
-
-
-        isDowned = true;
-        GetComponent<SphereCollider>().enabled = true;
-
-        Debug.Log("Player Down!");
+            Debug.Log("Player Down!");
 
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
@@ -906,7 +904,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             isDowned = false;
             currentHealth = 55;
             PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
-            Debug.LogError("Player Recovered!");
+            Debug.Log("Player Recovered!");
         }
+    }
+
+    void ReticleEffect()
+    {
+        reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);
     }
 }
