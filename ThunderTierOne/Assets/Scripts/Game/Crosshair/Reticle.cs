@@ -24,10 +24,10 @@ public class Reticle : MonoBehaviour
         lines = GetComponentsInChildren<Image>();
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
         
-    }
+    //}
 
     public void SetReticleColor(Color32 color)
     {
@@ -42,7 +42,7 @@ public class Reticle : MonoBehaviour
     {
         if(reticleSize != size)
         {
-            Mathf.Clamp(size, minSize, maxSize);
+            size = Mathf.Clamp(size, minSize, maxSize);
 
             reticleSize = size;
             OnChangeSize();
@@ -51,8 +51,7 @@ public class Reticle : MonoBehaviour
 
     void OnChangeSize()
     {
-        float newSize = Mathf.Lerp(reticle.sizeDelta.x, reticleSize, Time.deltaTime * decreaseSpeed);
-        reticle.sizeDelta = new Vector2(newSize, newSize);
+        reticle.sizeDelta = new Vector2(reticleSize, reticleSize);
     }
 
     void OnChangeColor()
@@ -60,6 +59,14 @@ public class Reticle : MonoBehaviour
         foreach(Image reticles in lines)
         {
             reticles.color = lineColor;
+        }
+    }
+
+    public void SetActive(bool activeState)
+    {
+        foreach (Image reticles in lines)
+        {
+            reticles.enabled = activeState;
         }
     }
 }
