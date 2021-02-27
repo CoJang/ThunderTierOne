@@ -918,7 +918,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (pressedTime >= 2.0f)
             {
                 anim.SetBool("Save", false);
-                isDowned = true;
+            
                 pressedTime = 0;
                 other.GetComponent<IInteractable>()?.Interaction();
                 InteractHUD.SetActive(false);
