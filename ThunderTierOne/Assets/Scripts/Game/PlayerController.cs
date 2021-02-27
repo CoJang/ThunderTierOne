@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] int carryBulletCount;
 
     // Temp Player State
-    bool isDowned = false;
+    [SerializeField] bool isDowned = false;
     bool isInteractable = false;
     GameObject InteractHUD;
     Reticle reticle;
@@ -247,7 +247,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         Reload();
         Covering();
-     
+
+        if (!isDowned)
+            anim.SetBool("KnockDown", false);
 
         if (transform.position.y < -10f)
         {
@@ -858,6 +860,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void KnockDown()
     {
         isDowned = true;
+        anim.SetBool("KnockDown", isDowned);
         currentHealth = 55;
         Debug.Log("I'm Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
@@ -871,6 +874,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (isdowned)
             Debug.Log("Player Down!");
+
 
         isDowned = isdowned;
         GetComponent<SphereCollider>().enabled = isdowned;
@@ -887,27 +891,40 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (Input.GetKey(KeyCode.F))
         {
             pressedTime += Time.deltaTime;
-
-            if (pressedTime >= 2.0f)
+            anim.SetBool("Save", true);
+            if (pressedTime >= 3.0f)
             {
+                anim.SetBool("Save", false);
                 pressedTime = 0;
+
                 other.GetComponent<IInteractable>()?.Interaction();
+
                 InteractHUD.SetActive(false);
             }
         }
+        else
+        {
+            anim.SetBool("Save", false);
+        }
+        
     }
 
     public void Interaction()
     {
         if (isDowned)
         {
-            isDowned = false;
+            PV.RPC("Save", RpcTarget.All);
             currentHealth = 55;
-            PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
+            anim.SetBool("KnockDown", isDowned);
+            PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
             Debug.Log("Player Recovered!");
         }
     }
-
+    [PunRPC]
+    void Save()
+    {
+        isDowned = false;
+    }
     void ReticleEffect()
     {
         reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);

@@ -1427,6 +1427,7 @@ MonoBehaviour:
   reloadBulletCount: 30
   currentBulletCount: 30
   carryBulletCount: 180
+  isDowned: 0
 --- !u!136 &8085825836986382842
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1546,11 +1547,17 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: AimingSwap
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Cover
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Running
+  - Type: 4
+    SynchronizeType: 1
+    Name: KnockDown
+  - Type: 4
+    SynchronizeType: 1
+    Name: Save
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
