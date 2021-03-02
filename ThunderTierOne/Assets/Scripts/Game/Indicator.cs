@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,5 +36,10 @@ public class Indicator : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void ChangeIndicator(int indicatorIndex)
+    {
+        ChangeIndicator((INDICATOR)indicatorIndex);
     }
 }
