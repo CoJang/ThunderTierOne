@@ -10,7 +10,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable, IInteractable
 {
     #region Animator Variables
-    Animator anim;
+    public Animator anim;
     Vector2 AnimControlVelocity = Vector2.zero;
     float CrouchingDecreaseFactor = 0.1f;
     float DecreaseFactor = 0.1f;
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     GameObject InteractHUD;
     Reticle reticle;
 
+
+    public bool CrouchingState { get { return Crouching; } set { Crouching = value; } }
     private void Awake()
     {
         ReloadImage = GameObject.Find("Reload").GetComponent<ReloadCursor>();
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
         RandReCoil.x = Random.Range(78 , 83);
-        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
+        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 315, 0);
 
         while (Bullets[BulletIndex].activeInHierarchy)
         {
@@ -165,7 +167,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             case "Bullet":
                 Debug.Log("TakeDamage");
 
-                Bullets[BulletIndex].transform.position = Vector3.zero;
+                Bullets[BulletIndex].transform.position = new Vector3(-99.0f, -99.0f, -99.0f);
                 Bullets[BulletIndex].transform.rotation = Quaternion.identity;
                 TakeDamage(25);
                 break;
@@ -391,7 +393,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
-                Muzzle.transform.localRotation = Quaternion.Euler(80, 330, 0);
+                Muzzle.transform.localRotation = Quaternion.Euler(80, 315, 0);
             }
 
             if (!isLeftDown && !isRightDown)
@@ -474,8 +476,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-        if (moveDir.sqrMagnitude > 0.05f)
-            SoundManager.Instance.Walk();
+      
 
         if (Input.GetKey(KeyCode.C) )
         {
@@ -496,11 +497,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (!Cover&& !Crouching && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
             anim.SetBool("Running", true);
+            isRunning = true;
             moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * runSpeed,
                        ref smoothMoveVelocity, smoothTime);
         }
         else
         {
+            isRunning = false;
             anim.SetBool("Running", false);
         }
 
@@ -953,5 +956,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void ReticleEffect()
     {
         reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);
+    }
+
+    void WalkSound()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Walk"))
+            SoundManager.Instance.Walk();
+
+        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Crouching"))
+            SoundManager.Instance.Crouching();
+
+          if (anim.GetCurrentAnimatorStateInfo(3).IsName("Run"))
+            SoundManager.Instance.Walk();
+
     }
 }

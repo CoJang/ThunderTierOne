@@ -3850,7 +3850,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -8207,7 +8207,7 @@ GameObject:
   - component: {fileID: 5923210514422286636}
   - component: {fileID: 5923210514421156844}
   - component: {fileID: 5923210514416810892}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TileSoilWater
   m_TagString: Ground
   m_Icon: {fileID: 0}

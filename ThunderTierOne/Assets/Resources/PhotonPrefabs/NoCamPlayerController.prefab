@@ -1402,6 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdd17187b3162042a6db75c61c3ee3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   items:
   - {fileID: 2538122738863577974}
   - {fileID: 8688900399462156303}
@@ -1411,7 +1412,7 @@ MonoBehaviour:
   crouchingSpeed: 1
   smoothTime: 0.15
   jumpForce: 150
-  runSpeed: 6
+  runSpeed: 1
   playerCamera: {fileID: 0}
   currentHealth: 100
   throwVelocity: 5.5
@@ -1426,7 +1427,7 @@ MonoBehaviour:
   G_Count: 2
   reloadBulletCount: 30
   currentBulletCount: 30
-  carryBulletCount: 180
+  carryBulletCount: 100
   isDowned: 0
 --- !u!136 &8085825836986382842
 CapsuleCollider:
@@ -1441,7 +1442,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 2.6
   m_Direction: 1
-  m_Center: {x: 0, y: 1.3, z: 0}
+  m_Center: {x: 0, y: 1.14, z: 0}
 --- !u!195 &3357132422767128418
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1461,7 +1462,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 0
   m_Height: 2.11
-  m_BaseOffset: -0.03
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
 --- !u!114 &-8680000490765256855
@@ -1558,6 +1559,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: Save
+  - Type: 4
+    SynchronizeType: 0
+    Name: Walk
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -1829,7 +1833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4503294844348999631
 Transform:
   m_ObjectHideFlags: 0
