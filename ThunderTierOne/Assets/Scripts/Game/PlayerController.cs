@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     // Temp Player State
     [SerializeField] bool isDowned = false;
+    [SerializeField] Transform HandleTransform;
+    [SerializeField] Transform GunTransform;
     bool isInteractable = false;
     GameObject InteractHUD;
     Reticle reticle;
@@ -136,13 +138,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     //반동
     Vector3 RandReCoil;
+    int minRecoil = 78;
+    int maxRecoil = 83;
 
     [PunRPC]
     void GunFiring()
     {
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-        RandReCoil.x = Random.Range(78 , 83);
+        RandReCoil.x = Random.Range(minRecoil, maxRecoil);
         Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 330, 0);
 
         while (Bullets[BulletIndex].activeInHierarchy)
@@ -172,11 +176,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
            
         }   
-    }
-
-    public void OnCollisionExit(Collision collision)
-    {
-       
     }
 
     void OnTriggerEnter(Collider other)
@@ -260,12 +259,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
 
         if (itemIndex == 2)
-            GrednadeThrow(); // 인풋
-
-        if (itemIndex == 1 || itemIndex == 0)
-        {
+            GrednadeThrow();
+        else
             GrenadeOrbit.SetActive(false);
-        }
     }
     
     void Covering()
@@ -292,7 +288,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 anim.SetBool("Cover", true);
 
                 Cover = true;
-                indicator.ChangeIndicator(Indicator.INDICATOR.COVERED);
+                ChangeIndicator(Indicator.INDICATOR.COVERED);
             }
            
         }
@@ -302,8 +298,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             anim.SetBool("Cover", false);
 
             if(!isDowned)
-                indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
+                ChangeIndicator(Indicator.INDICATOR.NORMAL);
         }
+
         if (anim.GetCurrentAnimatorStateInfo(3).IsName("Cover"))
         {
             if (Input.GetKeyDown(KeyCode.F))
@@ -312,7 +309,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Cover = false;
 
                 if (!isDowned)
-                    indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
+                    ChangeIndicator(Indicator.INDICATOR.NORMAL);
             }
         }
 
@@ -376,6 +373,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
                     SoundManager.Instance.Fire();
                     anim.SetBool("Firing", true); //반동 애니메이션
+                    reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
                     photonView.RPC("GunFiring", RpcTarget.All, null);
                     //items[itemIndex].Use();
                     reticle.SetActive(true);
@@ -406,7 +404,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void LateUpdate()
     {
-        Look();
+        //if(!isDowned)
+            Look();
 
         if (moveAmount.normalized.magnitude.AlmostEquals(1.0f, 0.1f))
         {
@@ -580,6 +579,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         if (!PV.IsMine)
         {
+            //GunTransform.LookAt(lookTarget);
+
             spine.LookAt(lookTarget);
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
@@ -594,13 +595,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (hit.collider.tag == "MyChar")
                 return;
 
+            //GunTransform.rotation.
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
-            spine.LookAt(lookTarget);
+            //spine.LookAt(lookTarget);
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
-
-            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            spine.rotation = spineRot;
+            Debug.DrawLine(ray.origin, lookTarget, Color.green);
+            Debug.DrawRay(GunTransform.position, GunTransform.forward);
+            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            //spine.rotation = spineRot;
 
             if(hit.collider.tag == "Player")
                 PlayerAim.Instance.TargetCursor();
@@ -879,8 +882,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         currentHealth = 55;
         Debug.Log("I'm Down!");
         PV.RPC("RPC_PlayerDown", RpcTarget.All, true);
-        anim.SetBool("KnockDown", isDowned);
-        indicator.ChangeIndicator(Indicator.INDICATOR.DOWNED);
+        anim.SetBool("KnockDown", true);
+        ChangeIndicator(Indicator.INDICATOR.DOWNED);
     }
 
     [PunRPC]
@@ -891,12 +894,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         if (isdowned)
         {
-            Debug.Log("Player Down!");
-            indicator.ChangeIndicator(Indicator.INDICATOR.DOWNED);
+            Debug.Log("Player Down! " + isdowned);
         }
         else
         {
-            indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
+            Debug.Log("Player Recovered! " + isdowned);
         }
 
         isDowned = isdowned;
@@ -936,9 +938,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             PV.RPC("Save", RpcTarget.All);
             currentHealth = 55;
-            PV.RPC("RPC_PlayerDown", RpcTarget.All, isDowned);
-        
-            indicator.ChangeIndicator(Indicator.INDICATOR.NORMAL);
+            PV.RPC("RPC_PlayerDown", RpcTarget.All, false);
+
+            ChangeIndicator(Indicator.INDICATOR.NORMAL);
             Debug.Log("Player Recovered!");
         }
     }
@@ -953,5 +955,34 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void ReticleEffect()
     {
         reticle.SetReticleSize(reticle.reticleSize + moveAmount.magnitude);
+    }
+
+    void ChangeIndicator(Indicator.INDICATOR indicatorType)
+    {
+        // Play on Local
+        indicator.ChangeIndicator(indicatorType);
+
+        // Play on Remote
+        PV.RPC("RPC_SyncIndicator", RpcTarget.Others, indicatorType);
+    }
+
+    [PunRPC]
+    void RPC_SyncIndicator(Indicator.INDICATOR indicatorType)
+    {
+        indicator.ChangeIndicator(indicatorType);
+    }
+
+    // 애니메이터의 IK 갱신
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (IsReloading || IsSwapDelay)
+            return;
+
+        // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
+        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
+
+        anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
+        anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
     }
 }
