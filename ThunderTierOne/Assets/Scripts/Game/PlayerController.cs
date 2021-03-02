@@ -605,12 +605,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             //GunTransform.rotation.
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
-            //spine.LookAt(lookTarget);
+            spine.LookAt(lookTarget);
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
             Debug.DrawLine(ray.origin, lookTarget, Color.green);
             Debug.DrawRay(GunTransform.position, GunTransform.forward);
-            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            //spine.rotation = spineRot;
+            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            spine.rotation = spineRot;
 
             if(hit.collider.tag == "Player")
                 PlayerAim.Instance.TargetCursor();
