@@ -11,11 +11,13 @@ public class BulletPhysics : MonoBehaviour
 
     [SerializeField] Transform player;
 
+    PlayerController pc;
+
     // Start is called before the first frame update
     void Start()
     {
 
-       
+        pc = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
         
     }
@@ -60,11 +62,14 @@ public class BulletPhysics : MonoBehaviour
         if(gameObject.activeSelf)
             StartCoroutine("ShootRay");
 
+        Vector3 bulletVec = pc.Getmuzzle.transform.forward;
 
+        rb.AddForce(bulletVec* BulletVelocity, ForceMode.Impulse);
 
-        //rb.AddForce(bulletVec* BulletVelocity, ForceMode.Impulse);
-
-        this.transform.Translate(new Vector3(0, 0, BulletVelocity * Time.deltaTime)); // 나중에 힘으로 바꿔야함.
+      
+        if(gameObject.activeSelf == false)
+            rb.velocity = Vector3.zero;
+        //this.transform.Translate(new Vector3(0, BulletVelocity * Time.deltaTime,0)); // 나중에 힘으로 바꿔야함.
     }
 
     void OnCollisionEnter(Collision collision)
@@ -97,5 +102,6 @@ public class BulletPhysics : MonoBehaviour
         }
         this.transform.position = Vector3.zero;
         this.gameObject.SetActive(false);
+        rb.velocity = Vector3.zero; 
     }
 }

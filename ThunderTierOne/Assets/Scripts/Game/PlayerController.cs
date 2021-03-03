@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] Item[] items;
     int itemIndex = 0;
     int preItemIndex = -1;
+
+    public int ItemIndex { get { return itemIndex; } set { itemIndex = value; } }
+    public GameObject Getmuzzle { get { return Muzzle; } }
     #endregion
 
     #region Charactor Movement Variables
@@ -139,9 +142,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
-    Vector3 RandReCoil;
-    int minRecoil = 78;
-    int maxRecoil = 83;
+   public Vector3 RandReCoil;
+    public int minRecoil = 78;
+    public int maxRecoil = 83;
 
     [PunRPC]
     void GunFiring()
@@ -152,7 +155,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         RandReCoil.x = Random.Range(minRecoil, maxRecoil);
 
-        Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 315, 0);
+       Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
 
 
         while (Bullets[BulletIndex].activeInHierarchy)
@@ -395,7 +398,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
-                Muzzle.transform.localRotation = Quaternion.Euler(80, 315, 0);
+                Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, RandReCoil.y, 0);
             }
 
             if (!isLeftDown && !isRightDown)
@@ -605,12 +608,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             //GunTransform.rotation.
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
-            //spine.LookAt(lookTarget);
+            spine.LookAt(lookTarget);
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
             Debug.DrawLine(ray.origin, lookTarget, Color.green);
             Debug.DrawRay(GunTransform.position, GunTransform.forward);
-            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            //spine.rotation = spineRot;
+            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            spine.rotation = spineRot;
 
             if(hit.collider.tag == "Player")
                 PlayerAim.Instance.TargetCursor();
@@ -689,8 +692,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         if (_index == preItemIndex)
             return;
 
-        itemIndex = _index;
+        if (G_Count == 0 && _index == 2)
+            return;
 
+        itemIndex = _index;
         Aiming = false;
 
         switch (itemIndex)
@@ -704,13 +709,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 anim.SetBool("Aiming", false);
                 anim.SetTrigger("SwapGrenade");
                 break;
+            case 3://healthpack
+                anim.SetTrigger("Swap");
+
+                break;
         }
 
         items[itemIndex].itemGameObject.SetActive(false);
         anim.SetLayerWeight(itemIndex, 1);
 
-        //----
-        StartCoroutine(DelaySwap(itemIndex));
+   
 
         if (preItemIndex != -1)
         {
@@ -727,11 +735,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
 
-    }
-
-    IEnumerator DelaySwap(int index)
-    {
-        yield return new WaitForSeconds(0.5f);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

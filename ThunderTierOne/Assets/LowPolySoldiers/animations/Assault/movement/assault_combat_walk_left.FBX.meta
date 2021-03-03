@@ -212,28 +212,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.12765957
+      - time: 0.10243902
         functionName: WalkSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3829787
+      - time: 0.33694863
         functionName: WalkSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.68085104
+      - time: 0.60778415
         functionName: WalkSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.90425533
+      - time: 0.8622211
         functionName: WalkSound
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -17,11 +17,13 @@ public class PlayerManager : MonoBehaviour
     GameObject playerCamera;
     GameObject interactHUD;
 
+    UIGunState UIGun;
 
 
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
+        UIGun = FindObjectOfType<UIGunState>();
     }
 
     void Start()
@@ -61,6 +63,7 @@ public class PlayerManager : MonoBehaviour
         HUDTransform.localScale = Vector3.one;
 
         controller.GetComponent<PlayerController>().BindHUD(interactHUD);
+        UIGun.GetPlayerController(controller);
     }
 
     public void Die()
