@@ -76,12 +76,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] GameObject grenade, GrenadeOrbit;
 
     //--------------Gun
-    [SerializeField] float BulletVelocity;
     [SerializeField] GameObject Bullet;
     List<GameObject> Bullets = null;
+    GameObject obj;
     [SerializeField] int BulletIndex;
-    [SerializeField] GameObject Muzzle;
     Transform muzzleOriginTransform;
+    public GameObject Muzzle;
     [SerializeField] GameObject BulletEffect;
 
     //Delay
@@ -126,13 +126,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         Bullets = new List<GameObject>();
         BulletIndex = 0;
-        for (int i = 0; i < reloadBulletCount; i++)
+        for (int i = 0; i < 15; i++)
         {
-            GameObject obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
+            obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
+            obj.transform.parent = GameObject.Find("BulletParent").transform;
             obj.SetActive(false);
             Bullets.Add(obj);
+           
         }
-
+        
         if (PV.IsMine)
         {
             EquipItem(0);
@@ -767,12 +769,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if(!isDowned)
                 KnockDown();
             else
+            {
+                for(int i =0; i <15; ++i)
+                Destroy(Bullets[i]);
                 Die();
+            }
         }
     }
 
     void Die()
     {
+   
         isDowned = false;
         playerManager.Die();
     }

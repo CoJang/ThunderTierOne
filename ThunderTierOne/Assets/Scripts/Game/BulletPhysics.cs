@@ -22,7 +22,10 @@ public class BulletPhysics : MonoBehaviour
         
     }
 
- 
+    public void DieDestroy()
+    {
+        Destroy(this);
+    }
 
     IEnumerator ShootRay()
     {
@@ -62,7 +65,7 @@ public class BulletPhysics : MonoBehaviour
         if(gameObject.activeSelf)
             StartCoroutine("ShootRay");
 
-        Vector3 bulletVec = pc.Getmuzzle.transform.forward;
+        Vector3 bulletVec = pc.Muzzle.transform.forward;
 
         rb.AddForce(bulletVec* BulletVelocity, ForceMode.Impulse);
 
@@ -102,6 +105,6 @@ public class BulletPhysics : MonoBehaviour
         }
         this.transform.position = Vector3.zero;
         this.gameObject.SetActive(false);
-        rb.velocity = Vector3.zero; 
+        //rb.velocity = Vector3.zero; 
     }
 }
