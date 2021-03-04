@@ -79,8 +79,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] GameObject Bullet;
     List<GameObject> Bullets = null;
     GameObject obj;
+    GameObject BulletParent;
     [SerializeField] int BulletIndex;
-    Transform muzzleOriginTransform;
+    Vector3 muzzleOriginTransform;
     public GameObject Muzzle;
     [SerializeField] GameObject BulletEffect;
 
@@ -94,6 +95,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] int reloadBulletCount;
     [SerializeField] int currentBulletCount;
     [SerializeField] int carryBulletCount;
+   
+
+
 
     // Temp Player State
     [SerializeField] bool isDowned = false;
@@ -115,15 +119,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
       
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
 
-        muzzleOriginTransform = Muzzle.transform;
+        muzzleOriginTransform = Muzzle.transform.localEulerAngles;
+
     }
 
     private void Start()
     {
+
+
         reticle = GameObject.Find("Reticle").GetComponent<Reticle>();
         reticle.SetActive(false);
         indicator = GetComponentInChildren<Indicator>();
 
+
+   
+      
         Bullets = new List<GameObject>();
         BulletIndex = 0;
         for (int i = 0; i < reloadBulletCount; i++)
@@ -147,14 +157,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
-   public Vector3 RandReCoil;
-    public int minRecoil = 78;
-    public int maxRecoil = 83;
+   [SerializeField] Vector3 RandReCoil;
+    [SerializeField] int minRecoil = 78;
+    [SerializeField] int maxRecoil = 83;
 
     [PunRPC]
     void GunFiring()
     {
+       
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
+        
         Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
 
 
@@ -246,6 +258,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Update()
     {
+  
+
         if (!PV.IsMine)
         {
             return;
@@ -391,6 +405,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 }
                 else
                 {
+
                     reticle.SetActive(true);
                     anim.SetBool("Aiming", true);
                     anim.SetBool("Firing", false);
@@ -400,7 +415,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
-                Muzzle.transform.localRotation = muzzleOriginTransform.localRotation;
+                Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
             if (!isLeftDown && !isRightDown)
@@ -408,9 +423,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Aiming = false;
                 anim.SetBool("Aiming", false);
                 reticle.SetActive(false);
+                Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
         }
+
+            
     }
 
     private void LateUpdate()

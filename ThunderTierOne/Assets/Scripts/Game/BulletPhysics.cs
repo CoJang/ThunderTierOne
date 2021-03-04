@@ -13,14 +13,20 @@ public class BulletPhysics : MonoBehaviour
 
     PlayerController pc;
 
+    LineRenderer line;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        line = GetComponent<LineRenderer>();
         pc = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
-        
+
+
+       
     }
+
+
 
     public void DieDestroy()
     {
@@ -47,7 +53,7 @@ public class BulletPhysics : MonoBehaviour
         {
             Debug.Log("Null");
             rb.velocity = Vector3.zero;
-            this.transform.position = new Vector3(999, 999, 999);
+           
             this.gameObject.SetActive(false);
         }
     }
@@ -55,29 +61,22 @@ public class BulletPhysics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float distance = Vector3.Distance(player.position, transform.position);
-
-        //if (distance >= 2500.0f)
-        //{
-        //    this.gameObject.SetActive(false);
-        //    this.gameObject.transform.position = Vector3.zero;
-        //}
-
-        if(gameObject.activeSelf)
-            StartCoroutine("ShootRay");
-
-        Vector3 bulletVec = pc.Muzzle.transform.forward;
-
-        rb.AddForce(bulletVec* BulletVelocity, ForceMode.Impulse);
-
-
+      
         if (gameObject.activeSelf == false)
         {
             rb.velocity = Vector3.zero;
-            this.transform.position = new Vector3(999, 999, 999);
-         
+           
+
         }
-        //this.transform.Translate(new Vector3(0, BulletVelocity * Time.deltaTime,0)); // 나중에 힘으로 바꿔야함.
+
+   
+        if (gameObject.activeSelf)
+            StartCoroutine("ShootRay");
+
+        Vector3 bulletVec = pc.Muzzle.transform.forward;
+       
+        rb.AddForce(bulletVec  * BulletVelocity, ForceMode.Impulse);
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -109,7 +108,6 @@ public class BulletPhysics : MonoBehaviour
                 break;
         }
         rb.velocity = Vector3.zero;
-        this.transform.position = new Vector3(999, 999, 999);
         this.gameObject.SetActive(false);
     }
 }
