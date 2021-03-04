@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunTestScript : MonoBehaviour
 {
     public Transform MuzzleTransform;
+    public PlayerController PC;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class GunTestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawLine(MuzzleTransform.position, MuzzleTransform.forward * 10.0f, Color.green);
+        Vector3 forward = MuzzleTransform.forward * 10.0f;
+        Debug.DrawLine(MuzzleTransform.position, MuzzleTransform.position + forward, Color.green);
     }
 }

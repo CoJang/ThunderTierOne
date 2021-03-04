@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     Transform spine;
     float MaxYAxis = 2.5f;
     Vector3 relativeVec = new Vector3(0, -55, -100);
-    Vector3 lookTarget = Vector3.zero;
+    public Vector3 lookTarget = Vector3.zero;
     #endregion
 
     #region GamePlay Variables
@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     List<GameObject> Bullets = null;
     [SerializeField] int BulletIndex;
     [SerializeField] GameObject Muzzle;
+    Transform muzzleOriginTransform;
     [SerializeField] GameObject BulletEffect;
 
     //Delay
@@ -113,6 +114,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
       
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+
+        muzzleOriginTransform = Muzzle.transform;
     }
 
     private void Start()
@@ -398,7 +401,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
-                Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, RandReCoil.y, 0);
+                Muzzle.transform.localRotation = muzzleOriginTransform.localRotation;
             }
 
             if (!isLeftDown && !isRightDown)
@@ -591,9 +594,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             //GunTransform.LookAt(lookTarget);
 
-            spine.LookAt(lookTarget);
-            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            spine.rotation = spineRot;
+            //spine.LookAt(lookTarget);
+            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            //spine.rotation = spineRot;
             return;
         }
 
@@ -608,10 +611,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             //GunTransform.rotation.
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
-            spine.LookAt(lookTarget);
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
-            //Debug.DrawLine(ray.origin, lookTarget, Color.green);
-            //Debug.DrawRay(GunTransform.position, GunTransform.forward);
+
+            spine.LookAt(lookTarget);
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
 
