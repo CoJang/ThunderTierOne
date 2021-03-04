@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         Bullets = new List<GameObject>();
         BulletIndex = 0;
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < reloadBulletCount; i++)
         {
             obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
             obj.transform.parent = GameObject.Find("BulletParent").transform;
@@ -182,9 +182,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             case "Bullet":
                 Debug.Log("TakeDamage");
-
-                Bullets[BulletIndex].transform.position = new Vector3(-99.0f, -99.0f, -99.0f);
-                Bullets[BulletIndex].transform.rotation = Quaternion.identity;
                 TakeDamage(25);
                 break;
 
@@ -770,7 +767,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 KnockDown();
             else
             {
-                for(int i =0; i <15; ++i)
+                for(int i =0; i < reloadBulletCount; ++i)
                 Destroy(Bullets[i]);
                 Die();
             }
