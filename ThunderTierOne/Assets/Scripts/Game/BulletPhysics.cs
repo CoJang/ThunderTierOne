@@ -46,7 +46,8 @@ public class BulletPhysics : MonoBehaviour
         else
         {
             Debug.Log("Null");
-            this.transform.position = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            this.transform.position = new Vector3(999, 999, 999);
             this.gameObject.SetActive(false);
         }
     }
@@ -69,9 +70,13 @@ public class BulletPhysics : MonoBehaviour
 
         rb.AddForce(bulletVec* BulletVelocity, ForceMode.Impulse);
 
-      
-        if(gameObject.activeSelf == false)
+
+        if (gameObject.activeSelf == false)
+        {
             rb.velocity = Vector3.zero;
+            this.transform.position = new Vector3(999, 999, 999);
+         
+        }
         //this.transform.Translate(new Vector3(0, BulletVelocity * Time.deltaTime,0)); // 나중에 힘으로 바꿔야함.
     }
 
@@ -103,8 +108,8 @@ public class BulletPhysics : MonoBehaviour
                 Instantiate(BulletImpact[2], transform.position, transform.rotation);
                 break;
         }
-        this.transform.position = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        this.transform.position = new Vector3(999, 999, 999);
         this.gameObject.SetActive(false);
-        //rb.velocity = Vector3.zero; 
     }
 }
