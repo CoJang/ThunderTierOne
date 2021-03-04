@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+      
         PV = GetComponent<PhotonView>();
         UIGun = FindObjectOfType<UIGunState>();
     }
@@ -68,6 +69,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Die()
     {
+       
         PhotonNetwork.Destroy(controller);
         Destroy(playerCamera);
         Destroy(interactHUD);

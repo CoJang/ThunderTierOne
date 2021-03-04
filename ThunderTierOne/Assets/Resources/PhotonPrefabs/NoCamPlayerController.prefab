@@ -1470,12 +1470,11 @@ MonoBehaviour:
   throwPoint: {fileID: 587756666742970211}
   grenade: {fileID: 8254352122746132338, guid: d85e0516db5addd4fa8c70801fe82c5f, type: 3}
   GrenadeOrbit: {fileID: 2156557925838849665}
-  BulletVelocity: 30
   Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
   BulletIndex: 0
   Muzzle: {fileID: 4605301183873741454}
   BulletEffect: {fileID: 5402369512117686301}
-  G_Count: 2
+  G_Count: 5
   reloadBulletCount: 30
   currentBulletCount: 30
   carryBulletCount: 100
