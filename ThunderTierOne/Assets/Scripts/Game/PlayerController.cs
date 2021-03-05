@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     int preItemIndex = -1;
 
     public int ItemIndex { get { return itemIndex; } set { itemIndex = value; } }
-    public GameObject Getmuzzle { get { return Muzzle; } }
+    public GameObject Getmuzzle { get { return BulletParent; } }
     #endregion
 
     #region Charactor Movement Variables
@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
 
 
+
     // Temp Player State
     [SerializeField] bool isDowned = false;
     [SerializeField] Transform HandleTransform;
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-      
+    
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
 
         muzzleOriginTransform = Muzzle.transform.localEulerAngles;
@@ -139,7 +140,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         for (int i = 0; i < reloadBulletCount; i++)
         {
             obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
-            obj.transform.parent = GameObject.Find("BulletParent").transform;
+            BulletParent = GameObject.Find("BulletParent");
+            obj.transform.parent = BulletParent.transform;
             obj.SetActive(false);
             Bullets.Add(obj);
            
@@ -156,35 +158,71 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
+    IEnumerator ShootRay()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
+
+        for (int i = 0; i < currentBulletCount; ++i)
+        {
+            if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
+            {
+                switch (hit.collider.tag)
+                {
+                    case "Player":
+                        Debug.Log("Player Hit");
+                        break;
+
+                }
+            }
+            else
+            {
+
+                Debug.Log("Null");
+
+                Bullets[i].GetComponent<BulletPhysics>().Bulletdir = Vector3.zero;
+                Bullets[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                Bullets[i].transform.position = Vector3.zero;
+                Bullets[i].SetActive(false);
+
+            }
+        }
+    }
+
     //반동
-   [SerializeField] Vector3 RandReCoil;
+    [SerializeField] Vector3 RandReCoil;
     [SerializeField] int minRecoil = 78;
     [SerializeField] int maxRecoil = 83;
 
     [PunRPC]
-    void GunFiring()
+    public bool GunFiring()
     {
-       
-        Bullets[BulletIndex].transform.position = Muzzle.transform.position;
-        
-        Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-
-
-        RandReCoil.x = Random.Range(minRecoil, maxRecoil);
-
-       Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
-
-
         while (Bullets[BulletIndex].activeInHierarchy)
         {
-            BulletIndex = (BulletIndex+1) % reloadBulletCount;
+            BulletIndex = (BulletIndex + 1) % reloadBulletCount;
         }
+       Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir = Muzzle.transform.forward;
+
+       Bullets[BulletIndex].transform.position = Muzzle.transform.position;
+        
+       //Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
+
+        
+       //RandReCoil.x = Random.Range(minRecoil, maxRecoil);
+
+       //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
+
+
+      
        
         Bullets[BulletIndex].SetActive(true);
         BulletEffect.SetActive(true);
         currentBulletCount--;
-      
 
+        
+
+        return true;
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
@@ -258,7 +296,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Update()
     {
-  
+        BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
+
 
         if (!PV.IsMine)
         {
@@ -400,6 +439,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                     anim.SetBool("Firing", true); //반동 애니메이션
                     reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
                     photonView.RPC("GunFiring", RpcTarget.All, null);
+                    StartCoroutine("ShootRay");
                     //items[itemIndex].Use();
                     reticle.SetActive(true);
                 }
@@ -415,6 +455,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
+              
                 Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
@@ -423,6 +464,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Aiming = false;
                 anim.SetBool("Aiming", false);
                 reticle.SetActive(false);
+           
                 Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
@@ -892,6 +934,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         carryBulletCount += currentBulletCount;
         currentBulletCount = 0;
+       
 
         if (carryBulletCount >=reloadBulletCount)
         {
