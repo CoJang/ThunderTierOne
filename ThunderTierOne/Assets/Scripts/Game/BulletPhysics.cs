@@ -17,6 +17,10 @@ public class BulletPhysics : MonoBehaviour
 
     LineRenderer line;
 
+    Vector3 dir;
+
+    public Vector3 Bulletdir {  get { return dir; } set { dir = value; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +45,7 @@ public class BulletPhysics : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward * 50, Color.red);
 
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+        if (Physics.Raycast(transform.position,dir, out RaycastHit hit))
         {
             switch (hit.collider.tag)
             {
@@ -53,9 +57,11 @@ public class BulletPhysics : MonoBehaviour
         }
         else
         {
+          
             Debug.Log("Null");
-            rb.velocity = Vector3.zero;
-           
+            dir = Vector3.zero;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            this.transform.position = Vector3.zero;
             this.gameObject.SetActive(false);
         }
     }
@@ -63,22 +69,20 @@ public class BulletPhysics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-        if (gameObject.activeSelf == false)
-        {
-            rb.velocity = Vector3.zero;
-           
+    
 
-        }
 
    
-        if (gameObject.activeSelf)
-            StartCoroutine("ShootRay");
+        //if (gameObject.activeSelf)
+        //   StartCoroutine("ShootRay")
 
-        Vector3 bulletVec = pc.Muzzle.transform.forward;
-       
-        rb.AddForce(bulletVec  * BulletVelocity, ForceMode.Impulse);
 
+
+            // rb.AddForce(dir * BulletVelocity, ForceMode.Impulse);
+
+            this.transform.Translate(dir * BulletVelocity * Time.deltaTime);
+
+      
     }
 
     void OnCollisionEnter(Collision collision)
@@ -109,7 +113,9 @@ public class BulletPhysics : MonoBehaviour
                 Instantiate(BulletImpact[2], transform.position, transform.rotation);
                 break;
         }
-        rb.velocity = Vector3.zero;
+        dir = Vector3.zero;
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        this.transform.position = Vector3.zero;
         this.gameObject.SetActive(false);
     }
 }

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     int preItemIndex = -1;
 
     public int ItemIndex { get { return itemIndex; } set { itemIndex = value; } }
-    public GameObject Getmuzzle { get { return Muzzle; } }
+    public GameObject Getmuzzle { get { return BulletParent; } }
     #endregion
 
     #region Charactor Movement Variables
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     #region Spine Rotation Variables
     Transform spine;
     float MaxYAxis = 2.5f;
-    public Vector3 relativeVec = new Vector3(0, -55, -100);
+    Vector3 relativeVec = new Vector3(0, -55, -100);
     public Vector3 lookTarget = Vector3.zero;
     #endregion
 
@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
 
 
+
     // Temp Player State
     [SerializeField] bool isDowned = false;
     [SerializeField] Transform HandleTransform;
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         spine = anim.GetBoneTransform(HumanBodyBones.Spine);
-      
+    
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
 
         muzzleOriginTransform = Muzzle.transform.localEulerAngles;
@@ -139,7 +140,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         for (int i = 0; i < reloadBulletCount; i++)
         {
             obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
-            obj.transform.parent = GameObject.Find("BulletParent").transform;
+            BulletParent = GameObject.Find("BulletParent");
+            obj.transform.parent = BulletParent.transform;
             obj.SetActive(false);
             Bullets.Add(obj);
            
@@ -156,35 +158,71 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
+    IEnumerator ShootRay()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
+
+        for (int i = 0; i < currentBulletCount; ++i)
+        {
+            if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
+            {
+                switch (hit.collider.tag)
+                {
+                    case "Player":
+                        Debug.Log("Player Hit");
+                        break;
+
+                }
+            }
+            else
+            {
+
+                Debug.Log("Null");
+
+                Bullets[i].GetComponent<BulletPhysics>().Bulletdir = Vector3.zero;
+                Bullets[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                Bullets[i].transform.position = Vector3.zero;
+                Bullets[i].SetActive(false);
+
+            }
+        }
+    }
+
     //반동
     [SerializeField] Vector3 RandReCoil;
     [SerializeField] int minRecoil = 78;
     [SerializeField] int maxRecoil = 83;
 
     [PunRPC]
-    void GunFiring()
+    public bool GunFiring()
     {
-       
-        Bullets[BulletIndex].transform.position = Muzzle.transform.position;
-        
-        Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-
-
-        RandReCoil.x = Random.Range(minRecoil, maxRecoil);
-
-        //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
-
-
         while (Bullets[BulletIndex].activeInHierarchy)
         {
-            BulletIndex = (BulletIndex+1) % reloadBulletCount;
+            BulletIndex = (BulletIndex + 1) % reloadBulletCount;
         }
+       Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir = Muzzle.transform.forward;
+
+       Bullets[BulletIndex].transform.position = Muzzle.transform.position;
+        
+       //Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
+
+        
+       //RandReCoil.x = Random.Range(minRecoil, maxRecoil);
+
+       //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
+
+
+      
        
         Bullets[BulletIndex].SetActive(true);
         BulletEffect.SetActive(true);
         currentBulletCount--;
-      
 
+        
+
+        return true;
         //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
@@ -258,7 +296,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Update()
     {
-  
+        BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
+
 
         if (!PV.IsMine)
         {
@@ -400,6 +439,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                     anim.SetBool("Firing", true); //반동 애니메이션
                     reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
                     photonView.RPC("GunFiring", RpcTarget.All, null);
+                    StartCoroutine("ShootRay");
                     //items[itemIndex].Use();
                     reticle.SetActive(true);
                 }
@@ -415,6 +455,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
                 anim.SetBool("Firing", false);
+              
                 Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
@@ -423,6 +464,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 Aiming = false;
                 anim.SetBool("Aiming", false);
                 reticle.SetActive(false);
+           
                 Muzzle.transform.localEulerAngles = muzzleOriginTransform;
             }
 
@@ -611,9 +653,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             //GunTransform.LookAt(lookTarget);
 
-            spine.LookAt(lookTarget);
-            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            spine.rotation = spineRot;
+            //spine.LookAt(lookTarget);
+            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            //spine.rotation = spineRot;
             return;
         }
 
@@ -625,23 +667,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (hit.collider.tag == "MyChar")
                 return;
 
-            Debug.DrawLine(playerCamera.transform.position, hit.point, Color.red);
-
+            //GunTransform.rotation.
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
-
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
 
             spine.LookAt(lookTarget);
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
 
-            //if (Aiming)
-            //{
-            //    GunTransform.LookAt(lookTarget);
-            //}
-
-            if (hit.collider.tag == "Player")
+            if(hit.collider.tag == "Player")
                 PlayerAim.Instance.TargetCursor();
             else
                 PlayerAim.Instance.DefaultCursor();
@@ -899,6 +934,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         carryBulletCount += currentBulletCount;
         currentBulletCount = 0;
+       
 
         if (carryBulletCount >=reloadBulletCount)
         {
@@ -1026,17 +1062,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     // 애니메이터의 IK 갱신
-    //private void OnAnimatorIK(int layerIndex)
-    //{
-    //    if (IsReloading || IsSwapDelay)
-    //        return;
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (IsReloading || IsSwapDelay)
+            return;
 
-    //    // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
-    //    anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-    //    anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
+        // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
+        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
 
-    //    anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
-    //    anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
+        anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
+        anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
 
-    //}
+    }
 }
