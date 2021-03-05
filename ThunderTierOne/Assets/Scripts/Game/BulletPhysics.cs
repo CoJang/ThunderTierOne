@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletPhysics : MonoBehaviour
 {
+    public Transform StartTransform;
+    
     public float BulletVelocity = 30.0f;
     [SerializeField] GameObject[] BulletImpact;
 

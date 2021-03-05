@@ -22,7 +22,7 @@ namespace Photon.Pun.Demo.Asteroids
 
         private void FixedUpdate()
         {
-            //rb.AddForce(transform.forward * BulletVelocity, ForceMode.Impulse);
+            rb.AddForce(transform.forward * BulletVelocity, ForceMode.Impulse);
         }
 
         public void OnCollisionEnter(Collision collision)

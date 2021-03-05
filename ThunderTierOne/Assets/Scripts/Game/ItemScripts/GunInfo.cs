@@ -8,4 +8,7 @@ public class GunInfo : ItemInfo
     public float Damage;
     public int RecoilFactor;
     public float BulletSpeed;
+
+    public GameObject BulletPrefab;
+    public int Ammo;
 }

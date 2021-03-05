@@ -9,6 +9,7 @@ public class SingleShotGun : Gun
     [SerializeField] Camera cam;
 
     PhotonView PV;
+ 
 
     private void Awake()
     {
@@ -22,7 +23,6 @@ public class SingleShotGun : Gun
 
     public override void Use()
     {
-        //Debug.Log("Using Gun " + itemInfo.ItemName);
         Shoot();
     }
 
@@ -60,4 +60,5 @@ public class SingleShotGun : Gun
         }
 
     }
+
 }

@@ -16,3 +16,5 @@ MonoBehaviour:
   Damage: 25
   RecoilFactor: 5
   BulletSpeed: 30
+  BulletPrefab: {fileID: 1736331894114790310, guid: 34bbc3ede763ad744a7799fc7f1919b1, type: 3}
+  Ammo: 30

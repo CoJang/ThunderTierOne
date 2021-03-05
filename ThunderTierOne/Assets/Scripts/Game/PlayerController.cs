@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     #region Spine Rotation Variables
     Transform spine;
     float MaxYAxis = 2.5f;
-    Vector3 relativeVec = new Vector3(0, -55, -100);
+    public Vector3 relativeVec = new Vector3(0, -55, -100);
     public Vector3 lookTarget = Vector3.zero;
     #endregion
 
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     //반동
-   [SerializeField] Vector3 RandReCoil;
+    [SerializeField] Vector3 RandReCoil;
     [SerializeField] int minRecoil = 78;
     [SerializeField] int maxRecoil = 83;
 
@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         RandReCoil.x = Random.Range(minRecoil, maxRecoil);
 
-       Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
+        //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
 
 
         while (Bullets[BulletIndex].activeInHierarchy)
@@ -611,9 +611,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             //GunTransform.LookAt(lookTarget);
 
-            //spine.LookAt(lookTarget);
-            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            //spine.rotation = spineRot;
+            spine.LookAt(lookTarget);
+            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            spine.rotation = spineRot;
             return;
         }
 
@@ -625,16 +625,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (hit.collider.tag == "MyChar")
                 return;
 
-            //GunTransform.rotation.
+            Debug.DrawLine(playerCamera.transform.position, hit.point, Color.red);
+
             lookTarget = hit.point;
             lookTarget.y = Mathf.Clamp(lookTarget.y, 0, MaxYAxis);
+
             transform.LookAt(new Vector3(lookTarget.x, 0, lookTarget.z));
 
             spine.LookAt(lookTarget);
             Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
             spine.rotation = spineRot;
 
-            if(hit.collider.tag == "Player")
+            //if (Aiming)
+            //{
+            //    GunTransform.LookAt(lookTarget);
+            //}
+
+            if (hit.collider.tag == "Player")
                 PlayerAim.Instance.TargetCursor();
             else
                 PlayerAim.Instance.DefaultCursor();
@@ -1019,17 +1026,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     }
 
     // 애니메이터의 IK 갱신
-    private void OnAnimatorIK(int layerIndex)
-    {
-        if (IsReloading || IsSwapDelay)
-            return;
+    //private void OnAnimatorIK(int layerIndex)
+    //{
+    //    if (IsReloading || IsSwapDelay)
+    //        return;
 
-        // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
+    //    // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+    //    anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
+    //    anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
 
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
-        anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
+    //    anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
+    //    anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
 
-    }
+    //}
 }

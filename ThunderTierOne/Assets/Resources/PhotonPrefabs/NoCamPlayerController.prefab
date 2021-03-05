@@ -1480,6 +1480,7 @@ MonoBehaviour:
   jumpForce: 150
   runSpeed: 1
   playerCamera: {fileID: 0}
+  relativeVec: {x: 0, y: -55, z: -100}
   lookTarget: {x: 0, y: 0, z: 0}
   currentHealth: 100
   throwVelocity: 5.5
@@ -1496,7 +1497,7 @@ MonoBehaviour:
   carryBulletCount: 100
   isDowned: 0
   HandleTransform: {fileID: 7540000404883402713}
-  GunTransform: {fileID: 8591917336485097680}
+  GunTransform: {fileID: 7640613028072350211}
   RandReCoil: {x: 0, y: 0, z: 0}
   minRecoil: 78
   maxRecoil: 83
