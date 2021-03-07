@@ -48,8 +48,15 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: ea0b30e8c3e8a1d479c46d4f2ed23119, type: 2}
   itemGameObject: {fileID: 9010152201843994455}
   gunInfo: {fileID: 0}
+  MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
+  reloadBulletCount: 0
+  currentBulletCount: 0
+  carryBulletCount: 0
+  Bullet: {fileID: 0}
+  BulletIndex: 0
+  Muzzle: {fileID: 0}
 --- !u!114 &5654100977504288719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +127,15 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 00771c275ebaa9f4db1c1c5778abb590, type: 2}
   itemGameObject: {fileID: 3332107028178976441}
   gunInfo: {fileID: 11400000, guid: 00771c275ebaa9f4db1c1c5778abb590, type: 2}
+  MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
+  reloadBulletCount: 30
+  currentBulletCount: 30
+  carryBulletCount: 500
+  Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
+  BulletIndex: 0
+  Muzzle: {fileID: 4605301183873741454}
 --- !u!114 &5067985897693653170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +206,15 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 786cb97bcacf6834186313cb75304a91, type: 2}
   itemGameObject: {fileID: 3742155226210980593}
   gunInfo: {fileID: 0}
+  MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
+  reloadBulletCount: 30
+  currentBulletCount: 30
+  carryBulletCount: 500
+  Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
+  BulletIndex: 0
+  Muzzle: {fileID: 7204736427666764498}
 --- !u!114 &127500432504172496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &225953882824886484
 Transform:
   m_ObjectHideFlags: 0
@@ -392,8 +413,15 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: edacc9d96ff781444a15b373c5241c66, type: 2}
   itemGameObject: {fileID: 6638126495223628638}
   gunInfo: {fileID: 0}
+  MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
+  reloadBulletCount: 0
+  currentBulletCount: 0
+  carryBulletCount: 0
+  Bullet: {fileID: 0}
+  BulletIndex: 0
+  Muzzle: {fileID: 0}
 --- !u!1 &4503294844348840833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,21 +1508,15 @@ MonoBehaviour:
   jumpForce: 150
   runSpeed: 1
   playerCamera: {fileID: 0}
-  relativeVec: {x: 0, y: -55, z: -100}
   lookTarget: {x: 0, y: 0, z: 0}
   currentHealth: 100
   throwVelocity: 5.5
   throwPoint: {fileID: 587756666742970211}
   grenade: {fileID: 8254352122746132338, guid: d85e0516db5addd4fa8c70801fe82c5f, type: 3}
   GrenadeOrbit: {fileID: 2156557925838849665}
-  Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
-  BulletIndex: 0
   Muzzle: {fileID: 4605301183873741454}
   BulletEffect: {fileID: 5402369512117686301}
   G_Count: 5
-  reloadBulletCount: 30
-  currentBulletCount: 30
-  carryBulletCount: 100
   isDowned: 0
   HandleTransform: {fileID: 7540000404883402713}
   GunTransform: {fileID: 7640613028072350211}
@@ -2568,6 +2590,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6933266363693849047, guid: 74fe36a2ea1335e47aca19afab7f5d00, type: 3}
   m_PrefabInstance: {fileID: 1725392053471060411}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7204736427666764498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8362497818220843881, guid: 74fe36a2ea1335e47aca19afab7f5d00, type: 3}
+  m_PrefabInstance: {fileID: 1725392053471060411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5402369512117720763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2856,9 +2883,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4277508263597357252, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
   m_PrefabInstance: {fileID: 6052755922569451289}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7540000404883402713 stripped
+--- !u!4 &5192352607645444534 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4277508263597357248, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
   m_PrefabInstance: {fileID: 6052755922569451289}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4605301183873741454 stripped
@@ -2866,9 +2893,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7788663807628158359, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
   m_PrefabInstance: {fileID: 6052755922569451289}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5192352607645444534 stripped
+--- !u!4 &7540000404883402713 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2013465682748079791, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4277508263597357248, guid: be38875e0e77b2c448fab7f251e608c9, type: 3}
   m_PrefabInstance: {fileID: 6052755922569451289}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6573733040930065117

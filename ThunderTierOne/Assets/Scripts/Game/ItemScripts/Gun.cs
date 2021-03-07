@@ -13,4 +13,9 @@ public class Gun : Item
 
     }
 
+    public override void Reload()
+    {
+        
+    }
+
 }

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     int preItemIndex = -1;
 
     public int ItemIndex { get { return itemIndex; } set { itemIndex = value; } }
-    public GameObject Getmuzzle { get { return BulletParent; } }
+ 
     #endregion
 
     #region Charactor Movement Variables
@@ -76,11 +76,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [SerializeField] GameObject grenade, GrenadeOrbit;
 
     //--------------Gun
-    [SerializeField] GameObject Bullet;
-    List<GameObject> Bullets = null;
-    GameObject obj;
-    GameObject BulletParent;
-    [SerializeField] int BulletIndex;
+  
     Vector3 muzzleOriginTransform;
     public GameObject Muzzle;
     [SerializeField] GameObject BulletEffect;
@@ -92,9 +88,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     //Bullet
     [SerializeField] float G_Count = 2;
 
-    [SerializeField] int reloadBulletCount;
-    [SerializeField] int currentBulletCount;
-    [SerializeField] int carryBulletCount;
    
 
 
@@ -135,17 +128,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
    
       
-        Bullets = new List<GameObject>();
-        BulletIndex = 0;
-        for (int i = 0; i < reloadBulletCount; i++)
-        {
-            obj = Instantiate(Bullet,Vector3.zero, Quaternion.Euler(Vector3.zero));
-            BulletParent = GameObject.Find("BulletParent");
-            obj.transform.parent = BulletParent.transform;
-            obj.SetActive(false);
-            Bullets.Add(obj);
-           
-        }
+     
         
         if (PV.IsMine)
         {
@@ -158,37 +141,37 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
-    IEnumerator ShootRay()
-    {
-        yield return new WaitForSeconds(2.0f);
+    //IEnumerator ShootRay()
+    //{
+    //    yield return new WaitForSeconds(2.0f);
 
-        //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
+    //    //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
 
-        for (int i = 0; i < currentBulletCount; ++i)
-        {
-            if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
-            {
-                switch (hit.collider.tag)
-                {
-                    case "Player":
-                        Debug.Log("Player Hit");
-                        break;
+    //    for (int i = 0; i < currentBulletCount; ++i)
+    //    {
+    //        if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
+    //        {
+    //            switch (hit.collider.tag)
+    //            {
+    //                case "Player":
+    //                    Debug.Log("Player Hit");
+    //                    break;
 
-                }
-            }
-            else
-            {
+    //            }
+    //        }
+    //        else
+    //        {
 
-                Debug.Log("Null");
+    //            Debug.Log("Null");
 
-                Bullets[i].GetComponent<BulletPhysics>().Bulletdir = Vector3.zero;
-                Bullets[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                Bullets[i].transform.position = Vector3.zero;
-                Bullets[i].SetActive(false);
+    //            Bullets[i].GetComponent<BulletPhysics>().Bulletdir = Vector3.zero;
+    //            Bullets[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+    //            Bullets[i].transform.position = Vector3.zero;
+    //            Bullets[i].SetActive(false);
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     //반동
     [SerializeField] Vector3 RandReCoil;
@@ -198,27 +181,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     [PunRPC]
     public bool GunFiring()
     {
-        while (Bullets[BulletIndex].activeInHierarchy)
-        {
-            BulletIndex = (BulletIndex + 1) % reloadBulletCount;
-        }
-       Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir = Muzzle.transform.forward;
-
-       Bullets[BulletIndex].transform.position = Muzzle.transform.position;
-        
-       //Bullets[BulletIndex].transform.rotation = Muzzle.transform.rotation;
-
-        
-       //RandReCoil.x = Random.Range(minRecoil, maxRecoil);
-
-       //Muzzle.transform.localRotation = Quaternion.Euler(RandReCoil.x, 0 , 0);
-
-
       
-       
-        Bullets[BulletIndex].SetActive(true);
-        BulletEffect.SetActive(true);
-        currentBulletCount--;
 
         
 
@@ -296,7 +259,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void Update()
     {
-        BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
+       
 
 
         if (!PV.IsMine)
@@ -308,8 +271,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
      
-        if(currentBulletCount > 0)
-            Shoot();
+     
+         Shoot();
 
         Reload();
         Covering();
@@ -381,28 +344,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void Reload()
     {
-        
-        if (currentBulletCount == 0 && carryBulletCount == 0)
-        {
-            photonView.RPC("OffEffect", RpcTarget.All, null);
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && currentBulletCount < reloadBulletCount)
+
+      
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash))
         {
             photonView.RPC("OffEffect", RpcTarget.All, null);
             photonView.RPC("AniReload", RpcTarget.All, null);
+            items[itemIndex].Reload();
         }
         else
         {
             anim.SetBool(IsReloadingHash, false);
         }
 
-        if (currentBulletCount == 0)
-        {
-            photonView.RPC("OffEffect", RpcTarget.All, null);
-            anim.SetBool(IsReloadingHash, true);
-
-        }        
+    
     }
 
 
@@ -439,8 +394,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                     anim.SetBool("Firing", true); //반동 애니메이션
                     reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
                     photonView.RPC("GunFiring", RpcTarget.All, null);
-                    StartCoroutine("ShootRay");
-                    //items[itemIndex].Use();
+                    BulletEffect.SetActive(true);
+                    items[itemIndex].Use();
                     reticle.SetActive(true);
                 }
                 else
@@ -827,8 +782,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 KnockDown();
             else
             {
-                for(int i =0; i < reloadBulletCount; ++i)
-                Destroy(Bullets[i]);
+                //for(int i =0; i < reloadBulletCount; ++i)
+                //Destroy(Bullets[i]);
                 Die();
             }
         }
@@ -929,23 +884,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void OnReloadingEnd()
     {
         ReloadImage.ReloadEnd();
-     
+
         IsReloading = false;
 
-        carryBulletCount += currentBulletCount;
-        currentBulletCount = 0;
-       
+        //carryBulletCount += currentBulletCount;
+        //currentBulletCount = 0;
 
-        if (carryBulletCount >=reloadBulletCount)
-        {
-            currentBulletCount = reloadBulletCount;
-            carryBulletCount -= reloadBulletCount;
-        }
-        else
-        {
-            currentBulletCount = carryBulletCount;
-            carryBulletCount = 0;
-        }
+
+        //if (carryBulletCount >= reloadBulletCount)
+        //{
+        //    currentBulletCount = reloadBulletCount;
+        //    carryBulletCount -= reloadBulletCount;
+        //}
+        //else
+        //{
+        //    currentBulletCount = carryBulletCount;
+        //    carryBulletCount = 0;
+        //}
     }
 
     void OnShootingStart()

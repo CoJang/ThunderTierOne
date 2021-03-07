@@ -9,56 +9,98 @@ public class SingleShotGun : Gun
     [SerializeField] Camera cam;
 
     PhotonView PV;
- 
+    [SerializeField] int reloadBulletCount;
+    [SerializeField] int currentBulletCount;
+    [SerializeField] int carryBulletCount;
+
+    [SerializeField] GameObject Bullet;
+    List<GameObject> Bullets = null;
+    GameObject obj;
+    GameObject BulletParent;
+    [SerializeField] int BulletIndex;
+    public GameObject Muzzle;
 
     private void Awake()
     {
+      
         PV = GetComponent<PhotonView>();
     }
 
     private void Start()
     {
+        Bullets = new List<GameObject>();
+        BulletIndex = 0;
+        for (int i = 0; i < reloadBulletCount; i++)
+        {
+            obj = Instantiate(Bullet, Vector3.zero, Quaternion.Euler(Vector3.zero));
+            //BulletParent = GameObject.Find("BulletParent");
+            //obj.transform.parent = BulletParent.transform;
+            obj.SetActive(false);
+            Bullets.Add(obj);
+          
+        }
+
+
         cam = GetComponentInParent<PlayerController>().playerCamera;
+    }
+    private void Update()
+    {
+        //BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
     }
 
     public override void Use()
     {
-        Shoot();
+        if(currentBulletCount > 0)
+            Shoot();
+    }
+
+    public override void Reload()
+    {
+        Reloading();
     }
 
     void Shoot()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        ray.origin = cam.transform.position;
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            // if Shooter == HitObject
-            if (hit.collider.gameObject.GetComponent<PlayerController>()?.GetPhotonViewOwner()
-                == PV.Owner)
-            {
-                return;
-            }
-
-            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(gunInfo.Damage);
-            PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
-        }
+    {   
+        PV.RPC("RPC_Shoot", RpcTarget.All, null);
     }
+
+
 
     [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal)
+    void RPC_Shoot()
     {
-        Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
+        Debug.Log("SHoot");
 
-        if(colliders.Length != 0)
+        while (Bullets[BulletIndex].activeInHierarchy)
         {
-            GameObject bulletImpactObj = Instantiate(bulletImpactPrefab, hitPosition + hitNormal * 0.001f, 
-                Quaternion.LookRotation(hitNormal, Vector3.up) * bulletImpactPrefab.transform.rotation);
-            Destroy(bulletImpactObj, 2.5f);
-
-            bulletImpactObj.transform.SetParent(colliders[0].transform);
+            BulletIndex = (BulletIndex + 1) % reloadBulletCount;
         }
+        Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir = Muzzle.transform.forward;
 
+        Bullets[BulletIndex].transform.position = Muzzle.transform.position;
+
+        Bullets[BulletIndex].SetActive(true);
+
+        currentBulletCount--;
     }
 
+
+
+    void Reloading()
+    {
+        carryBulletCount += currentBulletCount;
+        currentBulletCount = 0;
+
+
+        if (carryBulletCount >= reloadBulletCount)
+        {
+            currentBulletCount = reloadBulletCount;
+            carryBulletCount -= reloadBulletCount;
+        }
+        else
+        {
+            currentBulletCount = carryBulletCount;
+            carryBulletCount = 0;
+        }
+    }
 }
