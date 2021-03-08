@@ -271,8 +271,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
      
-     
+       if(items[itemIndex].CurrentBullet() > 0)
          Shoot();
+
 
         Reload();
         Covering();
@@ -346,11 +347,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
 
       
-        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash))
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) || items[itemIndex].CurrentBullet() == 0)
         {
-            photonView.RPC("OffEffect", RpcTarget.All, null);
             photonView.RPC("AniReload", RpcTarget.All, null);
-            items[itemIndex].Reload();
+            photonView.RPC("OffEffect", RpcTarget.All, null);
+           
         }
         else
         {
@@ -409,6 +410,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             else
             {
                 photonView.RPC("OffEffect", RpcTarget.All, null);
+                OffEffect();
                 anim.SetBool("Firing", false);
               
                 Muzzle.transform.localEulerAngles = muzzleOriginTransform;
@@ -782,8 +784,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 KnockDown();
             else
             {
-                //for(int i =0; i < reloadBulletCount; ++i)
-                //Destroy(Bullets[i]);
+                items[itemIndex].DestroyBullet();
                 Die();
             }
         }
@@ -901,6 +902,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         //    currentBulletCount = carryBulletCount;
         //    carryBulletCount = 0;
         //}
+         items[itemIndex].Reload();
+
     }
 
     void OnShootingStart()

@@ -51,9 +51,6 @@ MonoBehaviour:
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
-  reloadBulletCount: 0
-  currentBulletCount: 0
-  carryBulletCount: 0
   Bullet: {fileID: 0}
   BulletIndex: 0
   Muzzle: {fileID: 0}
@@ -130,9 +127,6 @@ MonoBehaviour:
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
-  reloadBulletCount: 30
-  currentBulletCount: 30
-  carryBulletCount: 500
   Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
   BulletIndex: 0
   Muzzle: {fileID: 4605301183873741454}
@@ -209,9 +203,6 @@ MonoBehaviour:
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
-  reloadBulletCount: 30
-  currentBulletCount: 30
-  carryBulletCount: 500
   Bullet: {fileID: 8956315338749976846, guid: a2cd5a73c995ec64d84d58731cfa4c21, type: 3}
   BulletIndex: 0
   Muzzle: {fileID: 7204736427666764498}
@@ -416,9 +407,6 @@ MonoBehaviour:
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
-  reloadBulletCount: 0
-  currentBulletCount: 0
-  carryBulletCount: 0
   Bullet: {fileID: 0}
   BulletIndex: 0
   Muzzle: {fileID: 0}
@@ -1654,7 +1642,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Save
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Walk
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -1665,7 +1653,7 @@ MonoBehaviour:
     LayerIndex: 2
   - SynchronizeType: 1
     LayerIndex: 3
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 4
 --- !u!114 &6825251382125443738
 MonoBehaviour:

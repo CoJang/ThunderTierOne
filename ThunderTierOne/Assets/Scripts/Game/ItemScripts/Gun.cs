@@ -8,6 +8,12 @@ public class Gun : Item
     public GameObject MuzzleObject;
     public GameObject bulletImpactPrefab;
 
+
+    public override int CurrentBullet()
+    {
+        return gunInfo.currentBulletCount;
+    }
+
     public override void Use()
     {
 
@@ -17,5 +23,8 @@ public class Gun : Item
     {
         
     }
+    public override void DestroyBullet()
+    {
 
+    }
 }

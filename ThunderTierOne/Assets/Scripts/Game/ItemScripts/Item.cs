@@ -7,7 +7,11 @@ public abstract class Item : MonoBehaviour
     public ItemInfo itemInfo;
     public GameObject itemGameObject;
 
+    public abstract int CurrentBullet();
+
     public abstract void Use();
 
     public abstract void Reload();
+
+    public abstract void DestroyBullet();
 }

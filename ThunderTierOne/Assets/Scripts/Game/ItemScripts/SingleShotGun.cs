@@ -9,9 +9,6 @@ public class SingleShotGun : Gun
     [SerializeField] Camera cam;
 
     PhotonView PV;
-    [SerializeField] int reloadBulletCount;
-    [SerializeField] int currentBulletCount;
-    [SerializeField] int carryBulletCount;
 
     [SerializeField] GameObject Bullet;
     List<GameObject> Bullets = null;
@@ -30,7 +27,7 @@ public class SingleShotGun : Gun
     {
         Bullets = new List<GameObject>();
         BulletIndex = 0;
-        for (int i = 0; i < reloadBulletCount; i++)
+        for (int i = 0; i < 30; i++)
         {
             obj = Instantiate(Bullet, Vector3.zero, Quaternion.Euler(Vector3.zero));
             //BulletParent = GameObject.Find("BulletParent");
@@ -50,12 +47,13 @@ public class SingleShotGun : Gun
 
     public override void Use()
     {
-        if(currentBulletCount > 0)
+        if(gunInfo.currentBulletCount > 0)
             Shoot();
     }
 
     public override void Reload()
     {
+        if(gunInfo.currentBulletCount < 30)
         Reloading();
     }
 
@@ -64,7 +62,11 @@ public class SingleShotGun : Gun
         PV.RPC("RPC_Shoot", RpcTarget.All, null);
     }
 
-
+    public override void DestroyBullet()
+    {
+        for (int i = 0; i < gunInfo.reloadBulletCount; ++i)
+            Destroy(Bullets[i]);
+    }
 
     [PunRPC]
     void RPC_Shoot()
@@ -73,34 +75,36 @@ public class SingleShotGun : Gun
 
         while (Bullets[BulletIndex].activeInHierarchy)
         {
-            BulletIndex = (BulletIndex + 1) % reloadBulletCount;
+            BulletIndex = (BulletIndex + 1) % gunInfo.reloadBulletCount;
         }
         Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir = Muzzle.transform.forward;
 
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
 
         Bullets[BulletIndex].SetActive(true);
-
-        currentBulletCount--;
+        
+        gunInfo.currentBulletCount--;
     }
 
 
 
     void Reloading()
     {
-        carryBulletCount += currentBulletCount;
-        currentBulletCount = 0;
+        gunInfo.carryBulletCount += gunInfo.currentBulletCount;
+        gunInfo.currentBulletCount = 0;
 
 
-        if (carryBulletCount >= reloadBulletCount)
+        if (gunInfo.carryBulletCount >= gunInfo.reloadBulletCount)
         {
-            currentBulletCount = reloadBulletCount;
-            carryBulletCount -= reloadBulletCount;
+            gunInfo.currentBulletCount = gunInfo.reloadBulletCount;
+            gunInfo.carryBulletCount -= gunInfo.reloadBulletCount;
         }
         else
         {
-            currentBulletCount = carryBulletCount;
-            carryBulletCount = 0;
+            gunInfo.currentBulletCount = gunInfo.carryBulletCount;
+            gunInfo.carryBulletCount = 0;
         }
     }
+
+  
 }
