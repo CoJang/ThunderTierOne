@@ -30,19 +30,20 @@ public class SingleShotGun : Gun
         for (int i = 0; i < 30; i++)
         {
             obj = Instantiate(Bullet, Vector3.zero, Quaternion.Euler(Vector3.zero));
-            //BulletParent = GameObject.Find("BulletParent");
-            //obj.transform.parent = BulletParent.transform;
+            BulletParent = GameObject.Find("BulletParent");
+            obj.transform.parent = BulletParent.transform;
             obj.SetActive(false);
             Bullets.Add(obj);
           
         }
-
+      
+        gunInfo.carryBulletCount = 360;
 
         cam = GetComponentInParent<PlayerController>().playerCamera;
     }
     private void Update()
     {
-        //BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
+        BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
     }
 
     public override void Use()

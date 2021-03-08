@@ -7,6 +7,8 @@ public abstract class Item : MonoBehaviour
     public ItemInfo itemInfo;
     public GameObject itemGameObject;
 
+
+    public abstract int CarryBulletCount();
     public abstract int CurrentBullet();
 
     public abstract void Use();

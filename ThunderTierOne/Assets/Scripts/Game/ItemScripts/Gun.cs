@@ -13,6 +13,10 @@ public class Gun : Item
     {
         return gunInfo.currentBulletCount;
     }
+    public override int CarryBulletCount()
+    {
+        return gunInfo.carryBulletCount;
+    }
 
     public override void Use()
     {

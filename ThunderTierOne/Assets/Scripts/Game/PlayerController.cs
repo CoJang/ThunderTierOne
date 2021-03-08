@@ -274,8 +274,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
        if(items[itemIndex].CurrentBullet() > 0)
          Shoot();
 
-
         Reload();
+
+
         Covering();
      
         if(!isDowned)
@@ -357,8 +358,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             anim.SetBool(IsReloadingHash, false);
         }
+        if(items[itemIndex].CarryBulletCount() == 0)
+            anim.SetBool(IsReloadingHash, false);
 
-    
     }
 
 

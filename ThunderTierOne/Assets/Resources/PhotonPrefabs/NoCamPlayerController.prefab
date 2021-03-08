@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: ea0b30e8c3e8a1d479c46d4f2ed23119, type: 2}
   itemGameObject: {fileID: 9010152201843994455}
-  gunInfo: {fileID: 0}
+  gunInfo: {fileID: 11400000, guid: ea0b30e8c3e8a1d479c46d4f2ed23119, type: 2}
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 786cb97bcacf6834186313cb75304a91, type: 2}
   itemGameObject: {fileID: 3742155226210980593}
-  gunInfo: {fileID: 0}
+  gunInfo: {fileID: 11400000, guid: 786cb97bcacf6834186313cb75304a91, type: 2}
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &225953882824886484
 Transform:
   m_ObjectHideFlags: 0

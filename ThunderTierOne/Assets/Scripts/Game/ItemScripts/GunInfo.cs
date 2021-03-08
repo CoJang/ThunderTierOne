@@ -12,7 +12,7 @@ public class GunInfo : ItemInfo
     public GameObject BulletPrefab;
     public int Ammo;
 
-    public int reloadBulletCount;
-    public int currentBulletCount;
-    public int carryBulletCount;
+    public int reloadBulletCount = 30;
+    public int currentBulletCount = 30;
+    public int carryBulletCount = 360;
 }
