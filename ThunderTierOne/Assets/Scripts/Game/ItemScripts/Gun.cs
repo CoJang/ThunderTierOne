@@ -18,6 +18,11 @@ public class Gun : Item
         return gunInfo.carryBulletCount;
     }
 
+    public override void StartCurrnetBullet(int bullet)
+    {
+        gunInfo.currentBulletCount = bullet;
+    }
+
     public override void Use()
     {
 

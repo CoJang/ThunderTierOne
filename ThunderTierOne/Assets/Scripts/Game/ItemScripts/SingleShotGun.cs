@@ -43,7 +43,7 @@ public class SingleShotGun : Gun
     }
     private void Update()
     {
-        BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
+        //BulletParent.transform.position = new Vector3(Muzzle.transform.position.x, Muzzle.transform.position.y, Muzzle.transform.position.z);
     }
 
     public override void Use()
@@ -85,6 +85,8 @@ public class SingleShotGun : Gun
         Bullets[BulletIndex].SetActive(true);
         
         gunInfo.currentBulletCount--;
+
+        StartCoroutine(ShootRay());
     }
 
 
@@ -107,5 +109,36 @@ public class SingleShotGun : Gun
         }
     }
 
-  
+    IEnumerator ShootRay()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
+
+        for (int i = 0; i < gunInfo.currentBulletCount; ++i)
+        {
+            Bullets[i].SetActive(false);
+            //if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
+            //{
+            //    switch (hit.collider.tag)
+            //    {
+            //        case "Player":
+            //            Debug.Log("Player Hit");
+            //            break;
+
+            //    }
+            //}
+            //else
+            //{
+
+            //    Debug.Log("Null");
+
+            
+             
+
+            //}
+        }
+    }
+
+
 }

@@ -18,3 +18,6 @@ MonoBehaviour:
   BulletSpeed: 30
   BulletPrefab: {fileID: 1736331894114790310, guid: 34bbc3ede763ad744a7799fc7f1919b1, type: 3}
   Ammo: 30
+  reloadBulletCount: 30
+  currentBulletCount: 30
+  carryBulletCount: 284

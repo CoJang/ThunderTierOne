@@ -16,3 +16,8 @@ MonoBehaviour:
   Damage: 0
   RecoilFactor: 0
   BulletSpeed: 0
+  BulletPrefab: {fileID: 0}
+  Ammo: 0
+  reloadBulletCount: 1
+  currentBulletCount: 1
+  carryBulletCount: 1

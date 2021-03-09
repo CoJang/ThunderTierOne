@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Pistol
   Damage: 15
+  RecoilFactor: 0
+  BulletSpeed: 0
+  BulletPrefab: {fileID: 0}
+  Ammo: 0
+  reloadBulletCount: 15
+  currentBulletCount: 15
+  carryBulletCount: 360

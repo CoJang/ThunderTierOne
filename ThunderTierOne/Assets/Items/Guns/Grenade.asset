@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Grenade
   Damage: 100
+  RecoilFactor: 0
+  BulletSpeed: 0
+  BulletPrefab: {fileID: 0}
+  Ammo: 0
+  reloadBulletCount: 1
+  currentBulletCount: 1
+  carryBulletCount: 5

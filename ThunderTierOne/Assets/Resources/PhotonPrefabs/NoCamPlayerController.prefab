@@ -403,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: edacc9d96ff781444a15b373c5241c66, type: 2}
   itemGameObject: {fileID: 6638126495223628638}
-  gunInfo: {fileID: 0}
+  gunInfo: {fileID: 11400000, guid: edacc9d96ff781444a15b373c5241c66, type: 2}
   MuzzleObject: {fileID: 0}
   bulletImpactPrefab: {fileID: 7004977768435759886, guid: 2942002d5a90f4f4ea6bd9e32fd4b566, type: 3}
   cam: {fileID: 0}

@@ -125,11 +125,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         reticle.SetActive(false);
         indicator = GetComponentInChildren<Indicator>();
 
+        items[0].StartCurrnetBullet(30); //총
+        items[1].StartCurrnetBullet(15); //권총
 
-   
-      
-     
-        
         if (PV.IsMine)
         {
             EquipItem(0);
