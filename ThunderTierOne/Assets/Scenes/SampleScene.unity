@@ -7232,6 +7232,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 603480212268374972, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3615872662979444956, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
       propertyPath: viewIdField
       value: 4
@@ -7239,6 +7243,10 @@ PrefabInstance:
     - target: {fileID: 4182812385687590817, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
       propertyPath: viewIdField
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956564185270806735, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
+      propertyPath: viewIdField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5333908583888359393, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
       propertyPath: m_RootOrder
@@ -7284,6 +7292,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5333908583888524224, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
+      propertyPath: items.Array.data[0]
+      value: 
+      objectReference: {fileID: 5646225166832012458}
     - target: {fileID: 5333908583888524225, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
       propertyPath: m_Name
       value: EnemyController
@@ -7306,6 +7318,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
+--- !u!114 &5646225166832012458 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3308786912685868617, guid: 398fe262eb75f074eb587fd86635aa70, type: 3}
+  m_PrefabInstance: {fileID: 5646225166832012457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937c77c86489ff84eb7298592acf6467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5894813702369169752
 Transform:
   m_ObjectHideFlags: 0
@@ -8894,20 +8917,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5923210514416810892
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5923210514418898220}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 6b50784e57f7b9648b3cfb9f43e37d3f, type: 3}
 --- !u!4 &5923210514418862348
 Transform:
   m_ObjectHideFlags: 0
@@ -8933,7 +8942,7 @@ GameObject:
   - component: {fileID: 5923210514418862348}
   - component: {fileID: 5923210514422286636}
   - component: {fileID: 5923210514421156844}
-  - component: {fileID: 5923210514416810892}
+  - component: {fileID: 5923210514418898221}
   m_Layer: 11
   m_Name: TileSoilWater
   m_TagString: Ground
@@ -8941,6 +8950,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294
   m_IsActive: 1
+--- !u!65 &5923210514418898221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923210514418898220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.7158747, y: 10.8503, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!23 &5923210514421156844
 MeshRenderer:
   m_ObjectHideFlags: 0

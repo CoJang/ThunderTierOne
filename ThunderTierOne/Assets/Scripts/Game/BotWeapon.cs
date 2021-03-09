@@ -5,23 +5,29 @@ using Photon.Pun;
 
 public class BotWeapon : Gun
 {
-    [HideInInspector]
-    public Vector3 target;
+    PhotonView PV;
 
-    public override void Use()
+    private void Start()
     {
-        Shoot(target);
+        PV = GetComponent<PhotonView>();
+    }
+
+    public override void Use(Vector3 targetPos)
+    {
+        Shoot(targetPos);
     }
 
     void Shoot(Vector3 targetPos)
     {
-
+        PV.RPC("RPC_Shoot", RpcTarget.All, targetPos);
     }
 
     [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal)
+    void RPC_Shoot(Vector3 targetPos)
     {
         GameObject bulletObj = Instantiate(gunInfo.BulletPrefab, MuzzleObject.transform.position,
                                             MuzzleObject.transform.rotation);
+
+        Destroy(bulletObj, 1.5f);
     }
 }

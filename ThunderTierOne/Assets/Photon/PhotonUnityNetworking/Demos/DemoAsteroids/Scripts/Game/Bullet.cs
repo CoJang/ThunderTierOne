@@ -25,41 +25,48 @@ namespace Photon.Pun.Demo.Asteroids
             rb.AddForce(transform.forward * BulletVelocity, ForceMode.Impulse);
         }
 
-        public void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
         {
-            switch(collision.transform.tag)
+            switch (collision.transform.tag)
             {
                 case "Metal":
                     Instantiate(BulletImpact[0], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     break;
                 case "Dirt":
                     Instantiate(BulletImpact[1], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     break;
                 case "Sand":
                     Instantiate(BulletImpact[2], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     break;
                 case "Wood":
                     Instantiate(BulletImpact[3], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     break;
                 case "Ground":
                     Instantiate(BulletImpact[1], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Debug.Log("Bullet Hit! [Ground]");
+                    Destroy(gameObject);
                     break;
                 case "Player":
-                    
-                    this.gameObject.SetActive(false);
-                    break;  
+                case "MyChar":
+                    Debug.Log("Bullet Hit! [Player]");
+                    Destroy(gameObject);
+                    //this.gameObject.SetActive(false);
+                    break;
                 default:
                     Instantiate(BulletImpact[2], transform.position, transform.rotation);
-                    this.gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     break;
             }
-                
-          
         }
 
         public void InitializeBullet(Player owner, Vector3 originalDirection, float lag)

@@ -28,6 +28,11 @@ public class Gun : Item
 
     }
 
+    public virtual void Use(Vector3 target)
+    {
+
+    }
+
     public override void Reload()
     {
         
