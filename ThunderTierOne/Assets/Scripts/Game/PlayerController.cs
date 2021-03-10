@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     #region Spine Rotation Variables
     Transform spine;
     float MaxYAxis = 2.5f;
-    Vector3 relativeVec = new Vector3(0, -55, -100);
+    Vector3 relativeVec = new Vector3(0, -60, -100);
     public Vector3 lookTarget = Vector3.zero;
     #endregion
 
