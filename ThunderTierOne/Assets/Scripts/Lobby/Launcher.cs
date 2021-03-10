@@ -52,7 +52,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.CreateRoom(roomNameInputField.text);
-        MenuManager.Instance.OpenMenu("Loading");
     }
 
     public override void OnJoinedRoom()
