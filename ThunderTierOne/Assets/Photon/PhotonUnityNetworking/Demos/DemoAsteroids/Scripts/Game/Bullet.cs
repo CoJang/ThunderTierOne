@@ -5,7 +5,6 @@ namespace Photon.Pun.Demo.Asteroids
 {
     public class Bullet : MonoBehaviour
     {
-        
         public float BulletVelocity = 30.0f;
         [SerializeField] GameObject[] BulletImpact;
        

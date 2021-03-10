@@ -2013,8 +2013,8 @@ MonoBehaviour:
   currentHealth: 100
   SightRange: 10
   EnemyDelayTime: 1
-  items:
-  - {fileID: 0}
+  RotateSpeed: 33
+  targetPlayers: []
   GunHandle: {fileID: 2078487362772912055}
 --- !u!1 &5333908583888524227
 GameObject:
@@ -2066,7 +2066,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3176c08fb6c3f5441b9589c9c528e4bf, type: 2}
+  - {fileID: 2100000, guid: 369ac2089f5dc864b9f865ab682b9bfa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 using Photon.Pun;
-using Photon.Realtime;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviourPun, IDamageable
@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
     [SerializeField] float SightRange = 10.0f;
     [SerializeField] float EnemyDelayTime = 1.0f;
+    [SerializeField] float RotateSpeed = 30.0f;
     #endregion
 
     #region Enemy State
@@ -27,21 +28,18 @@ public class EnemyController : MonoBehaviourPun, IDamageable
     }
 
     bool isSpotSomething = false;
+    EnemyState currentState = EnemyState.IDLE;
     #endregion
 
     float[] dists;
-    PlayerController[] targetPlayers;
+    [SerializeField] List<PlayerController> targetPlayers;
     Transform lastTarget;
 
     PhotonView PV;
     NavMeshAgent agent;
     BotWeapon weapon;
-    Transform spine;
 
-    [SerializeField] Item[] items;
     [SerializeField] Transform GunHandle;
-
-    EnemyState currentState = EnemyState.IDLE;
 
     #region Animator Variables
     Animator anim;
@@ -57,14 +55,17 @@ public class EnemyController : MonoBehaviourPun, IDamageable
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         weapon = GetComponentInChildren<BotWeapon>();
-        //spine = anim.GetBoneTransform(HumanBodyBones.Spine);
 
-        StartCoroutine(FindAllPlayers(5.0f));
+        targetPlayers.Capacity = 4;
+
+        StartCoroutine(FindAllPlayers(4.0f));
+        StartCoroutine(DetectPlayers(0.1f));
     }
 
     void FixedUpdate()
     {
-        if (currentState == EnemyState.DELAYED) return;
+        if (currentState == EnemyState.DELAYED || currentState == EnemyState.DIE) 
+            return;
 
         if(agent.velocity.magnitude > 0.25f)
         {
@@ -94,65 +95,74 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
     void LateUpdate()
     {
-        if (targetPlayers == null) return;
+        if (targetPlayers == null || lastTarget == null) return;
+        if (currentState == EnemyState.DELAYED || currentState == EnemyState.DIE)
+            return;
 
-        if(targetPlayers.Length == 0)
+        if (isSpotSomething)
         {
-            StartCoroutine(FindAllPlayers(0.0f));
+            Quaternion targetRotation = Quaternion.LookRotation(lastTarget.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
         }
 
-        if(currentState == EnemyState.SHOOT)
+        if (currentState == EnemyState.SHOOT)
         {
             Shoot();
         }
-
-        //Quaternion spineRot = spine.rotation * Quaternion.Euler(0, 30, 0);
-        //spine.rotation = spineRot;
     }
 
     IEnumerator FindAllPlayers(float delayTime)
     {
         yield return new WaitForSecondsRealtime(delayTime);
 
-        if (targetPlayers == null || targetPlayers.Length == 0)
-        {
-            PlayerController[] players = FindObjectsOfType<PlayerController>();
-            targetPlayers = new PlayerController[players.Length];
-            targetPlayers = players;
+        Debug.Log("FindAllPlayers");
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
+        targetPlayers = players.OfType<PlayerController>().ToList();
+        //targetPlayers = (PlayerController[])players.Clone();
 
-            dists = new float[targetPlayers.Length];
+        dists = new float[targetPlayers.Count];
 
-            if(delayTime > 0)
-                StartCoroutine(DetectPlayers(0.1f));
-        }
+        StartCoroutine(FindAllPlayers(delayTime));
     }
 
     IEnumerator DetectPlayers(float occurPeriod)
     {
         yield return new WaitForSecondsRealtime(occurPeriod);
 
-        for(int i = 0; i < targetPlayers.Length; i++)
+        if (targetPlayers == null || targetPlayers.Count == 0)
         {
-            dists[i] = Vector3.Distance(targetPlayers[i].gameObject.transform.position, gameObject.transform.position);
+            StartCoroutine(DetectPlayers(occurPeriod));
+            yield break;
+        }
+
+        for(int i = 0; i < targetPlayers.Count; i++)
+        {
+            if(targetPlayers[i] == null)
+            {
+                targetPlayers.RemoveAt(i--);
+                continue;
+            }
+
+            dists[i] = Vector3.Distance(targetPlayers[i].gameObject.transform.position, transform.position);
         }
 
         float minDist = Mathf.Min(dists);
 
-        if (minDist > SightRange)
+        if (minDist > SightRange || targetPlayers.Count == 0)
         {
-            StartCoroutine(DetectPlayers(occurPeriod));
             isSpotSomething = false;
+            StartCoroutine(DetectPlayers(occurPeriod));
             yield break;
         }
 
 
-        for (int i = 0; i < dists.Length; i++)
+        for (int i = 0; i < targetPlayers.Count; i++)
         {
             if(minDist == dists[i])
             {
                 lastTarget = targetPlayers[i].gameObject.transform;
                 agent.SetDestination(lastTarget.position);
-                Debug.Log("Player is In Sight");
+                //Debug.Log("Player is In Sight");
                 isSpotSomething = true;
                 StartCoroutine(DetectPlayers(occurPeriod));
             }
@@ -161,7 +171,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
     public void TakeDamage(float damage)
     {
-        PV.RPC("RPC_TakeDamage", RpcTarget.Others, damage);
+        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
 
     [PunRPC]
@@ -171,6 +181,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
             return;
 
         currentHealth -= damage;
+        Debug.Log(gameObject.name + "Hit!");
 
         if (currentHealth <= 0)
         {
@@ -181,15 +192,19 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
     void Die()
     {
-        anim.SetBool(isDieHash, true);
-        //PhotonNetwork.Destroy(gameObject);
+        currentState = EnemyState.DIE;
+        anim.SetTrigger(isDieHash);
+        StopAllCoroutines();
+
+        agent.enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
     }
 
     void Shoot()
     {
-        transform.LookAt(lastTarget);
+        //transform.LookAt(lastTarget);
         weapon.Use(lastTarget.position);
-        //anim.SetTrigger(shootHash);
+        anim.SetTrigger(shootHash);
 
         currentState = EnemyState.DELAYED;
         StartCoroutine(DeleyedState(EnemyDelayTime));
@@ -204,11 +219,23 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
     private void OnAnimatorIK(int layerIndex)
     {
-        // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+        if (currentState == EnemyState.DIE) return;
+
         anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
         anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
 
         anim.SetIKPosition(AvatarIKGoal.LeftHand, GunHandle.position);
-        //anim.SetIKRotation(AvatarIKGoal.LeftHand, GunHandle.rotation);
+        anim.SetIKRotation(AvatarIKGoal.LeftHand, GunHandle.rotation);
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.transform.tag)
+        {
+            case "Bullet":
+                Debug.Log("Enemey Hit");
+                TakeDamage(25);
+                break;
+        }
     }
 }
