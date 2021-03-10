@@ -5,14 +5,14 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-    public static SoundManager Instance;
+   
 
     [SerializeField] AudioClip[] sfxPlayer;
     [SerializeField] AudioSource audioSrc;
     // Start is called before the first frame update
     private void Awake()
     {
-        Instance = this;
+        
     }
 
     public void Fire()
@@ -23,21 +23,19 @@ public class SoundManager : MonoBehaviour
     }
     public void Walk()
     {
-        if (!audioSrc.isPlaying)
-        {
+        
             audioSrc.PlayOneShot(sfxPlayer[1]);
             audioSrc.pitch = 1.0f;
             audioSrc.volume = 0.8f;
-        }
+        
     }
     public void Crouching()
     {
-        if (!audioSrc.isPlaying)
-        {
+       
             audioSrc.PlayOneShot(sfxPlayer[1]);
             audioSrc.pitch = 0.5f;
             audioSrc.volume = 0.3f;
-        }
+        
     }
  
     public void Reload()
