@@ -9,6 +9,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObservable, IInteractable
 {
+    //Sound
+    SoundManager sound;
+
     #region Animator Variables
     public Animator anim;
     Vector2 AnimControlVelocity = Vector2.zero;
@@ -105,6 +108,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     public bool CrouchingState { get { return Crouching; } set { Crouching = value; } }
     private void Awake()
     {
+        sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         ReloadImage = GameObject.Find("Reload").GetComponent<ReloadCursor>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
@@ -139,37 +143,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
     }
 
-    //IEnumerator ShootRay()
-    //{
-    //    yield return new WaitForSeconds(2.0f);
-
-    //    //Debug.DrawRay(Bullets[BulletIndex].transform.position, Bullets[BulletIndex].GetComponent<BulletPhysics>().Bulletdir * 50, Color.red);
-
-    //    for (int i = 0; i < currentBulletCount; ++i)
-    //    {
-    //        if (Physics.Raycast(Bullets[i].transform.position, Bullets[i].GetComponent<BulletPhysics>().Bulletdir, out RaycastHit hit))
-    //        {
-    //            switch (hit.collider.tag)
-    //            {
-    //                case "Player":
-    //                    Debug.Log("Player Hit");
-    //                    break;
-
-    //            }
-    //        }
-    //        else
-    //        {
-
-    //            Debug.Log("Null");
-
-    //            Bullets[i].GetComponent<BulletPhysics>().Bulletdir = Vector3.zero;
-    //            Bullets[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-    //            Bullets[i].transform.position = Vector3.zero;
-    //            Bullets[i].SetActive(false);
-
-    //        }
-    //    }
-    //}
+   
 
     //반동
     [SerializeField] Vector3 RandReCoil;
@@ -391,7 +365,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 {
                     nextFire = Time.time + fireRate;
 
-                    SoundManager.Instance.Fire();
+                    sound.Fire();
                     anim.SetBool("Firing", true); //반동 애니메이션
                     reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
                     photonView.RPC("GunFiring", RpcTarget.All, null);
@@ -877,7 +851,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     public void OnReloadingStart()
     {
         ReloadImage.Reload();
-        SoundManager.Instance.Reload();
+        sound.Reload();
       
         IsReloading = true;
     }
@@ -995,14 +969,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void WalkSound()
     {
-        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Walk"))
-            SoundManager.Instance.Walk();
+        if (anim.GetCurrentAnimatorStateInfo(4).IsName("Walk"))
+            sound.Walk();
 
-        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Crouching"))
-            SoundManager.Instance.Crouching();
+        if (anim.GetCurrentAnimatorStateInfo(4).IsName("Crouching"))
+            sound.Crouching();
 
-        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Run"))
-            SoundManager.Instance.Walk();
+        if (anim.GetCurrentAnimatorStateInfo(4).IsName("Run"))
+            sound.Walk();
     }
     void ChangeIndicator(Indicator.INDICATOR indicatorType)
     {
