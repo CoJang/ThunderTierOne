@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
         if (currentState == EnemyState.DELAYED || currentState == EnemyState.DIE) 
             return;
 
-        if(agent.velocity.magnitude > 0.25f)
+        if(agent.velocity.magnitude > 0.1f)
         {
             anim.SetBool(runningHash, true);
             currentState = EnemyState.RUN;
@@ -96,7 +96,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
     void LateUpdate()
     {
         if (targetPlayers == null || lastTarget == null) return;
-        if (currentState == EnemyState.DELAYED || currentState == EnemyState.DIE)
+        if (currentState == EnemyState.DIE)
             return;
 
         if (isSpotSomething)
@@ -104,6 +104,9 @@ public class EnemyController : MonoBehaviourPun, IDamageable
             Quaternion targetRotation = Quaternion.LookRotation(lastTarget.transform.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
         }
+
+        if (currentState == EnemyState.DELAYED)
+            return;
 
         if (currentState == EnemyState.SHOOT)
         {
