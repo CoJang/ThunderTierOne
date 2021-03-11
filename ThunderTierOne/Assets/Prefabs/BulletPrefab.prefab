@@ -81,6 +81,7 @@ MonoBehaviour:
   - {fileID: 100002, guid: 2f9348d6583cde14eb0d82bb9732647e, type: 3}
   - {fileID: 100002, guid: 0b24f31f464fa614a84acdeac974ed6b, type: 3}
   - {fileID: 100002, guid: 053ffbc5e89111349bb060a39ffa0f37, type: 3}
+  - {fileID: 1803072452954606, guid: 3955e74ed53912746bad6ffac9fc6966, type: 3}
 --- !u!96 &-6103314185333351870
 TrailRenderer:
   serializedVersion: 2

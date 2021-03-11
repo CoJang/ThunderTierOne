@@ -56,8 +56,10 @@ namespace Photon.Pun.Demo.Asteroids
                     break;
                 case "Player":
                 case "MyChar":
+                    GameObject Blood = Instantiate(BulletImpact[4], transform.position, transform.rotation);
                     Debug.Log("Bullet Hit! [Player]");
                     Destroy(gameObject);
+                    Destroy(Blood, 0.5f);
                     //this.gameObject.SetActive(false);
                     break;
                 default:

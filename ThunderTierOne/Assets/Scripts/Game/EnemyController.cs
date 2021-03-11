@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviourPun, IDamageable
     [SerializeField] float SightRange = 10.0f;
     [SerializeField] float EnemyDelayTime = 1.0f;
     [SerializeField] float RotateSpeed = 30.0f;
+    float KitingRange = 8.0f;
     #endregion
 
     #region Enemy State
@@ -101,7 +102,11 @@ public class EnemyController : MonoBehaviourPun, IDamageable
 
         if (isSpotSomething)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(lastTarget.transform.position - transform.position);
+            if(Vector3.Distance(lastTarget.position, transform.position) < KitingRange)
+            {
+                agent.velocity = Vector3.zero;
+            }
+            Quaternion targetRotation = Quaternion.LookRotation(lastTarget.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
         }
 
