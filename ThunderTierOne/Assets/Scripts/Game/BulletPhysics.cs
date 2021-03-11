@@ -43,38 +43,21 @@ public class BulletPhysics : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
 
-        Debug.DrawRay(transform.position, transform.forward * 50, Color.red);
-
-        if (Physics.Raycast(transform.position,dir, out RaycastHit hit))
-        {
-            switch (hit.collider.tag)
-            {
-                case "Player":
-                    Debug.Log("Player Hit");
-                    break;
-
-            }
-        }
-        else
-        {
-          
-            Debug.Log("Null");
-            dir = Vector3.zero;
-            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            this.transform.position = Vector3.zero;
-            this.gameObject.SetActive(false);
-        }
+        dir = Vector3.zero;
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        this.transform.position = Vector3.zero;
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-    
 
 
-   
-        //if (gameObject.activeSelf)
-        //   StartCoroutine("ShootRay")
+
+
+        if (gameObject.activeSelf)
+            StartCoroutine("ShootRay");
 
 
 
