@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+using System.IO;
 public class SingleShotGun : Gun
 {
     [SerializeField] Camera cam;
@@ -19,31 +20,40 @@ public class SingleShotGun : Gun
 
     private void Awake()
     {
-      
+
         PV = GetComponent<PhotonView>();
     }
 
     private void Start()
     {
-        Bullets = new List<GameObject>();
-        BulletIndex = 0;
-        for (int i = 0; i < 30; i++)
-        {
-            obj = Instantiate(Bullet, Vector3.zero, Quaternion.Euler(Vector3.zero));
-            BulletParent = GameObject.Find("BulletParent");
-            obj.transform.parent = BulletParent.transform;
-            obj.SetActive(false);
-            Bullets.Add(obj);
-          
-        }
       
-        gunInfo.carryBulletCount = 360;
+        InstantiateBullet();
+
+        gunInfo.carryBulletCount = 90;
 
         cam = GetComponentInParent<PlayerController>().playerCamera;
     }
     private void Update()
     {
-       
+
+    }
+
+    [PunRPC]
+    public void InstantiateBullet()
+    {
+        Bullets = new List<GameObject>();
+        BulletIndex = 0;
+        for (int i = 0; i < 30; i++)
+        {
+
+            obj = Instantiate(Bullet,
+                Vector3.zero, Quaternion.Euler(Vector3.zero));
+            BulletParent = GameObject.Find("BulletParent");
+            obj.transform.parent = BulletParent.transform;
+            obj.SetActive(false);
+            Bullets.Add(obj);
+
+        }
     }
 
     public override void Use()
@@ -59,7 +69,7 @@ public class SingleShotGun : Gun
     }
 
     void Shoot()
-    {   
+    {
         PV.RPC("RPC_Shoot", RpcTarget.All, null);
     }
 
@@ -81,13 +91,19 @@ public class SingleShotGun : Gun
         Bullets[BulletIndex].transform.position = Muzzle.transform.position;
 
         Bullets[BulletIndex].SetActive(true);
-        
-        gunInfo.currentBulletCount--;
+
+        if (PV.IsMine)
+            Ismine();
 
         StartCoroutine(ShootRay());
     }
 
+    [PunRPC]
+    void Ismine()
+    {
+        gunInfo.currentBulletCount--;
 
+    }
 
     void Reloading()
     {

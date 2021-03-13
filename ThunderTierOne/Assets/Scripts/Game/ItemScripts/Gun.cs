@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : Item
 {
+
     public GunInfo gunInfo;
     public GameObject MuzzleObject;
     public GameObject bulletImpactPrefab;

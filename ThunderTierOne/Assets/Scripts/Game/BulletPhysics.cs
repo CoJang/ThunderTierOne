@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class BulletPhysics : MonoBehaviour
 {
     public Transform StartTransform;
@@ -19,6 +19,8 @@ public class BulletPhysics : MonoBehaviour
 
     Vector3 dir;
 
+    PhotonView PV;
+
     public Vector3 Bulletdir {  get { return dir; } set { dir = value; } }
 
     // Start is called before the first frame update
@@ -28,8 +30,8 @@ public class BulletPhysics : MonoBehaviour
         pc = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
 
+        PV = GetComponent<PhotonView>();
 
-       
     }
 
 
@@ -61,11 +63,17 @@ public class BulletPhysics : MonoBehaviour
 
 
 
-            // rb.AddForce(dir * BulletVelocity, ForceMode.Impulse);
+        // rb.AddForce(dir * BulletVelocity, ForceMode.Impulse);
 
-            this.transform.Translate(dir * BulletVelocity * Time.deltaTime);
 
-      
+        //        PV.RPC("PhysicBullet", RpcTarget.All, BulletVelocity);
+        PhysicBullet(BulletVelocity);
+    }
+
+
+    public void PhysicBullet(float velocity)
+    {
+        this.transform.Translate(dir * velocity * Time.deltaTime);
     }
 
     void OnCollisionEnter(Collision collision)

@@ -243,6 +243,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         Jump();
         SwapWeapon();
      
+        
        if(items[itemIndex].CurrentBullet() > 0)
          Shoot();
 
@@ -319,8 +320,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void Reload()
     {
 
+       
       
-        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) || items[itemIndex].CurrentBullet() == 0)
+        if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && items[itemIndex].CurrentBullet() < 30 || items[itemIndex].CurrentBullet() == 0 )
         {
             photonView.RPC("AniReload", RpcTarget.All, null);
             photonView.RPC("OffEffect", RpcTarget.All, null);
@@ -330,6 +332,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         {
             anim.SetBool(IsReloadingHash, false);
         }
+
+
         if(items[itemIndex].CarryBulletCount() == 0)
             anim.SetBool(IsReloadingHash, false);
 
@@ -343,6 +347,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         anim.SetBool(IsReloadingHash, true);
     }
 
+    
     void Shoot()
     {
         if (IsReloading || IsSwapDelay)
