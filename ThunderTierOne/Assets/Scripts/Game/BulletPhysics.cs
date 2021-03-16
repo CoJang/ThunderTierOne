@@ -100,6 +100,10 @@ public class BulletPhysics : MonoBehaviour
                 Instantiate(BulletImpact[1], transform.position, transform.rotation);
             
                 break;
+
+            case "Player":
+                Instantiate(BulletImpact[5], transform.position, transform.rotation);
+                break;
             default:
                 Instantiate(BulletImpact[2], transform.position, transform.rotation);
                 break;
