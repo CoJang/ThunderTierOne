@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
    
 
     [SerializeField] AudioClip[] sfxPlayer;
+    [SerializeField] AudioClip sfxPlayer2;
     [SerializeField] AudioSource audioSrc;
     // Start is called before the first frame update
     private void Awake()
@@ -23,18 +24,21 @@ public class SoundManager : MonoBehaviour
     }
     public void Walk()
     {
-        
-            audioSrc.PlayOneShot(sfxPlayer[1]);
+        if (!audioSrc.isPlaying)
+        {
+            audioSrc.PlayOneShot(sfxPlayer2);
             audioSrc.pitch = 1.0f;
             audioSrc.volume = 0.8f;
-        
+        }
     }
     public void Crouching()
     {
-       
-            audioSrc.PlayOneShot(sfxPlayer[1]);
+        if (!audioSrc.isPlaying)
+        {
+            audioSrc.PlayOneShot(sfxPlayer2);
             audioSrc.pitch = 0.5f;
             audioSrc.volume = 0.3f;
+        }
         
     }
  

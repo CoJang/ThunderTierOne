@@ -91,11 +91,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     //Bullet
     [SerializeField] float G_Count = 2;
 
-   
-
-
-
-
     // Temp Player State
     [SerializeField] bool isDowned = false;
     [SerializeField] Transform HandleTransform;
@@ -228,12 +223,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 break;
         }
     }
-
+   
     private void Update()
     {
-       
-
-
         if (!PV.IsMine)
         {
             return;
