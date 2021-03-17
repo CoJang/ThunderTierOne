@@ -22,7 +22,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-      
         PV = GetComponent<PhotonView>();
         UIGun = FindObjectOfType<UIGunState>();
     }
@@ -64,12 +63,11 @@ public class PlayerManager : MonoBehaviour
         HUDTransform.localScale = Vector3.one;
 
         controller.GetComponent<PlayerController>().BindHUD(interactHUD);
-        UIGun.GetPlayerController(controller);
+        controller.GetComponent<PlayerController>().BindUIState(UIGun);
     }
 
     public void Die()
     {
-       
         PhotonNetwork.Destroy(controller);
         Destroy(playerCamera);
         Destroy(interactHUD);

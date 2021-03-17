@@ -1509,9 +1509,6 @@ MonoBehaviour:
   isDowned: 0
   HandleTransform: {fileID: 7540000404883402713}
   GunTransform: {fileID: 7640613028072350211}
-  RandReCoil: {x: 0, y: 0, z: 0}
-  minRecoil: 78
-  maxRecoil: 83
 --- !u!136 &8085825836986382842
 CapsuleCollider:
   m_ObjectHideFlags: 0

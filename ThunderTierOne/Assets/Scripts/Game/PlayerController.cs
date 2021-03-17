@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     PhotonView PV;
     PlayerManager playerManager;
     Indicator indicator;
+    UIGunState uiGunState;
     #endregion
 
     #region Spine Rotation Variables
@@ -136,24 +137,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             //Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
         }
-    }
-
-   
-
-    //반동
-    [SerializeField] Vector3 RandReCoil;
-    [SerializeField] int minRecoil = 78;
-    [SerializeField] int maxRecoil = 83;
-
-    [PunRPC]
-    public bool GunFiring()
-    {
-      
-
-        
-
-        return true;
-        //rigidBullet.AddTorque(Vector3.back * 5, ForceMode.Impulse);// 회전
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -311,9 +294,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     void Reload()
     {
-
-       
-      
         if (Input.GetKeyDown(KeyCode.R) && !anim.GetBool(IsReloadingHash) && items[itemIndex].CurrentBullet() < 30 || items[itemIndex].CurrentBullet() == 0 )
         {
             photonView.RPC("AniReload", RpcTarget.All, null);
@@ -336,7 +316,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void AniReload()
     {
         if(PV.IsMine)
-        anim.SetBool(IsReloadingHash, true);
+            anim.SetBool(IsReloadingHash, true);
     }
 
     
@@ -364,15 +344,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
                     sound.Fire();
                     anim.SetBool("Firing", true); //반동 애니메이션
-                    reticle.SetReticleSize(reticle.reticleSize + (RandReCoil.x - minRecoil) * 4);
-                    photonView.RPC("GunFiring", RpcTarget.All, null);
+                    reticle.SetReticleSize(reticle.reticleSize + 20);
                     BulletEffect.SetActive(true);
-                    items[itemIndex].Use();
                     reticle.SetActive(true);
+
+                    items[itemIndex].Use();
+                    if(itemIndex < 2)
+                    {
+                        Gun gun = items[itemIndex] as Gun;
+                        uiGunState.OnSpendBullet(gun.CurrentBullet(), gun.gunInfo.reloadBulletCount);
+                    }
                 }
                 else
                 {
-
                     reticle.SetActive(true);
                     anim.SetBool("Aiming", true);
                     anim.SetBool("Firing", false);
@@ -403,8 +387,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
     private void LateUpdate()
     {
-        //if(!isDowned)
-            Look();
+        Look();
 
         if (moveAmount.normalized.magnitude.AlmostEquals(1.0f, 0.1f))
         {
@@ -430,34 +413,32 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 EquipItem(i);
-
                 break;
             }
         }
 
-
-        //if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
-        //{
-        //    if (itemIndex >= items.Length - 1)
-        //    {
-        //        EquipItem(0);
-        //    }
-        //    else
-        //    {
-        //        EquipItem(itemIndex + 1);
-        //    }
-        //}
-        //else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
-        //{
-        //    if (itemIndex <= items.Length - 1)
-        //    {
-        //        EquipItem(items.Length - 1);
-        //    }
-        //    else
-        //    {
-        //        EquipItem(itemIndex - 1);
-        //    }
-        //}
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        {
+            if (itemIndex >= items.Length - 1)
+            {
+                EquipItem(0);
+            }
+            else
+            {
+                EquipItem(itemIndex + 1);
+            }
+        }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            if (itemIndex <= items.Length - 1)
+            {
+                EquipItem(items.Length - 1);
+            }
+            else
+            {
+                EquipItem(itemIndex - 1);
+            }
+        }
     }
 
     void Jump()
@@ -471,8 +452,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void Move()
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
-      
 
         if (Input.GetKey(KeyCode.C) )
         {
@@ -525,8 +504,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         }
         else if (moveDir.x == 0 && AnimControlVelocity.x < 0)
         {
-
-
             if (Crouching || Cover)
                 AnimControlVelocity.x += CrouchingDecreaseFactor;
             else
@@ -560,8 +537,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
         anim.SetFloat("Horizontal", AnimControlVelocity.x);
         anim.SetFloat("Vertical", AnimControlVelocity.y);
 
-       
-
         if (Crouching)
         {
             anim.SetFloat("Horizontal", AnimControlVelocity.x * 0.8f);
@@ -579,11 +554,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     {
         if (!PV.IsMine)
         {
-            //GunTransform.LookAt(lookTarget);
-
-            //spine.LookAt(lookTarget);
-            //Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
-            //spine.rotation = spineRot;
+            spine.LookAt(lookTarget);
+            Quaternion spineRot = spine.rotation * Quaternion.Euler(relativeVec);
+            spine.rotation = spineRot;
             return;
         }
 
@@ -610,12 +583,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
                 PlayerAim.Instance.DefaultCursor();
 
         }
-
-        //if (Physics.Raycast(BulletPos.transform.position, BulletPos.transform.forward, out hit, 30))
-        //{
-        //    Debug.Log(hit.collider.gameObject.name);
-        //    Debug.DrawLine(lookTarget, hit.point, Color.green);
-        //}
 
     }
     void GrednadeThrow()
@@ -706,8 +673,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         items[itemIndex].itemGameObject.SetActive(false);
         anim.SetLayerWeight(itemIndex, 1);
-
-   
+        uiGunState.OnSwapItem(itemIndex);
 
         if (preItemIndex != -1)
         {
@@ -856,25 +822,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
     void OnReloadingEnd()
     {
         ReloadImage.ReloadEnd();
-
         IsReloading = false;
+        items[itemIndex].Reload();
 
-        //carryBulletCount += currentBulletCount;
-        //currentBulletCount = 0;
-
-
-        //if (carryBulletCount >= reloadBulletCount)
-        //{
-        //    currentBulletCount = reloadBulletCount;
-        //    carryBulletCount -= reloadBulletCount;
-        //}
-        //else
-        //{
-        //    currentBulletCount = carryBulletCount;
-        //    carryBulletCount = 0;
-        //}
-         items[itemIndex].Reload();
-
+        Gun gun = items[itemIndex] as Gun;
+        uiGunState.OnSpendBullet(gun.CurrentBullet(), gun.gunInfo.reloadBulletCount);
     }
 
     void OnShootingStart()
@@ -1005,6 +957,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunObse
 
         anim.SetIKPosition(AvatarIKGoal.LeftHand, HandleTransform.position);
         anim.SetIKRotation(AvatarIKGoal.LeftHand, HandleTransform.rotation);
+    }
 
+    public void BindUIState(UIGunState gunState)
+    {
+        uiGunState = gunState;
     }
 }
