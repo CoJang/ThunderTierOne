@@ -243,7 +243,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  initialVeloctity: 7.62
+  initialVeloctity: 10
   maxTime: 10
 --- !u!1 &2835713060421661753
 GameObject:
@@ -1499,13 +1499,13 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   lookTarget: {x: 0, y: 0, z: 0}
   currentHealth: 100
-  throwVelocity: 5.5
+  throwVelocity: 7.5
   throwPoint: {fileID: 587756666742970211}
   grenade: {fileID: 8254352122746132338, guid: d85e0516db5addd4fa8c70801fe82c5f, type: 3}
   GrenadeOrbit: {fileID: 2156557925838849665}
   Muzzle: {fileID: 4605301183873741454}
   BulletEffect: {fileID: 5402369512117686301}
-  G_Count: 5
+  G_Count: 10
   isDowned: 0
   HandleTransform: {fileID: 7540000404883402713}
   GunTransform: {fileID: 7640613028072350211}
@@ -3025,23 +3025,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7759495
+      value: -0.84658754
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.42130607
+      value: -0.2507706
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.4125798
+      value: 0.45013872
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22401248
+      value: -0.13333714
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 57
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 6904459570739980608, guid: 1257723378df2814b836e99d3b59bc07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

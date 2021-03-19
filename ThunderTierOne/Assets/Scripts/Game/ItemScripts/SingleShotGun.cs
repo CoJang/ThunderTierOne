@@ -18,6 +18,8 @@ public class SingleShotGun : Gun
     [SerializeField] int BulletIndex;
     public GameObject Muzzle;
 
+
+   
     private void Awake()
     {
 
